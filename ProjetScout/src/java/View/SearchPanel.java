@@ -4,6 +4,7 @@
  */
 package View;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -20,7 +21,10 @@ public class SearchPanel extends javax.swing.JPanel {
      */
     public SearchPanel() {
         initComponents();
+        ButtonState buttonListener = new ButtonState();
         comboType.addItemListener(new TypeState());
+        searchButton.addActionListener(buttonListener);
+        cancelButton.addActionListener(buttonListener);
     }
     
     private class TypeState implements ItemListener
@@ -31,21 +35,75 @@ public class SearchPanel extends javax.swing.JPanel {
             if(ie.getItem().equals("Responsable légal"))
             {
                 comboUnit.setEnabled(false);
+                labUnit.setForeground(Color.gray);
                 sect1.setEnabled(false);
                 sect2.setEnabled(false);
                 sect3.setEnabled(false);
                 sect4.setEnabled(false);
+                labPhone.setForeground(Color.black);
+                labMail.setForeground(Color.black);
+                phoneField.setEnabled(true);
+                mailField.setEnabled(true);
+                
             }
-            else
+            else 
             {
-                comboUnit.setEnabled(true);
-                sect1.setEnabled(true);
-                sect2.setEnabled(true);
-                sect3.setEnabled(true);
-                sect4.setEnabled(true);
+                    comboUnit.setEnabled(true);
+                    labUnit.setForeground(Color.black);
+                    sect1.setEnabled(true);
+                    sect2.setEnabled(true);
+                    sect3.setEnabled(true);
+                    sect4.setEnabled(true);
+                    if(ie.getItem().equals("Animé"))
+                {
+
+                    phoneField.setEnabled(false);
+                    mailField.setEnabled(false);
+                    labPhone.setForeground(Color.gray);
+                    labMail.setForeground(Color.gray);
+
+                }
+                    else
+                    {
+                        phoneField.setEnabled(true);
+                        mailField.setEnabled(true);
+                        labPhone.setForeground(Color.black);
+                        labMail.setForeground(Color.black);
+                        
+                    }
             }
             
+            
         }
+    }
+    private class ButtonState implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if(ae.getSource()==searchButton)
+            {
+               /* app.getPersonne(comboType.getSelectedItem(), comboUnit.getSelectedItem(), sect1.isSelected(),
+                        sect2.isSelected(),sect3.isSelected(),sect4.isSelected(), nameField.getText(),
+                        fiNameField.getText(),comboLoc.getSelectedItem();phoneField.getText(),mailField.getText());
+            
+            */}
+            if(ae.getSource()==cancelButton)
+            {
+                comboType.setSelectedItem("Chef");
+                sect1.setSelected(false);
+                sect2.setSelected(false);
+                sect3.setSelected(false);
+                sect4.setSelected(false);
+                comboLoc.setSelectedItem(comboLoc.getItemAt(0));
+                comboUnit.setSelectedItem(comboUnit.getItemAt(0));
+                nameField.setText(null);
+                fiNameField.setText(null);
+                phoneField.setText(null);
+                mailField.setText(null);
+            }
+        }
+        
     }
 
     /**
@@ -60,24 +118,24 @@ public class SearchPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         comboUnit = new javax.swing.JComboBox();
-        unitLabel = new javax.swing.JLabel();
+        labUnit = new javax.swing.JLabel();
         sect1 = new javax.swing.JRadioButton();
         sect2 = new javax.swing.JRadioButton();
         sect3 = new javax.swing.JRadioButton();
         sect4 = new javax.swing.JRadioButton();
-        nameLabel = new javax.swing.JLabel();
+        labName = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
-        fiNameLabel = new javax.swing.JLabel();
+        labFiName = new javax.swing.JLabel();
         fiNameField = new javax.swing.JTextField();
-        typeLabel = new javax.swing.JLabel();
+        labType = new javax.swing.JLabel();
         comboType = new javax.swing.JComboBox();
-        locLabel = new javax.swing.JLabel();
-        phoneLab = new javax.swing.JLabel();
+        labLoca = new javax.swing.JLabel();
+        labPhone = new javax.swing.JLabel();
         phoneField = new javax.swing.JTextField();
-        mailLab = new javax.swing.JLabel();
+        labMail = new javax.swing.JLabel();
         mailField = new javax.swing.JTextField();
         resultLab = new javax.swing.JLabel();
-        locCombo = new javax.swing.JComboBox();
+        comboLoc = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         searchButton = new javax.swing.JButton();
@@ -100,7 +158,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Unit1", "Unit 2", "Unit3", "Unit4" }));
 
-        unitLabel.setText("Unité");
+        labUnit.setText("Unité");
 
         sect1.setText("Balladins");
 
@@ -110,17 +168,17 @@ public class SearchPanel extends javax.swing.JPanel {
 
         sect4.setText("Pionniers");
 
-        nameLabel.setText("Nom");
+        labName.setText("Nom");
 
-        fiNameLabel.setText("Prénom");
+        labFiName.setText("Prénom");
 
-        typeLabel.setText("Type de personne recherché");
+        labType.setText("Type de personne recherché");
 
         comboType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef", "Animé", "Responsable légal" }));
 
-        locLabel.setText("Localité");
+        labLoca.setText("Localité");
 
-        phoneLab.setText("GSM");
+        labPhone.setText("GSM");
 
         phoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,11 +186,11 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         });
 
-        mailLab.setText("E-mail");
+        labMail.setText("E-mail");
 
         resultLab.setText("Résultat");
 
-        locCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jScrollPane2.setViewportView(jTable2);
 
@@ -153,49 +211,46 @@ public class SearchPanel extends javax.swing.JPanel {
                         .addComponent(cancelButton)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(searchButton)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(sect1)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(sect2))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(nameField))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(phoneLab)
-                                                    .addComponent(locLabel))
-                                                .addGap(10, 10, 10)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(locCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addComponent(unitLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addComponent(typeLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(searchButton)
                                 .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(labName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(nameField))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(labPhone)
+                                                .addComponent(labLoca))
+                                            .addGap(10, 10, 10)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(51, 51, 51))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(sect3)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(sect4))
-                                            .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(mailLab)
-                                                .addGap(79, 79, 79)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(fiNameLabel)
-                                            .addGap(39, 39, 39)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(labType, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(labUnit, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(145, 145, 145))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(labMail)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(106, 106, 106)
-                                    .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(sect1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(sect2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(sect3))
+                                .addComponent(labFiName))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(sect4)
+                                .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -203,39 +258,44 @@ public class SearchPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(typeLabel)
+                    .addComponent(labType)
                     .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sect1)
-                    .addComponent(sect2)
+                    .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labUnit))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sect4)
                     .addComponent(sect3)
-                    .addComponent(sect4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(sect2)
+                    .addComponent(sect1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labName)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labFiName)
+                            .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(unitLabel)
-                    .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fiNameLabel)
-                    .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labLoca))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(locLabel)
-                    .addComponent(locCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phoneLab)
                     .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mailLab)
+                    .addComponent(labPhone)
+                    .addComponent(labMail)
                     .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchButton)
                     .addComponent(cancelButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(resultLab)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,29 +309,29 @@ public class SearchPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JComboBox comboLoc;
     private javax.swing.JComboBox comboType;
     private javax.swing.JComboBox comboUnit;
     private javax.swing.JTextField fiNameField;
-    private javax.swing.JLabel fiNameLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JComboBox locCombo;
-    private javax.swing.JLabel locLabel;
+    private javax.swing.JLabel labFiName;
+    private javax.swing.JLabel labLoca;
+    private javax.swing.JLabel labMail;
+    private javax.swing.JLabel labName;
+    private javax.swing.JLabel labPhone;
+    private javax.swing.JLabel labType;
+    private javax.swing.JLabel labUnit;
     private javax.swing.JTextField mailField;
-    private javax.swing.JLabel mailLab;
     private javax.swing.JTextField nameField;
-    private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField phoneField;
-    private javax.swing.JLabel phoneLab;
     private javax.swing.JLabel resultLab;
     private javax.swing.JButton searchButton;
     private javax.swing.JRadioButton sect1;
     private javax.swing.JRadioButton sect2;
     private javax.swing.JRadioButton sect3;
     private javax.swing.JRadioButton sect4;
-    private javax.swing.JLabel typeLabel;
-    private javax.swing.JLabel unitLabel;
     // End of variables declaration//GEN-END:variables
 }

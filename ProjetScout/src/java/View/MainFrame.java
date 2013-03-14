@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import View.ListingPanel;
-
+import View.AddPanel;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -21,8 +21,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        AddPanel addPan = new AddPanel();
         MenuBarListener menuListener = new MenuBarListener();
-        
+        ChangePanel(addPan);
         schPersMenu.addActionListener(menuListener);
         exitMenu.addActionListener(menuListener);
         listMenu.addActionListener(menuListener);

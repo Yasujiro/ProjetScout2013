@@ -53,65 +53,59 @@
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="searchButton" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="sect1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="sect2" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="nameLabel" min="-2" pref="37" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="nameField" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="phoneLab" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="locLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="locCombo" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="phoneField" min="-2" pref="90" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Component id="unitLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="typeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="comboType" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="sect3" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="sect4" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="comboUnit" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="mailLab" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                                          </Group>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="labName" min="-2" pref="37" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="nameField" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="fiNameLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labPhone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labLoca" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
+                                              <Component id="phoneField" min="-2" pref="90" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="fiNameField" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                                  <Component id="mailField" min="-2" pref="136" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="labType" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labUnit" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="comboType" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboUnit" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="labMail" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="sect1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="sect2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="sect3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="labFiName" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="sect4" min="-2" max="-2" attributes="0"/>
+                              <Component id="fiNameField" min="-2" pref="96" max="-2" attributes="0"/>
+                              <Component id="mailField" min="-2" pref="136" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -125,46 +119,55 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="typeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labType" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboType" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="sect1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sect2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sect3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sect4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="unitLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboUnit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labUnit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fiNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fiNameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sect4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sect3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sect2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sect1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labFiName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fiNameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="comboLoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labLoca" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="locLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="locCombo" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="phoneLab" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="phoneField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mailLab" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labMail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mailField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="searchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
               <Component id="resultLab" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="200" max="-2" attributes="0"/>
@@ -186,7 +189,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="unitLabel">
+    <Component class="javax.swing.JLabel" name="labUnit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Unit&#xe9;"/>
       </Properties>
@@ -211,21 +214,21 @@
         <Property name="text" type="java.lang.String" value="Pionniers"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nameLabel">
+    <Component class="javax.swing.JLabel" name="labName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nom"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nameField">
     </Component>
-    <Component class="javax.swing.JLabel" name="fiNameLabel">
+    <Component class="javax.swing.JLabel" name="labFiName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pr&#xe9;nom"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="fiNameField">
     </Component>
-    <Component class="javax.swing.JLabel" name="typeLabel">
+    <Component class="javax.swing.JLabel" name="labType">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type de personne recherch&#xe9;"/>
       </Properties>
@@ -241,12 +244,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="locLabel">
+    <Component class="javax.swing.JLabel" name="labLoca">
       <Properties>
         <Property name="text" type="java.lang.String" value="Localit&#xe9;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="phoneLab">
+    <Component class="javax.swing.JLabel" name="labPhone">
       <Properties>
         <Property name="text" type="java.lang.String" value="GSM"/>
       </Properties>
@@ -256,7 +259,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="mailLab">
+    <Component class="javax.swing.JLabel" name="labMail">
       <Properties>
         <Property name="text" type="java.lang.String" value="E-mail"/>
       </Properties>
@@ -268,7 +271,7 @@
         <Property name="text" type="java.lang.String" value="R&#xe9;sultat"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="locCombo">
+    <Component class="javax.swing.JComboBox" name="comboLoc">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
