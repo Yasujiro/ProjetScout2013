@@ -9,11 +9,11 @@
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="NewInscriptionMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="newRegistration">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter nouvelle demande"/>
               </Properties>
-            </Menu>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quitter"/>

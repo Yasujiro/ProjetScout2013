@@ -90,13 +90,13 @@ public class SearchPanel extends javax.swing.JPanel {
             */}
             if(ae.getSource()==cancelButton)
             {
-                comboType.setSelectedItem("Chef");
+                comboType.setSelectedIndex(0);
                 sect1.setSelected(false);
                 sect2.setSelected(false);
                 sect3.setSelected(false);
                 sect4.setSelected(false);
-                comboLoc.setSelectedItem(comboLoc.getItemAt(0));
-                comboUnit.setSelectedItem(comboUnit.getItemAt(0));
+                comboLoc.setSelectedIndex(0);
+                comboUnit.setSelectedIndex(0);
                 nameField.setText(null);
                 fiNameField.setText(null);
                 phoneField.setText(null);
@@ -295,7 +295,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchButton)
                     .addComponent(cancelButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(resultLab)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)

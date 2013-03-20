@@ -21,12 +21,11 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        AddPanel addPan = new AddPanel();
-        MenuBarListener menuListener = new MenuBarListener();
-        ChangePanel(addPan);
+        MenuBarListener menuListener = new MenuBarListener();        
         schPersMenu.addActionListener(menuListener);
         exitMenu.addActionListener(menuListener);
         listMenu.addActionListener(menuListener);
+        newRegistration.addActionListener(menuListener);
         
         
     }
@@ -46,6 +45,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            
+            if(ae.getSource()==newRegistration)
+            {
+                AddPanel addPan = new AddPanel();
+                MainFrame.this.ChangePanel(addPan);
+            }
             if(ae.getSource()==schPersMenu)
             {
                 SearchPanel searchPersonne = new SearchPanel();
@@ -80,7 +85,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
-        NewInscriptionMenu = new javax.swing.JMenu();
+        newRegistration = new javax.swing.JMenuItem();
         exitMenu = new javax.swing.JMenuItem();
         ActionMenu = new javax.swing.JMenu();
         SearchMenu = new javax.swing.JMenu();
@@ -104,8 +109,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         FileMenu.setText("Fichier");
 
-        NewInscriptionMenu.setText("Ajouter nouvelle demande");
-        FileMenu.add(NewInscriptionMenu);
+        newRegistration.setText("Ajouter nouvelle demande");
+        FileMenu.add(newRegistration);
 
         exitMenu.setText("Quitter");
         FileMenu.add(exitMenu);
@@ -192,11 +197,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu ActionMenu;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenu NewInscriptionMenu;
     private javax.swing.JMenu SearchMenu;
     private javax.swing.JMenuItem exitMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem listMenu;
+    private javax.swing.JMenuItem newRegistration;
     private javax.swing.JMenuItem schPersMenu;
     // End of variables declaration//GEN-END:variables
 }

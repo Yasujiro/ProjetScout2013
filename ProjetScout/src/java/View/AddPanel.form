@@ -33,24 +33,6 @@
                       <Component id="sect4Radio" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="nameField" min="-2" pref="89" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="dateSpin" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Component id="labFiName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="fiNameField" min="-2" pref="85" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labType" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="labUnit" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -61,8 +43,96 @@
                           <Component id="comboType" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="labAddr" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labPhone" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labLoc" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labPostalCode" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="postalCodeField" min="-2" pref="70" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labStreet" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="streetField" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labNum" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="numSpin" min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="boxSpin" min="-2" pref="56" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                      <Component id="phoneField" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="labMail" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="validateButt" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mailField" min="-2" pref="160" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="labTotem" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="totemField" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="labName" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="nameField" min="-2" pref="89" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="dateSpin" min="-2" pref="64" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="37" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="labResp" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="comboResp" min="-2" pref="85" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="addRespButt" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="labFiName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="fiNameField" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="288" max="32767" attributes="0"/>
+              <EmptySpace pref="212" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,10 +167,50 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labTotem" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="totemField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dateSpin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labResp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboResp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addRespButt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="323" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="labAddr" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labStreet" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="streetField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labNum" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="numSpin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="boxSpin" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labLoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboLoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labPostalCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="postalCodeField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="phoneField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labMail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mailField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="validateButt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,32 +224,31 @@
     <Component class="javax.swing.JComboBox" name="comboType">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="2">
             <StringItem index="0" value="Chef"/>
             <StringItem index="1" value="Anim&#xe9;"/>
-            <StringItem index="2" value="Responsable l&#xe9;gal"/>
           </StringArray>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="sect1Radio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton1"/>
+        <Property name="text" type="java.lang.String" value="Balladins"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="sect2Radio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton1"/>
+        <Property name="text" type="java.lang.String" value="Louvetaux"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="sect3Radio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton2"/>
+        <Property name="text" type="java.lang.String" value="Eclaireurs"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="sect4Radio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton3"/>
+        <Property name="text" type="java.lang.String" value="Pionniers"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labName">
@@ -164,7 +273,7 @@
     <Component class="javax.swing.JSpinner" name="dateSpin">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="1363279597259" stepSize="14" type="date"/>
+          <SpinnerModel initial="1950" maximum="2010" minimum="1950" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
       </Properties>
     </Component>
@@ -183,6 +292,124 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labResp">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Responsable l&#xe9;gal"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboResp">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labAddr">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Adresse :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labStreet">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Rue :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="streetField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labNum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Num"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="numSpin">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labLoc">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Localit&#xe9; :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboLoc">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labPostalCode">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Code Postal"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="postalCodeField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labPhone">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="GSM"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="phoneField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labMail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="E-mail"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="mailField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Boite*"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="boxSpin">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labTotem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Totem*"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="totemField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="* : Champs facultatifs"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="addRespButt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nouveau"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="validateButt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valider"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancelButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Annuler"/>
       </Properties>
     </Component>
   </SubComponents>
