@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,6 +20,8 @@ public class AddPanel extends javax.swing.JPanel {
     /**
      * Creates new form AddPanel
      */
+    private PopUp popUpFrame;
+    
     public AddPanel() {
         initComponents();
         groupSect.add(sect1Radio);
@@ -27,11 +30,19 @@ public class AddPanel extends javax.swing.JPanel {
         groupSect.add(sect4Radio);
         postalCodeField.setEditable(false);
         
+        
+        
         ComboState comboListener = new ComboState();
         ButtonListener buttonListener = new ButtonListener();
+        
+        
+        
         comboType.addItemListener(comboListener);
         comboLoc.addItemListener(comboListener);
         cancelButton.addActionListener(buttonListener);
+        addRespButt.addActionListener(buttonListener);
+        
+        
     }
 
     
@@ -74,6 +85,20 @@ public class AddPanel extends javax.swing.JPanel {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            
+            if(ae.getSource().equals(addRespButt))
+            {
+                
+                if(AddPanel.this.popUpFrame == null)
+                {
+                    
+                     popUpFrame = new PopUp(new AddLegalResp());                
+                     popUpFrame.setLocation(200,150);                     
+                }
+                
+                popUpFrame.setVisible(true);
+            }
+            
             if(ae.getSource().equals(cancelButton))
             {
                 comboType.setSelectedIndex(0);
@@ -403,4 +428,5 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JTextField totemField;
     private javax.swing.JButton validateButt;
     // End of variables declaration//GEN-END:variables
+   
 }
