@@ -8,13 +8,11 @@ import Exception.ConnectionException;
 import java.sql.*;
 import javax.sql.*;
 import javax.naming.*;
+import javax.swing.JOptionPane;
 
 
 
-/**
- *
- * @author Jérémy
- */
+
 public class SingletonConnection {
     
     private static Connection uniqueConnection;
@@ -24,15 +22,18 @@ public class SingletonConnection {
         try
         {
             Context cont = new InitialContext();
-            DataSource source = (DataSource)cont.lookup("jdbc/myDatasource");
-            uniqueConnection = source.getConnection();
+            DataSource source = (DataSource)cont.lookup("jdbc/ProjetScout");
+            uniqueConnection = source.getConnection("etu20275","Leb830Se");
         }
         catch(SQLException e)
         {
+            JOptionPane.showMessageDialog(null, "ERREUR SQL","error",JOptionPane.PLAIN_MESSAGE);
             throw new ConnectionException();
+            
         }
         catch(NamingException e)
         {
+            JOptionPane.showMessageDialog(null, "ERREUR NAMING","error",JOptionPane.PLAIN_MESSAGE);
             throw new ConnectionException();
         }
     }
@@ -41,17 +42,11 @@ public class SingletonConnection {
     {
         if(uniqueConnection == null)
         {
-            try{
-                SingletonConnection singleConnect = new SingletonConnection();
-                return uniqueConnection;
-            }
-            catch(ConnectionException e)
-            {
-                throw new ConnectionException();
-            }         
             
+                new SingletonConnection();                
+              
         }
-        else
+        
             return uniqueConnection;
     }
 }

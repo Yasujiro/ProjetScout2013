@@ -49,15 +49,6 @@
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="labLoc" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="labPostalCode" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="postalCodeField" min="-2" pref="70" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="labStreet" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="streetField" min="-2" pref="180" max="-2" attributes="0"/>
@@ -82,9 +73,19 @@
                                       <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                                       <Component id="validateButt" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="labPostalCode" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="postalCodeField" min="-2" pref="70" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                                      <Component id="labLoc" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
                                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                                   <Component id="mailField" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
@@ -117,11 +118,11 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="labResp" min="-2" max="-2" attributes="0"/>
+                              <Component id="labLegal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="comboResp" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="comboLegal" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="addRespButt" min="-2" max="-2" attributes="0"/>
+                              <Component id="addLegalButt" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="labFiName" min="-2" max="-2" attributes="0"/>
@@ -174,9 +175,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dateSpin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labResp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboResp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="addRespButt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labLegal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboLegal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addLegalButt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="labAddr" min="-2" max="-2" attributes="0"/>
@@ -294,12 +295,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labResp">
+    <Component class="javax.swing.JLabel" name="labLegal">
       <Properties>
         <Property name="text" type="java.lang.String" value="Responsable l&#xe9;gal"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboResp">
+    <Component class="javax.swing.JComboBox" name="comboLegal">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -397,7 +398,7 @@
         <Property name="text" type="java.lang.String" value="* : Champs facultatifs"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="addRespButt">
+    <Component class="javax.swing.JButton" name="addLegalButt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nouveau"/>
       </Properties>

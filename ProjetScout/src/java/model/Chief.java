@@ -14,7 +14,7 @@ public class Chief extends Personne {
     private String totem;
     private int id_Resp;
     
-    public Chief(String nameChief, String lastNameChief, int id_Chief, int idLoc, String street, int house, int box, Date birth, String gsm, String mail, String totem,int idResp )
+    public Chief(String nameChief, String lastNameChief, String id_Chief, int idLoc, String street, int house, int box, Date birth, String gsm, String mail, String totem,int idResp )
     {
         super(nameChief,lastNameChief,id_Chief,idLoc, street,house,box,birth);
         phoneNumber = gsm;

@@ -1,10 +1,12 @@
 
+import DataAcces.SingletonConnection;
 import View.SearchPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import View.ListingPanel;
 import View.AddPanel;
+import java.sql.Connection;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -21,6 +23,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        
+        
         MenuBarListener menuListener = new MenuBarListener();        
         schPersMenu.addActionListener(menuListener);
         exitMenu.addActionListener(menuListener);

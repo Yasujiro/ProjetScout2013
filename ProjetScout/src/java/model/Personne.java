@@ -8,11 +8,11 @@ import java.util.Date;
 
 public class Personne {
     
-    private String name, lastName, location, streetName,type,unit,section;    
-    private int id_Personne,id_Loc,numHouse,numBox;    
+    private String name, lastName, location, streetName,type,unit,section,id_Personne;    
+    private int id_Loc,numHouse,numBox;    
     private Date birthDate;
     
-    public Personne(String nameP, String lastNameP, int idP, int idLoc, String street, int house, int box, Date birth )
+    public Personne(String nameP, String lastNameP, String idP, int idLoc, String street, int house, int box, Date birth )
     {
         name = nameP;
         lastName = lastNameP;
@@ -35,7 +35,7 @@ public class Personne {
     {
         return this.lastName;
     }
-    public int getId()
+    public String getId()
     {
         return this.id_Personne;
     }

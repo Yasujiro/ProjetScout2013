@@ -4,12 +4,18 @@
  */
 package View;
 
+
+import BusinessLogic.LocaManager;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import model.Localite;
 
 /**
  *
@@ -22,25 +28,27 @@ public class AddPanel extends javax.swing.JPanel {
      */
     private PopUp popUpFrame;
     
-    public AddPanel() {
+    public AddPanel(){
         initComponents();
         groupSect.add(sect1Radio);
         groupSect.add(sect2Radio);
         groupSect.add(sect3Radio);
         groupSect.add(sect4Radio);
-        postalCodeField.setEditable(false);
+       
+        postalCodeField.addFocusListener(new Focus());
         
         
         
         ComboState comboListener = new ComboState();
         ButtonListener buttonListener = new ButtonListener();
         
+       
         
         
         comboType.addItemListener(comboListener);
         comboLoc.addItemListener(comboListener);
         cancelButton.addActionListener(buttonListener);
-        addRespButt.addActionListener(buttonListener);
+        addLegalButt.addActionListener(buttonListener);
         
         
     }
@@ -73,9 +81,8 @@ public class AddPanel extends javax.swing.JPanel {
            
            if(ie.getSource().equals(comboLoc))
            {
-               //String postalCode;
-               //postalCode+=app.getPostalCode(ie.getItem());
-               postalCodeField.setText("5000");
+               
+               
            }           
            
         }
@@ -86,7 +93,7 @@ public class AddPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             
-            if(ae.getSource().equals(addRespButt))
+            if(ae.getSource().equals(addLegalButt))
             {
                 
                 if(AddPanel.this.popUpFrame == null)
@@ -106,7 +113,7 @@ public class AddPanel extends javax.swing.JPanel {
                 groupSect.clearSelection();
                 comboLoc.setSelectedIndex(0);
                 comboUnit.setSelectedIndex(0);
-                comboResp.setSelectedIndex(0);
+                comboLegal.setSelectedIndex(0);
                 nameField.setText(null);
                 fiNameField.setText(null);
                 phoneField.setText(null);
@@ -117,6 +124,34 @@ public class AddPanel extends javax.swing.JPanel {
                 boxSpin.setValue(0);
                 dateSpin.setValue(1950);
             }
+        }
+        
+    }
+    
+    private class Focus implements FocusListener
+    {
+
+        
+
+        @Override
+        public void focusLost(FocusEvent fe) {
+            
+            if(fe.getSource()==postalCodeField)
+            {
+                LocaManager lm = new LocaManager();
+               
+                
+                AddPanel.this.comboLoc.removeAllItems();
+  
+                 // Appel de méthode pour obtenir liste de loca ayant ce CP.
+                    
+    
+            }
+        }
+
+        
+        public void focusGained(FocusEvent fe) {
+            
         }
         
     }
@@ -144,8 +179,8 @@ public class AddPanel extends javax.swing.JPanel {
         dateSpin = new javax.swing.JSpinner();
         labUnit = new javax.swing.JLabel();
         comboUnit = new javax.swing.JComboBox();
-        labResp = new javax.swing.JLabel();
-        comboResp = new javax.swing.JComboBox();
+        labLegal = new javax.swing.JLabel();
+        comboLegal = new javax.swing.JComboBox();
         labAddr = new javax.swing.JLabel();
         labStreet = new javax.swing.JLabel();
         streetField = new javax.swing.JTextField();
@@ -164,7 +199,7 @@ public class AddPanel extends javax.swing.JPanel {
         labTotem = new javax.swing.JLabel();
         totemField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        addRespButt = new javax.swing.JButton();
+        addLegalButt = new javax.swing.JButton();
         validateButt = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -192,9 +227,9 @@ public class AddPanel extends javax.swing.JPanel {
 
         comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        labResp.setText("Responsable légal");
+        labLegal.setText("Responsable légal");
 
-        comboResp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboLegal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         labAddr.setText("Adresse :");
 
@@ -222,7 +257,7 @@ public class AddPanel extends javax.swing.JPanel {
 
         jLabel3.setText("* : Champs facultatifs");
 
-        addRespButt.setText("Nouveau");
+        addLegalButt.setText("Nouveau");
 
         validateButt.setText("Valider");
 
@@ -257,14 +292,6 @@ public class AddPanel extends javax.swing.JPanel {
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labLoc)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labPostalCode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(postalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(labStreet)
                                 .addGap(18, 18, 18)
                                 .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,9 +312,17 @@ public class AddPanel extends javax.swing.JPanel {
                                         .addComponent(labMail))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(90, 90, 90)
-                                        .addComponent(validateButt)))
-                                .addGap(73, 73, 73)
+                                        .addComponent(validateButt))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labPostalCode)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(postalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(174, 174, 174)
+                                        .addComponent(labLoc)))
+                                .addGap(58, 58, 58)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cancelButton)
                                     .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
@@ -310,11 +345,11 @@ public class AddPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labResp)
+                                .addComponent(labLegal)
                                 .addGap(18, 18, 18)
-                                .addComponent(comboResp, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addRespButt))
+                                .addComponent(addLegalButt))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labFiName)
                                 .addGap(68, 68, 68)
@@ -354,9 +389,9 @@ public class AddPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(dateSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labResp)
-                    .addComponent(comboResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addRespButt))
+                    .addComponent(labLegal)
+                    .addComponent(comboLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addLegalButt))
                 .addGap(24, 24, 24)
                 .addComponent(labAddr)
                 .addGap(18, 18, 18)
@@ -389,11 +424,11 @@ public class AddPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addRespButt;
+    private javax.swing.JButton addLegalButt;
     private javax.swing.JSpinner boxSpin;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JComboBox comboLegal;
     private javax.swing.JComboBox comboLoc;
-    private javax.swing.JComboBox comboResp;
     private javax.swing.JComboBox comboType;
     private javax.swing.JComboBox comboUnit;
     private javax.swing.JSpinner dateSpin;
@@ -404,13 +439,13 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labAddr;
     private javax.swing.JLabel labBox;
     private javax.swing.JLabel labFiName;
+    private javax.swing.JLabel labLegal;
     private javax.swing.JLabel labLoc;
     private javax.swing.JLabel labMail;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labNum;
     private javax.swing.JLabel labPhone;
     private javax.swing.JLabel labPostalCode;
-    private javax.swing.JLabel labResp;
     private javax.swing.JLabel labStreet;
     private javax.swing.JLabel labTotem;
     private javax.swing.JLabel labType;
