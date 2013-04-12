@@ -25,6 +25,10 @@ public class ApplicationController {
     {
         return um.getUnits();
     }
+    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws Exception
+    {
+        return um.getUnits(name,postalCode,libLoc);
+    }
 }
 
 

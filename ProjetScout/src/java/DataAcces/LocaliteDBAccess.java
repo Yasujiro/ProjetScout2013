@@ -22,22 +22,26 @@ public class LocaliteDBAccess {
     {
         ArrayList<Localite> searchLoca = new ArrayList<Localite>();
         try{
+            String instructionSearchLoca = null;
             Connection BDConnection = SingletonConnection.getUniqueInstance();
-            String instructionSearchLoca = "SELECT POSTALCODE, LIBELLE FROM LOCALITES where POSTALCODE = ?  ";
-            
-            PreparedStatement  prepStat = BDConnection.prepareStatement(instructionSearchLoca);
-            prepStat.setInt(1, pCode);
-            ResultSet data = prepStat.executeQuery();
-        
-            while(data.next())
+            if(pCode != null)
             {
-                String libelle = data.getString("LIBELLE");
-                Integer postalCode = data.getInt("POSTALCODE");
-                
-                Localite loc = new Localite (libelle, postalCode);
-                searchLoca.add(loc);
-                
+                instructionSearchLoca = "SELECT POSTALCODE, LIBELLE FROM LOCALITES where POSTALCODE = ?  ";
 
+                PreparedStatement  prepStat = BDConnection.prepareStatement(instructionSearchLoca);
+                prepStat.setInt(1, pCode);
+                ResultSet data = prepStat.executeQuery();
+
+                while(data.next())
+                {
+                    String libelle = data.getString("LIBELLE");
+                    Integer postalCode = data.getInt("POSTALCODE");
+
+                    Localite loc = new Localite (libelle, postalCode);
+                    searchLoca.add(loc);
+
+
+                }
             }
         
         }

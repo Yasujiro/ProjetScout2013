@@ -166,7 +166,17 @@ public class AddPanel extends javax.swing.JPanel {
             {
                               
                 ArrayList<Localite> listLoca=null;
-                Integer postalCode = Integer.parseInt(fieldPostalCode.getText());
+                Integer postalCode = null;
+                
+                // A modif
+                try{
+                     postalCode = Integer.parseInt(fieldPostalCode.getText());
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                }
+                //
                 
                 AddPanel.this.comboLoc.removeAllItems();
                 AddPanel.this.comboLoc.addItem("Sélectionner une localité");

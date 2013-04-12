@@ -24,8 +24,9 @@ public class Localite {
         return this.libelle;
     }
     
-    public String toString()
+    public Integer getPCode()
     {
-        return "TEST"+this.getLib();
+        return this.postalCode;
     }
+
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import View.ListingPanel;
 import View.AddPanel;
+import View.SearchUnit;
 import java.sql.Connection;
 /*
  * To change this template, choose Tools | Templates
@@ -19,9 +20,10 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         
-        
+        this.setResizable(false);
         MenuBarListener menuListener = new MenuBarListener();        
-        schPersMenu.addActionListener(menuListener);
+        menuSchPers.addActionListener(menuListener);
+        menuSchUnit.addActionListener(menuListener);
         exitMenu.addActionListener(menuListener);
         listMenu.addActionListener(menuListener);
         newRegistration.addActionListener(menuListener);
@@ -50,11 +52,17 @@ public class MainFrame extends javax.swing.JFrame {
                 AddPanel addPan = new AddPanel();
                 MainFrame.this.ChangePanel(addPan);
             }
-            if(ae.getSource()==schPersMenu)
+            if(ae.getSource()==menuSchPers)
             {
                 SearchPanel searchPersonne = new SearchPanel();
                 MainFrame.this.ChangePanel(searchPersonne);
                 
+            }
+            
+            if(ae.getSource()==menuSchUnit)
+            {
+                SearchUnit searchUnitPan = new SearchUnit();
+                MainFrame.this.ChangePanel(searchUnitPan);
             }
             
             if(ae.getSource()==exitMenu)
@@ -88,7 +96,8 @@ public class MainFrame extends javax.swing.JFrame {
         exitMenu = new javax.swing.JMenuItem();
         ActionMenu = new javax.swing.JMenu();
         SearchMenu = new javax.swing.JMenu();
-        schPersMenu = new javax.swing.JMenuItem();
+        menuSchPers = new javax.swing.JMenuItem();
+        menuSchUnit = new javax.swing.JMenuItem();
         listMenu = new javax.swing.JMenuItem();
         AboutMenu = new javax.swing.JMenu();
 
@@ -120,8 +129,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         SearchMenu.setText("Recherches");
 
-        schPersMenu.setText("Personne");
-        SearchMenu.add(schPersMenu);
+        menuSchPers.setText("Personne");
+        SearchMenu.add(menuSchPers);
+
+        menuSchUnit.setText("Unité");
+        SearchMenu.add(menuSchUnit);
 
         ActionMenu.add(SearchMenu);
 
@@ -200,7 +212,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem listMenu;
+    private javax.swing.JMenuItem menuSchPers;
+    private javax.swing.JMenuItem menuSchUnit;
     private javax.swing.JMenuItem newRegistration;
-    private javax.swing.JMenuItem schPersMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,9 +31,14 @@
                 <Property name="text" type="java.lang.String" value="Recherches"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="schPersMenu">
+                <MenuItem class="javax.swing.JMenuItem" name="menuSchPers">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Personne"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuSchUnit">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Unit&#xe9;"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>

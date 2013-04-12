@@ -8,14 +8,37 @@ package model;
 public class Unit {
     
     private String libelle;
+    private Localite loca;
+    private int nbMembers;
     
     public Unit(String lib)
     {
         libelle = lib;
+        loca = null;
+        nbMembers = 0;
     }
+    
+    
     
     public String getLib()
     {
         return this.libelle;
+    }
+    
+    public Localite getLoc()
+    {
+        return this.loca;
+    }
+    
+    public int getNb()
+    {
+        return this.nbMembers;
+    }
+    
+    
+    
+    public void setLoc(Localite loc)
+    {
+        this.loca = loc;
     }
 }

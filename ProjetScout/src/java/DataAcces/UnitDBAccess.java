@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.Localite;
 import model.Unit;
 
 /**
@@ -39,6 +40,62 @@ public class UnitDBAccess {
         catch(Exception e)
         {
             
+        }
+        return unitList;
+    }
+
+    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) {
+        ArrayList<Unit> unitList = new ArrayList();
+        String instructionSearchUnit=null;
+        PreparedStatement prepStat;
+        try{
+            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            
+            if(postalCode != null)
+            {
+                if(!libLoc.equals(""))
+                {
+                    instructionSearchUnit = "SELECT * from UNIT where LIBELLEUNIT like ? and POSTALCODELOCA = ? and LIBELLELOCA = ? ";
+                    prepStat = BDConnection.prepareStatement(instructionSearchUnit);
+                    prepStat.setString(1, name);
+                    prepStat.setInt(2, postalCode);
+                    prepStat.setString(3, libLoc);
+                }
+                else{
+                    instructionSearchUnit = "SELECT * from UNIT where LIBELLEUNIT like ? and POSTALCODELOCA = ?";
+                    prepStat = BDConnection.prepareStatement(instructionSearchUnit);
+                    prepStat.setString(1, name);
+                    prepStat.setInt(2, postalCode);
+                    
+                }
+            }
+            else
+            {
+                instructionSearchUnit = "SELECT * from UNIT where LIBELLEUNIT like ?";
+                prepStat = BDConnection.prepareStatement(instructionSearchUnit);
+                prepStat.setString(1, name);
+            }            
+            
+            
+            ResultSet data = prepStat.executeQuery();
+            
+            while(data.next())
+            {
+                String libelle  = data.getString("LIBELLEUNIT");
+                Integer pCode   = data.getInt("POSTALCODELOCA");
+                String libLoca   = data.getString("LIBELLELOCA");
+                
+                Unit unit = new Unit(libelle);
+                Localite loc  = new Localite(libLoca,pCode);
+                unit.setLoc(loc);
+                unitList.add(unit);
+                
+                
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Erreur - SQl "+e,"error",JOptionPane.ERROR_MESSAGE);
         }
         return unitList;
     }
