@@ -7,7 +7,7 @@ package DataAcces;
 import Exception.ConnectionException;
 import java.sql.*;
 import java.util.ArrayList;
-import model.LegalPers;
+
 import model.Personne;
 
 /**
@@ -16,7 +16,7 @@ import model.Personne;
  */
 public class PersonneDBAccess {
     
-    public ArrayList<LegalPers> getResponsable () throws ConnectionException
+   /* public ArrayList<LegalPers> getResponsable () throws ConnectionException
     {
         
         ArrayList<LegalPers> searchLegal = new ArrayList<LegalPers>();
@@ -43,7 +43,7 @@ public class PersonneDBAccess {
             
            return searchLegal;
         
-    }
+    }*/
     
     
     

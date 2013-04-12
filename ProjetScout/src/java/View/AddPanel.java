@@ -5,7 +5,7 @@
 package View;
 
 
-import BusinessLogic.LocaManager;
+import Controller.ApplicationController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +13,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Localite;
+import model.Unit;
 
 /**
  *
@@ -27,16 +31,33 @@ public class AddPanel extends javax.swing.JPanel {
      * Creates new form AddPanel
      */
     private PopUp popUpFrame;
+    private ApplicationController app = new ApplicationController();
+    private ArrayList<Unit> listUnit;
     
     public AddPanel(){
         initComponents();
+        
+        
+        
         groupSect.add(sect1Radio);
         groupSect.add(sect2Radio);
         groupSect.add(sect3Radio);
         groupSect.add(sect4Radio);
        
-        postalCodeField.addFocusListener(new Focus());
+        fieldPostalCode.addFocusListener(new Focus());
         
+        try{
+            listUnit = app.getUnits();
+             for(Unit var: listUnit)
+            {
+                comboUnit.addItem(var.getLib());
+            }
+        }
+        catch(Exception e) // Exception a créer
+        {
+            
+        }
+       
         
         
         ComboState comboListener = new ComboState();
@@ -49,6 +70,7 @@ public class AddPanel extends javax.swing.JPanel {
         comboLoc.addItemListener(comboListener);
         cancelButton.addActionListener(buttonListener);
         addLegalButt.addActionListener(buttonListener);
+        
         
         
     }
@@ -111,7 +133,11 @@ public class AddPanel extends javax.swing.JPanel {
                 comboType.setSelectedIndex(0);
                
                 groupSect.clearSelection();
-                comboLoc.setSelectedIndex(0);
+                
+                comboLoc.removeAllItems();
+                comboLoc.addItem("Sélectionner une localité");
+                
+                fieldPostalCode.setText(null);
                 comboUnit.setSelectedIndex(0);
                 comboLegal.setSelectedIndex(0);
                 nameField.setText(null);
@@ -121,7 +147,7 @@ public class AddPanel extends javax.swing.JPanel {
                 totemField.setText(null);
                 streetField.setText(null);
                 numSpin.setValue(0);
-                boxSpin.setValue(0);
+                fieldNumBox.setText(null);
                 dateSpin.setValue(1950);
             }
         }
@@ -136,14 +162,28 @@ public class AddPanel extends javax.swing.JPanel {
         @Override
         public void focusLost(FocusEvent fe) {
             
-            if(fe.getSource()==postalCodeField)
+            if(fe.getSource()==fieldPostalCode)
             {
-                LocaManager lm = new LocaManager();
-               
+                              
+                ArrayList<Localite> listLoca=null;
+                Integer postalCode = Integer.parseInt(fieldPostalCode.getText());
                 
                 AddPanel.this.comboLoc.removeAllItems();
-  
-                 // Appel de méthode pour obtenir liste de loca ayant ce CP.
+                AddPanel.this.comboLoc.addItem("Sélectionner une localité");
+                
+                try{
+                    listLoca = app.getLocalite(postalCode);
+                }
+                catch(Exception e) // Exception a créer
+                {
+                    JOptionPane.showMessageDialog(null, "ERREUR FocusLost"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+                }
+                
+                for(Localite var: listLoca)
+                {
+
+                    AddPanel.this.comboLoc.addItem(var.getLib());
+                }
                     
     
             }
@@ -155,6 +195,9 @@ public class AddPanel extends javax.swing.JPanel {
         }
         
     }
+    
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,19 +232,19 @@ public class AddPanel extends javax.swing.JPanel {
         labLoc = new javax.swing.JLabel();
         comboLoc = new javax.swing.JComboBox();
         labPostalCode = new javax.swing.JLabel();
-        postalCodeField = new javax.swing.JTextField();
+        fieldPostalCode = new javax.swing.JTextField();
         labPhone = new javax.swing.JLabel();
         phoneField = new javax.swing.JTextField();
         labMail = new javax.swing.JLabel();
         mailField = new javax.swing.JTextField();
         labBox = new javax.swing.JLabel();
-        boxSpin = new javax.swing.JSpinner();
         labTotem = new javax.swing.JLabel();
         totemField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         addLegalButt = new javax.swing.JButton();
         validateButt = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        fieldNumBox = new javax.swing.JTextField();
 
         labType.setText("Type de personne à ajouter");
 
@@ -225,7 +268,7 @@ public class AddPanel extends javax.swing.JPanel {
 
         labUnit.setText("Unité");
 
-        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité" }));
 
         labLegal.setText("Responsable légal");
 
@@ -241,7 +284,7 @@ public class AddPanel extends javax.swing.JPanel {
 
         labLoc.setText("Localité :");
 
-        comboLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une localité" }));
 
         labPostalCode.setText("Code Postal");
 
@@ -250,8 +293,6 @@ public class AddPanel extends javax.swing.JPanel {
         labMail.setText("E-mail");
 
         labBox.setText("Boite*");
-
-        boxSpin.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         labTotem.setText("Totem*");
 
@@ -290,7 +331,7 @@ public class AddPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labPhone)
                         .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labStreet)
                                 .addGap(18, 18, 18)
@@ -302,7 +343,7 @@ public class AddPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fieldNumBox))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -316,7 +357,7 @@ public class AddPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labPostalCode)
                                         .addGap(18, 18, 18)
-                                        .addComponent(postalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fieldPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(174, 174, 174)
                                         .addComponent(labLoc)))
@@ -401,13 +442,13 @@ public class AddPanel extends javax.swing.JPanel {
                     .addComponent(labNum)
                     .addComponent(numSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labBox)
-                    .addComponent(boxSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldNumBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labLoc)
                     .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labPostalCode)
-                    .addComponent(postalCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labPhone)
@@ -425,7 +466,6 @@ public class AddPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLegalButt;
-    private javax.swing.JSpinner boxSpin;
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox comboLegal;
     private javax.swing.JComboBox comboLoc;
@@ -433,6 +473,8 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboUnit;
     private javax.swing.JSpinner dateSpin;
     private javax.swing.JTextField fiNameField;
+    private javax.swing.JTextField fieldNumBox;
+    private javax.swing.JTextField fieldPostalCode;
     private javax.swing.ButtonGroup groupSect;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -454,7 +496,6 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JTextField nameField;
     private javax.swing.JSpinner numSpin;
     private javax.swing.JTextField phoneField;
-    private javax.swing.JTextField postalCodeField;
     private javax.swing.JRadioButton sect1Radio;
     private javax.swing.JRadioButton sect2Radio;
     private javax.swing.JRadioButton sect3Radio;

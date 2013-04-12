@@ -4,23 +4,37 @@
  */
 package View;
 
+import Controller.ApplicationController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import model.Unit;
 
-/**
- *
- * @author Jérémy
- */
+
 public class SearchPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SearchPanel
      */
+    private ArrayList<Unit> listUnit;
+    private ApplicationController app = new ApplicationController();
     public SearchPanel() {
         initComponents();
+        try{
+            listUnit = app.getUnits();
+             for(Unit var: listUnit)
+            {
+                comboUnit.addItem(var.getLib());
+            }
+        }
+        catch(Exception e) // Exception a créer
+        {
+            
+        }
+       
         ButtonState buttonListener = new ButtonState();
         comboType.addItemListener(new TypeState());
         searchButton.addActionListener(buttonListener);
@@ -140,6 +154,8 @@ public class SearchPanel extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         searchButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        labPostalCode = new javax.swing.JLabel();
+        fieldPostalCode = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,7 +172,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(700, 500));
 
-        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Unit1", "Unit 2", "Unit3", "Unit4" }));
+        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité" }));
 
         labUnit.setText("Unité");
 
@@ -198,6 +214,8 @@ public class SearchPanel extends javax.swing.JPanel {
 
         cancelButton.setText("Annuler");
 
+        labPostalCode.setText("Code Postal");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,23 +237,29 @@ public class SearchPanel extends javax.swing.JPanel {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(nameField))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(labPhone)
-                                                .addComponent(labLoca))
-                                            .addGap(10, 10, 10)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(labPhone)
+                                            .addGap(25, 25, 25)
+                                            .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(51, 51, 51))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(labType, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(labUnit, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(labUnit, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(labPostalCode)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(fieldPostalCode)
+                                            .addGap(2, 2, 2)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(145, 145, 145))
+                                .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(labLoca)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(139, 139, 139))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(labMail)
@@ -284,7 +308,9 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labLoca))
+                    .addComponent(labLoca)
+                    .addComponent(labPostalCode)
+                    .addComponent(fieldPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,6 +339,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboType;
     private javax.swing.JComboBox comboUnit;
     private javax.swing.JTextField fiNameField;
+    private javax.swing.JTextField fieldPostalCode;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -322,6 +349,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labMail;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labPhone;
+    private javax.swing.JLabel labPostalCode;
     private javax.swing.JLabel labType;
     private javax.swing.JLabel labUnit;
     private javax.swing.JTextField mailField;

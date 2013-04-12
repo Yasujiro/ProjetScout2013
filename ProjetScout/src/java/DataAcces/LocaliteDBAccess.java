@@ -23,7 +23,7 @@ public class LocaliteDBAccess {
         ArrayList<Localite> searchLoca = new ArrayList<Localite>();
         try{
             Connection BDConnection = SingletonConnection.getUniqueInstance();
-            String instructionSearchLoca = "SELECT POSTALCODE, LIBELLE FROM LOCALITES where POSTALCODE = ?;  "; // Instruction SQL
+            String instructionSearchLoca = "SELECT POSTALCODE, LIBELLE FROM LOCALITES where POSTALCODE = ?  ";
             
             PreparedStatement  prepStat = BDConnection.prepareStatement(instructionSearchLoca);
             prepStat.setInt(1, pCode);
@@ -49,7 +49,7 @@ public class LocaliteDBAccess {
         
         return searchLoca;
     }
-    public Localite getLoc() throws Exception
+   /* public Localite getLoc() throws Exception
     {
         Localite l =null;
         try{
@@ -75,6 +75,6 @@ public class LocaliteDBAccess {
             JOptionPane.showMessageDialog(null, "ERREUR Data Access"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
         }
         return l;
-    }
+    }*/
 
 }

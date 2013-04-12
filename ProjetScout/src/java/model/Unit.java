@@ -4,28 +4,18 @@
  */
 package model;
 
-/**
- *
- * @author Jérémy
- */
-public class Localite {
+
+public class Unit {
     
     private String libelle;
-    private Integer postalCode;
     
-    public Localite(String lib, Integer pCode)
+    public Unit(String lib)
     {
         libelle = lib;
-        postalCode = pCode;
     }
     
     public String getLib()
     {
         return this.libelle;
-    }
-    
-    public String toString()
-    {
-        return "TEST"+this.getLib();
     }
 }

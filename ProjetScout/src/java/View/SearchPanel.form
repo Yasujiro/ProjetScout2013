@@ -62,23 +62,23 @@
                                           <Component id="nameField" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labPhone" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labLoca" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
-                                              <Component id="phoneField" min="-2" pref="90" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="labPhone" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="phoneField" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="labType" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="labUnit" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="labPostalCode" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="fieldPostalCode" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -86,8 +86,14 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="comboType" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="comboUnit" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="labLoca" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="comboLoc" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -154,6 +160,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="comboLoc" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labLoca" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labPostalCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fieldPostalCode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -180,11 +188,8 @@
     <Component class="javax.swing.JComboBox" name="comboUnit">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Unit1"/>
-            <StringItem index="1" value="Unit 2"/>
-            <StringItem index="2" value="Unit3"/>
-            <StringItem index="3" value="Unit4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="S&#xe9;lectionner une unit&#xe9;"/>
           </StringArray>
         </Property>
       </Properties>
@@ -308,6 +313,13 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Annuler"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labPostalCode">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Code Postal"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fieldPostalCode">
     </Component>
   </SubComponents>
 </Form>

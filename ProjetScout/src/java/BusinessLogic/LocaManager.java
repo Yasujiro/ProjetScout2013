@@ -16,9 +16,9 @@ public class LocaManager {
     
         private LocaliteDBAccess dba = new LocaliteDBAccess();
         
-        public Localite getLocalite() throws Exception
+        public ArrayList<Localite> getLocalite(Integer pCode) throws Exception
         {
-            return dba.getLoc();
+            return dba.getLocalite(pCode);
         }
     
 }

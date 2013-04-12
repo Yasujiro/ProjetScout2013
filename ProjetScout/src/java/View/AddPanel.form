@@ -47,7 +47,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labPhone" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labStreet" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="labBox" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="boxSpin" min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="fieldNumBox" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -76,7 +76,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="labPostalCode" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="postalCodeField" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <Component id="fieldPostalCode" min="-2" pref="70" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
@@ -188,14 +188,14 @@
                   <Component id="labNum" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="numSpin" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="boxSpin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fieldNumBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labLoc" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboLoc" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labPostalCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="postalCodeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fieldPostalCode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -286,11 +286,8 @@
     <Component class="javax.swing.JComboBox" name="comboUnit">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="S&#xe9;lectionner une unit&#xe9;"/>
           </StringArray>
         </Property>
       </Properties>
@@ -344,11 +341,8 @@
     <Component class="javax.swing.JComboBox" name="comboLoc">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="S&#xe9;lectionner une localit&#xe9;"/>
           </StringArray>
         </Property>
       </Properties>
@@ -358,7 +352,7 @@
         <Property name="text" type="java.lang.String" value="Code Postal"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="postalCodeField">
+    <Component class="javax.swing.JTextField" name="fieldPostalCode">
     </Component>
     <Component class="javax.swing.JLabel" name="labPhone">
       <Properties>
@@ -377,13 +371,6 @@
     <Component class="javax.swing.JLabel" name="labBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Boite*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="boxSpin">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labTotem">
@@ -412,6 +399,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Annuler"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fieldNumBox">
     </Component>
   </SubComponents>
 </Form>

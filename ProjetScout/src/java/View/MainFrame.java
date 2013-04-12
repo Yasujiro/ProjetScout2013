@@ -11,16 +11,11 @@ import java.sql.Connection;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-//coucou
-/**
- *
- * @author Jérémy
- */
+
+
 public class MainFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
+   
     public MainFrame() {
         initComponents();
         
