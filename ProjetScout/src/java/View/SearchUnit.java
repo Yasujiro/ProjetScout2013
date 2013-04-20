@@ -40,7 +40,7 @@ public class SearchUnit extends javax.swing.JPanel {
             
             if(ae.getSource()==buttValidate)
             {
-                ArrayList<Unit> listUnit;
+                ArrayList<Unit> listUnit=null;
                 if(!fieldPostalCode.getText().equals(""))
                 {
                     try{
@@ -51,6 +51,8 @@ public class SearchUnit extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
                     }
                 }
+                else
+                    postalCode = null;
                 
                 try{
                 listUnit = app.getUnits(fieldNameUnit.getText(), postalCode, (String)comboLoc.getSelectedItem());

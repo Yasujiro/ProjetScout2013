@@ -16,15 +16,20 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import model.Localite;
+import model.Personne;
 import model.Unit;
 
-/**
- *
- * @author Jérémy
- */
+
 public class AddPanel extends javax.swing.JPanel {
 
     /**
@@ -34,17 +39,33 @@ public class AddPanel extends javax.swing.JPanel {
     private ApplicationController app = new ApplicationController();
     private ArrayList<Unit> listUnit;
     
+    
     public AddPanel(){
         initComponents();
         
-        
+        ComboState comboListener = new ComboState();
+        ButtonListener buttonListener = new ButtonListener();
         
         groupSect.add(sect1Radio);
         groupSect.add(sect2Radio);
         groupSect.add(sect3Radio);
         groupSect.add(sect4Radio);
+        
+        
+        JComponent editor = new JSpinner.DateEditor(spinDate, "dd/MM/yyyy");
+        spinDate.setEditor(editor);
+        buttAddLegal.setEnabled(false);
+        comboLegal.setEnabled(false);
+        labLegal.setForeground(Color.GRAY);
        
+        
+        comboType.addItemListener(comboListener);
+        comboLoc.addItemListener(comboListener);
+        cancelButton.addActionListener(buttonListener);
+        buttAddLegal.addActionListener(buttonListener);
         fieldPostalCode.addFocusListener(new Focus());
+        spinDate.addChangeListener(new Change());
+        
         
         try{
             listUnit = app.getUnits();
@@ -56,23 +77,8 @@ public class AddPanel extends javax.swing.JPanel {
         catch(Exception e) // Exception a créer
         {
             
-        }
-       
-        
-        
-        ComboState comboListener = new ComboState();
-        ButtonListener buttonListener = new ButtonListener();
-        
-       
-        
-        
-        comboType.addItemListener(comboListener);
-        comboLoc.addItemListener(comboListener);
-        cancelButton.addActionListener(buttonListener);
-        addLegalButt.addActionListener(buttonListener);
-        
-        
-        
+        }     
+
     }
 
     
@@ -115,7 +121,32 @@ public class AddPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             
-            if(ae.getSource().equals(addLegalButt))
+            if(ae.getSource()== buttValidate)
+            {
+                try{
+                String section;
+                if(sect1Radio.isSelected())
+                    section=sect1Radio.getText();
+                else if (sect2Radio.isSelected())
+                        section=sect2Radio.getText();
+                else if (sect3Radio.isSelected())
+                    section=sect3Radio.getText();
+                else if (sect4Radio.isSelected())
+                    section=sect4Radio.getText();
+                else
+                    throw new Exception(); // Exception a créer
+                
+                // Générer Personne,etc
+                Personne pers = null;
+                app.addRegistration((String)comboUnit.getSelectedItem(),section,pers);
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Erreur - champs mal remplie "+e,"error",JOptionPane.ERROR_MESSAGE);
+            }
+            }
+            
+            if(ae.getSource()==buttAddLegal)
             {
                 
                 if(AddPanel.this.popUpFrame == null)
@@ -134,21 +165,24 @@ public class AddPanel extends javax.swing.JPanel {
                
                 groupSect.clearSelection();
                 
+                
                 comboLoc.removeAllItems();
                 comboLoc.addItem("Sélectionner une localité");
                 
                 fieldPostalCode.setText(null);
                 comboUnit.setSelectedIndex(0);
-                comboLegal.setSelectedIndex(0);
-                nameField.setText(null);
-                fiNameField.setText(null);
+                comboLegal.removeAllItems();
+                fieldName.setText(null);
+                fieldFiName.setText(null);
                 phoneField.setText(null);
                 mailField.setText(null);
                 totemField.setText(null);
                 streetField.setText(null);
                 numSpin.setValue(0);
                 fieldNumBox.setText(null);
-                dateSpin.setValue(1950);
+                
+                
+                
             }
         }
         
@@ -168,13 +202,15 @@ public class AddPanel extends javax.swing.JPanel {
                 ArrayList<Localite> listLoca=null;
                 Integer postalCode = null;
                 
-                // A modif
-                try{
-                     postalCode = Integer.parseInt(fieldPostalCode.getText());
-                }
-                catch(Exception e)
+                if(!fieldPostalCode.equals(""))
                 {
-                    JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                    try{
+                         postalCode = Integer.parseInt(fieldPostalCode.getText());
+                    }
+                    catch(Exception e)
+                    {
+                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 //
                 
@@ -197,6 +233,8 @@ public class AddPanel extends javax.swing.JPanel {
                     
     
             }
+            
+            
         }
 
         
@@ -206,7 +244,51 @@ public class AddPanel extends javax.swing.JPanel {
         
     }
     
+    private class Change implements ChangeListener
+    {
+
+        @Override
+        public void stateChanged(ChangeEvent ce) {
+           if(ce.getSource()==spinDate)
+            {
+               if(comboType.getSelectedItem() == "Animé")
+               {
+                    Calendar curr = Calendar.getInstance();
+                    Calendar birth = Calendar.getInstance();
+                    birth.setTime((Date)spinDate.getValue());
+                    int age = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+
+                    if(birth.get(Calendar.MONTH) > curr.get(Calendar.MONTH))
+                    {
+                        age--;
+                    }
+                    else if(birth.get(Calendar.MONTH) == curr.get(Calendar.MONTH))
+                    {
+                        if(birth.get(Calendar.DAY_OF_MONTH) > curr.get(Calendar.DAY_OF_MONTH))
+                        {
+                            age--;
+                        }
+                    }
+
+                    if(age >= 18)
+                    {
+                        buttAddLegal.setEnabled(false);
+                        comboLegal.setEnabled(false);
+                        labLegal.setForeground(Color.GRAY);
+                    }
+                    else
+                    {
+                        buttAddLegal.setEnabled(true);
+                        comboLegal.setEnabled(true);
+                        labLegal.setForeground(Color.BLACK);
+                    }
+               }
+                
+            }
         
+    }
+    
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -225,11 +307,11 @@ public class AddPanel extends javax.swing.JPanel {
         sect3Radio = new javax.swing.JRadioButton();
         sect4Radio = new javax.swing.JRadioButton();
         labName = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
+        fieldName = new javax.swing.JTextField();
         labFiName = new javax.swing.JLabel();
-        fiNameField = new javax.swing.JTextField();
+        fieldFiName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        dateSpin = new javax.swing.JSpinner();
+        spinDate = new javax.swing.JSpinner();
         labUnit = new javax.swing.JLabel();
         comboUnit = new javax.swing.JComboBox();
         labLegal = new javax.swing.JLabel();
@@ -251,8 +333,8 @@ public class AddPanel extends javax.swing.JPanel {
         labTotem = new javax.swing.JLabel();
         totemField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        addLegalButt = new javax.swing.JButton();
-        validateButt = new javax.swing.JButton();
+        buttAddLegal = new javax.swing.JButton();
+        buttValidate = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         fieldNumBox = new javax.swing.JTextField();
 
@@ -274,15 +356,13 @@ public class AddPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Date de Naissance");
 
-        dateSpin.setModel(new javax.swing.SpinnerNumberModel(1950, 1950, 2010, 1));
+        spinDate.setModel(new javax.swing.SpinnerDateModel());
 
         labUnit.setText("Unité");
 
         comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité" }));
 
         labLegal.setText("Responsable légal");
-
-        comboLegal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         labAddr.setText("Adresse :");
 
@@ -308,9 +388,9 @@ public class AddPanel extends javax.swing.JPanel {
 
         jLabel3.setText("* : Champs facultatifs");
 
-        addLegalButt.setText("Nouveau");
+        buttAddLegal.setText("Nouveau");
 
-        validateButt.setText("Valider");
+        buttValidate.setText("Valider");
 
         cancelButton.setText("Annuler");
 
@@ -321,61 +401,6 @@ public class AddPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(sect1Radio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sect2Radio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sect3Radio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sect4Radio))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labType)
-                            .addComponent(labUnit))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(labAddr)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labPhone)
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labStreet)
-                                .addGap(18, 18, 18)
-                                .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labNum)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fieldNumBox))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(labMail))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(90, 90, 90)
-                                        .addComponent(validateButt))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(labPostalCode)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(fieldPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(174, 174, 174)
-                                        .addComponent(labLoc)))
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cancelButton)
-                                    .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -388,25 +413,84 @@ public class AddPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labName)
                                         .addGap(26, 26, 26)
-                                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(dateSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)))
+                                        .addComponent(spinDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
                                 .addComponent(labLegal)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addLegalButt))
+                                .addGap(18, 18, 18)
+                                .addComponent(buttAddLegal))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labFiName)
                                 .addGap(68, 68, 68)
-                                .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel3))
-                .addContainerGap(212, Short.MAX_VALUE))
+                                .addComponent(fieldFiName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(183, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(sect1Radio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sect2Radio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sect3Radio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sect4Radio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labType)
+                                    .addComponent(labUnit))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labAddr)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labPhone)
+                                .addGap(4, 4, 4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labStreet)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(labNum)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(numSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(labBox)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(fieldNumBox))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(23, 23, 23)
+                                                .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(57, 57, 57)
+                                                .addComponent(labMail))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(90, 90, 90)
+                                                .addComponent(buttValidate))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(labPostalCode)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(fieldPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(174, 174, 174)
+                                                .addComponent(labLoc)))
+                                        .addGap(58, 58, 58)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cancelButton)
+                                            .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel3))
+                        .addContainerGap(230, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,9 +513,9 @@ public class AddPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labName)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labFiName)
-                        .addComponent(fiNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fieldFiName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labTotem)
@@ -439,10 +523,10 @@ public class AddPanel extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(dateSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labLegal)
                     .addComponent(comboLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addLegalButt))
+                    .addComponent(buttAddLegal))
                 .addGap(24, 24, 24)
                 .addComponent(labAddr)
                 .addGap(18, 18, 18)
@@ -467,7 +551,7 @@ public class AddPanel extends javax.swing.JPanel {
                     .addComponent(mailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(validateButt)
+                    .addComponent(buttValidate)
                     .addComponent(cancelButton))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
@@ -475,14 +559,15 @@ public class AddPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addLegalButt;
+    private javax.swing.JButton buttAddLegal;
+    private javax.swing.JButton buttValidate;
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox comboLegal;
     private javax.swing.JComboBox comboLoc;
     private javax.swing.JComboBox comboType;
     private javax.swing.JComboBox comboUnit;
-    private javax.swing.JSpinner dateSpin;
-    private javax.swing.JTextField fiNameField;
+    private javax.swing.JTextField fieldFiName;
+    private javax.swing.JTextField fieldName;
     private javax.swing.JTextField fieldNumBox;
     private javax.swing.JTextField fieldPostalCode;
     private javax.swing.ButtonGroup groupSect;
@@ -503,16 +588,15 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labType;
     private javax.swing.JLabel labUnit;
     private javax.swing.JTextField mailField;
-    private javax.swing.JTextField nameField;
     private javax.swing.JSpinner numSpin;
     private javax.swing.JTextField phoneField;
     private javax.swing.JRadioButton sect1Radio;
     private javax.swing.JRadioButton sect2Radio;
     private javax.swing.JRadioButton sect3Radio;
     private javax.swing.JRadioButton sect4Radio;
+    private javax.swing.JSpinner spinDate;
     private javax.swing.JTextField streetField;
     private javax.swing.JTextField totemField;
-    private javax.swing.JButton validateButt;
     // End of variables declaration//GEN-END:variables
    
 }

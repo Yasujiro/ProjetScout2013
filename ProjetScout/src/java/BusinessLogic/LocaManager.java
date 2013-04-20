@@ -8,10 +8,6 @@ import DataAcces.LocaliteDBAccess;
 import java.util.ArrayList;
 import model.Localite;
 
-/**
- *
- * @author Jérémy
- */
 public class LocaManager {
     
         private LocaliteDBAccess dba = new LocaliteDBAccess();

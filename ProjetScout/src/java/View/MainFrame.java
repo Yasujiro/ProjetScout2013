@@ -51,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
             {
                 AddPanel addPan = new AddPanel();
                 MainFrame.this.ChangePanel(addPan);
+                
             }
             if(ae.getSource()==menuSchPers)
             {

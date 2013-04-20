@@ -10,10 +10,7 @@ import java.util.ArrayList;
 
 import model.Personne;
 
-/**
- *
- * @author Jérémy
- */
+
 public class PersonneDBAccess {
     
    /* public ArrayList<LegalPers> getResponsable () throws ConnectionException

@@ -12,10 +12,7 @@ import javax.swing.JOptionPane;
 import model.Localite;
 import model.Unit;
 
-/**
- *
- * @author Jérémy
- */
+
 public class UnitDBAccess {
     
     

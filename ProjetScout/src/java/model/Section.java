@@ -4,16 +4,19 @@
  */
 package model;
 
-
-public class Localite {
+/**
+ *
+ * @author Jérémy
+ */
+public class Section {
     
     private String libelle;
-    private Integer postalCode;
+    private Unit unit;
     
-    public Localite(String lib, Integer pCode)
+    public Section(String lib, String u)
     {
         libelle = lib;
-        postalCode = pCode;
+        unit = new Unit(u);
     }
     
     public String getLib()
@@ -21,9 +24,9 @@ public class Localite {
         return this.libelle;
     }
     
-    public Integer getPCode()
+    public Unit getUnit()
     {
-        return this.postalCode;
+        return this.unit;
     }
-
+    
 }

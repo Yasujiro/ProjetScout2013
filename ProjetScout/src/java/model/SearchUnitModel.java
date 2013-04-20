@@ -7,10 +7,7 @@ package model;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Jérémy
- */
+
 public class SearchUnitModel extends AbstractTableModel{
 
     private ArrayList<String> columnNames = new ArrayList<String>();

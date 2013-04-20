@@ -4,67 +4,78 @@
  */
 package model;
 
-import java.util.Date;
+
+import java.util.GregorianCalendar;
 
 public class Personne {
     
-    private String name, lastName, location, streetName,type,unit,section,id_Personne;    
-    private int id_Loc,numHouse,numBox;    
-    private Date birthDate;
+    private String name, fiName, streetName,type,id_Personne, numBox,totem,mail,gsm;   
+    private int numHouse;    
+    private GregorianCalendar birthDate;
+    private Localite loc;
+    private Personne legalPers;
     
-    public Personne(String nameP, String lastNameP, String idP, int idLoc, String street, int house, int box, Date birth )
+    public Personne(String id)
+    {
+        id_Personne = id;
+    }
+    public Personne(String nameP, String fiNameP, String street, int house, GregorianCalendar birth )
     {
         name = nameP;
-        lastName = lastNameP;
-        id_Personne = idP;
-        id_Loc = idLoc;
+        fiName = fiNameP;      
         streetName = street;
         numHouse = house;
-        numBox = box;
         birthDate = birth;
-        
     }
     
     
+    public String getFiName()
+    {
+        return this.fiName;
+    }    
     public String getName()
     {
         return this.name;
-    }
-    
-    public String getLastName()
-    {
-        return this.lastName;
     }
     public String getId()
     {
         return this.id_Personne;
     }
-    
-    public String getUnit()
-    {
-        return this.unit;
-    }
-    
-    public String getSect()
-    {
-        return this.section;
-    }
-    
     public String getType()
     {
         return this.type;
-    }
+    }    
+
     
-    public String getFiName()
+    
+     // Fonctions Setter;
+    public void setBox(String nBox)
     {
-        return this.name;
+        this.numBox= nBox;
     }
-    
-    
-    // Fonctions Setter;
-    
-    public void setType(String typePers)
+    public void setMail(String mail)
     {
-        this.type = typePers;
+        this.mail=mail;
     }
+    public void setTel(String tel)
+    {
+        this.gsm =tel;
+    }
+    public void setLoc (Localite l)
+    {
+        this.loc=l;
+    }
+    public void setLegalPers(Personne legal)
+    {
+        legalPers = legal;
+    }
+    
+    public void setTotem(String t)
+    {
+        this.totem=t;
+    }
+    
+    
+   
+
 }

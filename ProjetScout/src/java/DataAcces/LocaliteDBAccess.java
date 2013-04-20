@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Localite;
 
-/**
- *
- * @author Jérémy
- */
+
 public class LocaliteDBAccess {
     
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Création d'exception spécial
