@@ -25,5 +25,10 @@ public class Localite {
     {
         return this.postalCode;
     }
+    
+    public String toString()
+    {
+        return this.libelle;
+    }
 
 }

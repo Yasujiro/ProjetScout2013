@@ -5,9 +5,11 @@
 package Controller;
 
 import BusinessLogic.LocaManager;
+import BusinessLogic.PersonneManager;
 import BusinessLogic.RegistrationManager;
 import BusinessLogic.UnitManager;
 import java.util.ArrayList;
+import java.util.Date;
 
 import model.Localite;
 import model.Personne;
@@ -17,7 +19,14 @@ public class ApplicationController {
     private LocaManager lm = new LocaManager();
     private UnitManager um = new UnitManager();
     private RegistrationManager rm = new RegistrationManager();
-
+    private PersonneManager pm = new PersonneManager();
+//comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
+                        //spinDate.getValue(),comboLegal.getSelectedItem(),fieldStreet.getText(),fieldNum.getText(),comboLoc.getSelectedItem()
+    
+    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,String street,String num,String box, Localite loc,String tel,String mail)
+    {
+        return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail);
+    }
     
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
     {
@@ -37,6 +46,8 @@ public class ApplicationController {
         rm.addRegistration(unit,sect,pers);
         
     }
+
+    
 }
 
 

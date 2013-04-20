@@ -5,21 +5,21 @@
 package model;
 
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Personne {
     
-    private String name, fiName, streetName,type,id_Personne, numBox,totem,mail,gsm;   
-    private int numHouse;    
-    private GregorianCalendar birthDate;
+    private String name, fiName, streetName,id_Personne, numHouse,numBox,totem,mail,gsm;   
+        
+    private Calendar birthDate;
     private Localite loc;
-    private Personne legalPers;
     
     public Personne(String id)
     {
         id_Personne = id;
     }
-    public Personne(String nameP, String fiNameP, String street, int house, GregorianCalendar birth )
+    public Personne(String nameP, String fiNameP, String street, String house, Calendar birth )
     {
         name = nameP;
         fiName = fiNameP;      
@@ -43,16 +43,38 @@ public class Personne {
     }
     public String getType()
     {
-        return this.type;
+        return "";
     }    
+    public Calendar getBirth()
+    {
+        return this.birthDate;
+    }
+    public Localite getLoc()
+    {
+        return this.loc;
+    }
+    public String getStreet()
+    {
+        return this.streetName;
+       
+    }
 
-    
+    public String getHouse()
+    {
+        return this.numHouse;
+    }
+    public String getBox()
+    {
+        return this.numBox;
+    }
     
      // Fonctions Setter;
-    public void setBox(String nBox)
+
+    public void setId(String uId)
     {
-        this.numBox= nBox;
+        this.id_Personne = uId;
     }
+    
     public void setMail(String mail)
     {
         this.mail=mail;
@@ -66,8 +88,10 @@ public class Personne {
         this.loc=l;
     }
     public void setLegalPers(Personne legal)
+    { }
+    public void setBox(String box)
     {
-        legalPers = legal;
+        this.numBox = box;
     }
     
     public void setTotem(String t)

@@ -35,6 +35,11 @@ public class Unit {
         return this.nbMembers;
     }
     
+    public String toString()
+            
+    {
+        return this.libelle;
+    }
     
     
     public void setLoc(Localite loc)
