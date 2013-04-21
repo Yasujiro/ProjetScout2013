@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 public class Personne {
     
     private String name, fiName, streetName,id_Personne, numHouse,numBox,totem,mail,gsm;   
-        
+    private Personne legalResp;
     private Calendar birthDate;
     private Localite loc;
     
@@ -26,6 +26,14 @@ public class Personne {
         streetName = street;
         numHouse = house;
         birthDate = birth;
+    }
+    public Personne(String nameP,String fiNameP,String street, String house)
+    {
+        name = nameP;
+        fiName = fiNameP;      
+        streetName = street;
+        numHouse = house;
+        
     }
     
     
@@ -68,6 +76,19 @@ public class Personne {
         return this.numBox;
     }
     
+    public Personne getLegal()
+    {
+        return legalResp;
+    }
+    public String getTel()
+    {
+        return this.gsm;
+    }
+    public String getMail()
+    {
+        return this.mail;
+    }
+ 
      // Fonctions Setter;
 
     public void setId(String uId)

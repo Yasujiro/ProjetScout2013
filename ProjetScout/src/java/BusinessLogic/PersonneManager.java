@@ -8,8 +8,10 @@ import DataAcces.PersonneDBAccess;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 import model.Anime;
 import model.Chief;
+import model.LegalResp;
 import model.Localite;
 import model.Personne;
 
@@ -20,11 +22,15 @@ public class PersonneManager {
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalResp,String street,String num,String box,Localite loc,String tel,String mail)
     {
         PersonneDBAccess dba = new PersonneDBAccess();
-        Calendar birthDate = Calendar.getInstance();
-        birthDate.setTime(birth);
         Personne pers;
         UUID uniqueId = UUID.randomUUID();
         String idPers=""+uniqueId;
+        
+        Calendar birthDate = Calendar.getInstance();
+        if(birth!=null)
+            birthDate.setTime(birth);
+        
+        
         
         
         if(type.equals("Animé"))
@@ -36,9 +42,14 @@ public class PersonneManager {
         {
             pers = new Chief(name,fiName,street,num,birthDate,tel,mail);
         }
+        else if (type.equals("Responsable légal"))
+        {
+            pers = new LegalResp(name,fiName,street,num,tel,mail);
+            
+        }
         else
         {
-            //throw new Exception.....
+            
             pers=null;
         }
         if(!box.equals(""))

@@ -24,5 +24,9 @@ public class Anime extends Personne {
     {
         return "Animé";
     }
+    public Personne getLegal()
+    {
+        return this.legal;
+    }
     
 }

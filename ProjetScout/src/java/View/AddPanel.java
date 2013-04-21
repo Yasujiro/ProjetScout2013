@@ -155,8 +155,9 @@ public class AddPanel extends javax.swing.JPanel {
                 
                 if(AddPanel.this.popUpFrame == null)
                 {
-                    
-                     popUpFrame = new PopUp(new AddLegalResp());                
+                     AddLegalResp popUpPanel = new AddLegalResp();
+                     popUpFrame = new PopUp(popUpPanel);  
+                     popUpPanel.setPopUp(popUpFrame);
                      popUpFrame.setLocation(200,150);                     
                 }
                 
