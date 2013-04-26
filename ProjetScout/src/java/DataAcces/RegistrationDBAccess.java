@@ -36,7 +36,7 @@ public class RegistrationDBAccess {
                         + "from DEMANDEINSCRIPT dem "                        
                         + "join PERSONNE p on (dem.NUMID = p.NUMID )" 
                         + "join LOCALITES loc on(loc.LIBELLE = p.LIBELLELOC and loc.POSTALCODE= p.POSTALCODELOC) "
-                        + "and  dem.ETAT = ? and dem.ENVOISCOLIS = ? and dem.DATECREA = ? and dem.LIBELLEUNITE = ? and dem.LIBELLESECTION = ? "
+                        + "and  dem.ETAT = ? and dem.ENVOISCOLIS = ? and dem.DATECREA = ? and dem.LIBELLEUNITE like ? and dem.LIBELLESECTION like ? "
                         +"and p.NOM like ? and p.PRENOM like ?" ;
                 prepStat = BDConnection.prepareStatement(schInstruction);
                 prepStat.setString(1,r.getState());
@@ -78,8 +78,7 @@ public class RegistrationDBAccess {
                 
                 String libLoc = data.getString("LIBELLE");
                 Integer pCode = data.getInt("POSTALCODE");
-                tel = data.getString("GSM");
-                mail = data.getString("EMAIL");
+                
                 
                 
                 Localite loc = new Localite(libLoc,pCode);
@@ -87,7 +86,7 @@ public class RegistrationDBAccess {
                 if(!(idLegal.equals("")))
                 {
                     Personne legalResp = new Personne(idLegal);  
-                    String schLegalInstruction = "SELECT legal.GSM,legal.EMAIL,legal.nom,legal.prenom from PERSONNE legal "
+                    String schLegalInstruction = "SELECT legal.nom,legal.prenom from PERSONNE legal "
                             + "where legal.NUMID=? ";
                     prepStat = BDConnection.prepareStatement(schLegalInstruction);
                     prepStat.setString(1,idLegal);
@@ -95,28 +94,28 @@ public class RegistrationDBAccess {
                     
                     while(dataOpt.next())
                     {
-                        tel = dataOpt.getString("GSM");
-                        mail = dataOpt.getString("EMAIL");
+                        
                         nameLegal = dataOpt.getString("NOM");
                         fiNameLegal = dataOpt.getString("PRENOM");
                     }
-                    legalResp.setTel(tel);
-                    legalResp.setMail(mail);
+                    
                     legalResp.setName(nameLegal);
                     legalResp.setFiName(fiNameLegal);
                     p.setLegalPers(legalResp);
                 }
-                else
-                {
-                    p.setTel(tel);
-                    p.setMail(mail);
-                }
+                
                 p.setLoc(loc);
                 p.setId(idPers);
                 
                 Registration reg = new Registration(libUnit,libSect,p);                
                 reg.setId(id);
+                reg.setState(etat);
+                reg.setColis(colis);
+                reg.setCrea(creaDate);
+                
+                
                 regList.add(reg);
+                
                 
             }
         }
@@ -180,7 +179,7 @@ public class RegistrationDBAccess {
         }
         catch(Exception e)
         {
-            
+            JOptionPane.showMessageDialog(null, "ERREUR Data Access DEMANDE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
         }
         
     }

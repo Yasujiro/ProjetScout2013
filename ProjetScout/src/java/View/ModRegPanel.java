@@ -7,6 +7,9 @@ package View;
 import Controller.ApplicationController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Registration;
 import model.Unit;
 
@@ -14,31 +17,59 @@ import model.Unit;
 public class ModRegPanel extends javax.swing.JPanel {
 
     private Registration updatedReg;
-    private ApplicationController app;
+    private ApplicationController app =new ApplicationController();
+    private ArrayList<Unit> listUnit;
+    private JFrame parents;
+    private ButtonListener buttList;
+    
     public ModRegPanel(Registration reg) {
         initComponents();
         updatedReg =  reg;
+        buttList = new ButtonListener();
+        
+        try{
+            listUnit = app.getUnits();
+             for(Unit var: listUnit)
+            {
+                comboUnit.addItem(var);
+            }
+        }
+        catch(Exception e)
+        {
+            //Exception a créer;
+        }
+        
+        buttValid.addActionListener(buttList);
+        buttCancel.addActionListener(buttList);
+        comboUnit.setSelectedItem(reg.getSect().getUnit());
         comboSect.setSelectedItem(reg.getSect().getLib());
         radButtColis.setSelected(reg.getColis());
         comboState.setSelectedItem(reg.getState());
-        app = new ApplicationController();
+        
     }
 
+    public void setParents(JFrame frame)
+    {
+        parents = frame;
+    }
+    
     private class ButtonListener implements ActionListener
     {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-           if(ae.getSource()== buttValid)
-           {
+           if(ae.getSource()== buttValid) {
                //ModRegPanel.this.checkValues();
                updatedReg.setColis(radButtColis.isSelected());
                updatedReg.setState((String)comboState.getSelectedItem());
-               updatedReg.setSect((String)comboSect.getSelectedItem(),(String)comboUnit.getSelectedItem());
+               updatedReg.setSect((String)comboSect.getSelectedItem(),comboUnit.getSelectedItem().toString());
                
                app.modRegistration(updatedReg);
-
+               
+               parents.dispose();
            }
+           if(ae.getSource()==buttCancel)
+            parents.dispose();
         }
         
     }

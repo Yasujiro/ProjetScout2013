@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.TableColumn;
 import model.Personne;
@@ -25,9 +26,16 @@ public class SearchRegPanel extends javax.swing.JPanel {
     private ApplicationController app;
     private ButtonListener buttListener;
     private ArrayList<Registration> result;
+    private ArrayList<Unit>listUnit;
     private SearchRegModel tableModel;
+    private PopUp popUpFrame;
+    private Registration selectedReg;
+    private String section ="",unit,name,fiName;
+    
+    
     public SearchRegPanel() {
         initComponents();
+        popUpFrame = null;
         app = new ApplicationController();
         buttListener = new ButtonListener();
         radButtGroup.add(radSect1);
@@ -35,13 +43,52 @@ public class SearchRegPanel extends javax.swing.JPanel {
         radButtGroup.add(radSect3);
         radButtGroup.add(radSect4);
         
+        try{
+            listUnit = app.getUnits();
+             for(Unit var: listUnit)
+            {
+                comboUnit.addItem(var);
+            }
+        }
+        catch(Exception e){
+            //Excpetion a créer
+        }
+        
         
         buttVali.addActionListener(buttListener);
+        buttModReg.addActionListener(buttListener);
         
         
         JComponent editor = new JSpinner.DateEditor(spinDate, "dd/MM/yyyy");
         spinDate.setEditor(editor);
         
+    }
+    
+    public void checkValues()
+    {
+        if(comboUnit.getSelectedIndex()==0)
+          unit = "%";
+        else
+            unit = comboUnit.getSelectedItem().toString();
+        
+        if(radSect1.isSelected())
+                    section=radSect1.getText();
+                else if (radSect2.isSelected())
+                        section=radSect2.getText();
+                else if (radSect3.isSelected())
+                    section=radSect3.getText();
+                else if (radSect4.isSelected())
+                    section=radSect4.getText();
+                else
+                    section = "%";
+        if(fieldName.getText().equals(""))
+            name="%";
+        else
+            name=fieldName.getText();
+        if(fieldFiName.getText().equals(""))
+            fiName="%";
+        else
+            fiName=fieldFiName.getText();
     }
     
     private class ButtonListener implements ActionListener
@@ -51,20 +98,13 @@ public class SearchRegPanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()== buttVali)
             {
-                String section = null;
+                
+                SearchRegPanel.this.checkValues();
                 
                 
-                if(radSect1.isSelected())
-                    section=radSect1.getText();
-                else if (radSect2.isSelected())
-                        section=radSect2.getText();
-                else if (radSect3.isSelected())
-                    section=radSect3.getText();
-                else if (radSect4.isSelected())
-                    section=radSect4.getText();
                 
-                Personne pers = new Personne(fieldName.getText(),fieldFiName.getText());
-                Registration reg = new Registration((String)comboUnit.getSelectedItem(),section,pers);
+                Personne pers = new Personne(name,fiName);
+                Registration reg = new Registration(unit,section,pers);
                 reg.setColis(radButtColis.isSelected());
                 reg.setState((String)comboState.getSelectedItem());
                 reg.setCrea((Date)spinDate.getValue());
@@ -81,7 +121,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				    column = resultTable.getColumnModel().getColumn(i);
 				    switch (i) 
 				    {	//Unité
-				    	case 0 : column.setPreferredWidth(100);
+				    	case 0 : column.setPreferredWidth(50);
 				    		break;
 				    	//Section
 				    	case 1 : column.setPreferredWidth(50);
@@ -90,7 +130,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				    	case 2 : column.setPreferredWidth(50);
 				    		break;
 				    	//Date Création	
-				    	case 3 : column.setPreferredWidth(70); 
+				    	case 3 : column.setPreferredWidth(50); 
 				    		break;
                                         //Demandeur
                                         case 4 : column.setPreferredWidth(150);
@@ -101,19 +141,33 @@ public class SearchRegPanel extends javax.swing.JPanel {
                                         //Adresse
                                         case 6:column.setPreferredWidth(200);
                                             break;
-                                       //Tel
                                         case 7: column.setPreferredWidth(50);
-                                            break;
-                                       //email
-                                        case 8: column.setPreferredWidth(80);
-                                            break;
-                                        case 9: column.setPreferredWidth(20);
                                             break;
                                         default :
                                             column.setPreferredWidth(50);
                                             break;                                            
 				    }
 				}
+            }
+            if(ae.getSource()==buttModReg)
+            {
+                if(resultTable.getSelectedRow() != -1){
+                    selectedReg = tableModel.getSelectedReg(resultTable.getSelectedRow());                
+                    ModRegPanel modReg = new ModRegPanel(selectedReg);
+                    if(popUpFrame == null)
+                    {
+                        popUpFrame = new PopUp(modReg);
+                        popUpFrame.setResizable(false);
+                    }
+                    else
+                        popUpFrame.setContentPane(modReg);
+
+                    modReg.setParents(popUpFrame);
+                    popUpFrame.setLocation(200,150);
+                    popUpFrame.setVisible(true);
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner une demande","error",JOptionPane.PLAIN_MESSAGE);
                 
             }
         }
@@ -198,7 +252,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
 
         buttModLegal.setText("Modifier responsable");
 
-        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité", "NM005 - Scouts et Guides Andenne" }));
+        comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

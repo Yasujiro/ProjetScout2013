@@ -160,15 +160,16 @@ public class AddPanel extends javax.swing.JPanel {
             
             if(ae.getSource()==buttAddLegal)
             {
-                
+                AddLegalResp popUpPanel = new AddLegalResp(comboLegal);
                 if(AddPanel.this.popUpFrame == null)
                 {
-                     AddLegalResp popUpPanel = new AddLegalResp(comboLegal);
-                     popUpFrame = new PopUp(popUpPanel);  
-                     popUpPanel.setPopUp(popUpFrame);
+                     popUpFrame = new PopUp(popUpPanel);
                      popUpFrame.setLocation(200,150);                     
                 }
-                
+                else{
+                    popUpFrame.setContentPane(popUpPanel);
+                }
+                popUpPanel.setPopUp(popUpFrame);
                 popUpFrame.setVisible(true);
             }
             

@@ -27,8 +27,6 @@ public class SearchRegModel extends AbstractTableModel {
         columnsNames.add("Demandeur");
         columnsNames.add("Responsable");
         columnsNames.add("Adresse");
-        columnsNames.add("Téléphone");
-        columnsNames.add("E-mail");
         columnsNames.add("Colis");
         
         
@@ -59,39 +57,36 @@ public class SearchRegModel extends AbstractTableModel {
             case 2:
                 return selectedReg.getState();
             case 3:
-                return selectedReg.getCrea().get(Calendar.DAY_OF_MONTH)+"/"+selectedReg.getCrea().get(Calendar.MONTH)
+                return selectedReg.getCrea().get(Calendar.DAY_OF_MONTH)+"/"+(selectedReg.getCrea().get((Calendar.MONTH))+1)
                         +"/"+selectedReg.getCrea().get(Calendar.YEAR);
                         
             case 4:
-                return  pers.getName()+ pers.getFiName();
+                return  pers.getName()+" "+ pers.getFiName();
             case 5:
                 if(pers.getLegal()!=null)
-                    return pers.getLegal().getName() + pers.getLegal().getFiName();
+                    return pers.getLegal().getName()+" " + pers.getLegal().getFiName();
                 else
                     return null;
                 
             case 6:
-                return pers.getStreet()+" "+pers.getHouse()+" "+pers.getBox()+", "+ pers.getLoc().getPCode() +" "+ pers.getLoc().getLib();
-                
+                if(pers.getBox()!= null)
+                    return pers.getStreet()+" "+pers.getHouse()+" "+pers.getBox()+", "+ pers.getLoc().getPCode() +" "+ pers.getLoc().getLib();
+                else
+                    return pers.getStreet()+" "+pers.getHouse()+", "+ pers.getLoc().getPCode() +" "+ pers.getLoc().getLib();
             case 7:
-                if(pers.getLegal() != null)
-                    return pers.getLegal().getTel();
+                if(selectedReg.getColis())
+                  return "Envoyé";
                 else
-                    return pers.getTel();
-            case 8:
-                if(pers.getLegal()!=null)
-                    return pers.getLegal().getMail();
-                else
-                    return pers.getMail();
-            case 9:
-                JRadioButton butt = new JRadioButton();
-                butt.setSelected(selectedReg.getColis());
-                butt.setVisible(true);
-                return null;
+                    return "En attente";
             default :
                 return null;
         }
         
+    }
+    
+    public Registration getSelectedReg(int row)
+    {
+        return content.get(row);
     }
     
     

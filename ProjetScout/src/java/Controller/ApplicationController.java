@@ -35,10 +35,14 @@ public class ApplicationController {
         
     }
     
+    
+    
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
     {
         return lm.getLocalite(pCode);
     }
+    
+    
     
     public ArrayList<Unit> getUnits() throws Exception
     {
@@ -48,6 +52,9 @@ public class ApplicationController {
     {
         return um.getUnits(name,postalCode,libLoc);
     }
+    
+    
+    
     public ArrayList<Registration> getReg(Registration reg)
     {
         return rm.getReg(reg);
