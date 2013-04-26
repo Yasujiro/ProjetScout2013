@@ -19,6 +19,11 @@ public class Personne {
     {
         id_Personne = id;
     }
+    public Personne(String n,String fiN)
+    {
+        name = n;
+        fiName = fiN;
+    }
     public Personne(String nameP, String fiNameP, String street, String house, Calendar birth )
     {
         name = nameP;
@@ -36,7 +41,10 @@ public class Personne {
         
     }
     
-    
+    public String toString()
+    {
+        return this.name+" "+this.fiName;
+    }
     public String getFiName()
     {
         return this.fiName;
@@ -109,7 +117,9 @@ public class Personne {
         this.loc=l;
     }
     public void setLegalPers(Personne legal)
-    { }
+    { 
+        this.legalResp=legal;
+    }
     public void setBox(String box)
     {
         this.numBox = box;
@@ -118,6 +128,14 @@ public class Personne {
     public void setTotem(String t)
     {
         this.totem=t;
+    }
+    public void setName(String n)
+    {
+        this.name=n;
+    }
+    public void setFiName(String fName)
+    {
+        this.fiName=fName;
     }
     
     

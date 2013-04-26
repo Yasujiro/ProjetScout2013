@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import View.ListingPanel;
 import View.AddPanel;
+import View.SearchRegPanel;
 import View.SearchUnit;
+import java.awt.Dimension;
 import java.sql.Connection;
 /*
  * To change this template, choose Tools | Templates
@@ -20,10 +22,14 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         
-        this.setResizable(false);
+       // this.setResizable(false);
+        Dimension d = new Dimension(900,700);
+        this.setMinimumSize(d);
+        this.setSize(d);
         MenuBarListener menuListener = new MenuBarListener();        
         menuSchPers.addActionListener(menuListener);
         menuSchUnit.addActionListener(menuListener);
+        menuSchReg.addActionListener(menuListener);
         exitMenu.addActionListener(menuListener);
         listMenu.addActionListener(menuListener);
         newRegistration.addActionListener(menuListener);
@@ -33,9 +39,9 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void ChangePanel (JPanel newPanel)
     {
-        newPanel.setBounds(this.jPanel1.getBounds());
-        this.getContentPane().removeAll();
-        this.getContentPane().add(newPanel);
+        newPanel.setBounds(this.getBounds());
+        this.getContentPane().removeAll();        
+        this.getContentPane().add(newPanel);        
         this.validate();
         this.repaint();
     }
@@ -64,6 +70,12 @@ public class MainFrame extends javax.swing.JFrame {
             {
                 SearchUnit searchUnitPan = new SearchUnit();
                 MainFrame.this.ChangePanel(searchUnitPan);
+            }
+            
+            if(ae.getSource()==menuSchReg)
+            {
+                SearchRegPanel searchRegPan = new SearchRegPanel();
+                MainFrame.this.ChangePanel(searchRegPan);
             }
             
             if(ae.getSource()==exitMenu)
@@ -97,6 +109,7 @@ public class MainFrame extends javax.swing.JFrame {
         exitMenu = new javax.swing.JMenuItem();
         ActionMenu = new javax.swing.JMenu();
         SearchMenu = new javax.swing.JMenu();
+        menuSchReg = new javax.swing.JMenuItem();
         menuSchPers = new javax.swing.JMenuItem();
         menuSchUnit = new javax.swing.JMenuItem();
         listMenu = new javax.swing.JMenuItem();
@@ -109,12 +122,14 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 932, Short.MAX_VALUE)
+            .addGap(0, 953, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         FileMenu.setText("Fichier");
 
@@ -129,6 +144,9 @@ public class MainFrame extends javax.swing.JFrame {
         ActionMenu.setText("Action");
 
         SearchMenu.setText("Recherches");
+
+        menuSchReg.setText("Demande d'inscription");
+        SearchMenu.add(menuSchReg);
 
         menuSchPers.setText("Personne");
         SearchMenu.add(menuSchPers);
@@ -147,23 +165,6 @@ public class MainFrame extends javax.swing.JFrame {
         MenuBar.add(AboutMenu);
 
         setJMenuBar(MenuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -214,6 +215,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem listMenu;
     private javax.swing.JMenuItem menuSchPers;
+    private javax.swing.JMenuItem menuSchReg;
     private javax.swing.JMenuItem menuSchUnit;
     private javax.swing.JMenuItem newRegistration;
     // End of variables declaration//GEN-END:variables

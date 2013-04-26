@@ -13,26 +13,34 @@ import java.util.Date;
  */
 public class Registration {
     
-    private String state,id,colis;
+    private String state,id;
     private Calendar dateCrea,lastModif;
-    private int price;
+    private Integer price;
+    private boolean colis;
     private Section section;
     private Personne membre;
     
-    public Registration (String unit,String sect)
+    public Registration (String unit,String sect,Personne p)
     {
         section = new Section(sect,unit);
         dateCrea = Calendar.getInstance();
         lastModif = Calendar.getInstance();
         state ="En attente";
         price = 0;
-        colis = "En attente";
+        
+        colis = false;
+        
+        membre = p;
 
     }
     
     public void setPrice(int p)
     {
         price = p;
+    }
+    public void setCrea(Date d)
+    {
+        dateCrea.setTime(d);
     }
     public void setModif(Calendar date)
     {
@@ -42,13 +50,19 @@ public class Registration {
     {
         id = uuid;
     }
-    public void setMembre(Personne p)
-    {
-        membre=p;
-    }
-    public void setColis(String s)
+
+    public void setColis(boolean s)
     {
         colis =s;
+    }
+    public void setState(String updatedState)
+    {
+        state = updatedState;
+    }
+    public void setSect(String libSect, String libUnit)
+    {
+        section.setLib(libSect);
+        section.getUnit().setLib(libUnit);
     }
     
     
@@ -80,7 +94,7 @@ public class Registration {
     {
         return this.membre;
     }
-    public String getColis()
+    public Boolean getColis()
     {
         return this.colis;
     }

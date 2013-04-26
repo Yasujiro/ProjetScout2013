@@ -29,4 +29,9 @@ public class Section {
         return this.unit;
     }
     
+    public void setLib(String lib)
+    {
+        libelle = lib;
+    }
+    
 }

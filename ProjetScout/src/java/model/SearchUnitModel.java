@@ -19,7 +19,9 @@ public class SearchUnitModel extends AbstractTableModel{
         columnNames.add("Libelle");
         columnNames.add("Code postal");
         columnNames.add("Localité");
-        columnNames.add("Nombre d'inscrits");
+        columnNames.add("Nombre d'animés");
+        columnNames.add("Nombre de chefs");
+        columnNames.add("Nombre de membres total");
         
     }
     
@@ -49,10 +51,20 @@ public class SearchUnitModel extends AbstractTableModel{
             case 2:
                 return selectedUnit.getLoc().getLib();
             case 3:
+                return selectedUnit.getNbScout();
+            case 4:
+                return selectedUnit.getNbChief();
+            case 5:
                 return selectedUnit.getNb();
             default :
                 return null;
         }
+    }
+    
+    public Unit getSelectedUnit(int row)
+    {
+        return content.get(row);
+        
     }
     
 }

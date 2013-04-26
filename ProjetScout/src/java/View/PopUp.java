@@ -6,10 +6,7 @@ package View;
 
 import javax.swing.JPanel;
 
-/**
- *
- * @author Jérémy
- */
+
 public class PopUp extends javax.swing.JFrame {
 
     /**
@@ -25,6 +22,8 @@ public class PopUp extends javax.swing.JFrame {
         content.setVisible(true);
         
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.

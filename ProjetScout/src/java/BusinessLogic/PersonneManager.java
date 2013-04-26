@@ -5,6 +5,7 @@
 package BusinessLogic;
 
 import DataAcces.PersonneDBAccess;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -48,9 +49,9 @@ public class PersonneManager {
             
         }
         else
-        {
-            
+        {            
             pers=null;
+            
         }
         if(!box.equals(""))
         {
@@ -61,6 +62,22 @@ public class PersonneManager {
         dba.addPersonne(pers);
         
         return pers;
+        
+    }
+    
+    public ArrayList<LegalResp>  getLegal()
+    {
+        PersonneDBAccess dba = new PersonneDBAccess();
+        
+        
+            try{
+                return dba.getLegal();
+            }
+            catch(Exception e)
+            {
+               return null; 
+            }
+        
         
     }
 }

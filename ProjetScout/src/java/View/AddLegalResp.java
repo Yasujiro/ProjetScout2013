@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.LegalResp;
 import model.Localite;
@@ -22,18 +23,36 @@ public class AddLegalResp extends javax.swing.JPanel {
     private PopUp parents=null;
     private ActionListener buttListener = new ButtonListener();
     private Personne p;
-    public AddLegalResp() {
+    private JComboBox updatedBox;
+    
+    
+    
+    public AddLegalResp(JComboBox uBox) {
         initComponents();
         
         fieldPostalCode.addFocusListener(new Focus());
         buttVali.addActionListener(buttListener);
         buttCancel.addActionListener(buttListener);
+        updatedBox = uBox;
         
     }
     
     public void setPopUp(PopUp p)
     {
         parents = p;
+    }
+    public void resetValues()
+    {
+        fieldPostalCode.setText(null);
+        comboLoc.removeAllItems();
+        comboLoc.addItem("Sélectionner une localité");
+        fieldName.setText(null);
+        fieldFiName.setText(null);
+        fieldTel.setText(null);
+        fieldMail.setText(null);
+        fieldStreet.setText(null);
+        fieldNum.setText(null);
+        fieldBox.setText(null);
     }
     private class Focus implements FocusListener
     {
@@ -97,8 +116,12 @@ public class AddLegalResp extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()==buttCancel)
             {
-                if(parents!=null)
+                if(parents!=null){
+                    
+                    resetValues();
                      parents.dispose();
+                }
+                
                                    
                 
             }
@@ -107,8 +130,18 @@ public class AddLegalResp extends javax.swing.JPanel {
                 p = app.addPersonne("Responsable légal",fieldName.getText(),fieldFiName.getText(),null,null,
                         fieldStreet.getText(),fieldNum.getText(),fieldBox.getText(),
                         (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText());
+                
                 if(parents!=null)
+                {
+                    resetValues();
                     parents.dispose();
+                }
+                    
+                if(updatedBox!=null)
+                {
+                    updatedBox.addItem(p);
+                    updatedBox.setSelectedItem(p);
+                }
             }
         }
         

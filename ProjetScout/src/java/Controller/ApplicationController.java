@@ -10,9 +10,11 @@ import BusinessLogic.RegistrationManager;
 import BusinessLogic.UnitManager;
 import java.util.ArrayList;
 import java.util.Date;
+import model.LegalResp;
 
 import model.Localite;
 import model.Personne;
+import model.Registration;
 import model.Unit;
 
 public class ApplicationController {
@@ -20,12 +22,17 @@ public class ApplicationController {
     private UnitManager um = new UnitManager();
     private RegistrationManager rm = new RegistrationManager();
     private PersonneManager pm = new PersonneManager();
-//comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
-                        //spinDate.getValue(),comboLegal.getSelectedItem(),fieldStreet.getText(),fieldNum.getText(),comboLoc.getSelectedItem()
-    
+
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,String street,String num,String box, Localite loc,String tel,String mail)
     {
         return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail);
+    }
+    
+    
+    public ArrayList<LegalResp> getLegal()
+    {
+        return pm.getLegal();
+        
     }
     
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
@@ -41,10 +48,18 @@ public class ApplicationController {
     {
         return um.getUnits(name,postalCode,libLoc);
     }
+    public ArrayList<Registration> getReg(Registration reg)
+    {
+        return rm.getReg(reg);
+    }
 
     public void addRegistration(String unit,String sect,Personne pers) {
         rm.addRegistration(unit,sect,pers);
         
+    }
+    public void modRegistration(Registration reg)
+    {
+        rm.modRegistration(reg);
     }
 
     

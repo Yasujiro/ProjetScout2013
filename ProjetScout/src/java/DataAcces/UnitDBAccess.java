@@ -30,6 +30,7 @@ public class UnitDBAccess {
             {
                 String libelle = data.getString("LIBELLEUNIT");
                 
+                
                 Unit unit = new Unit(libelle);
                 unitList.add(unit);
             }
@@ -84,10 +85,37 @@ public class UnitDBAccess {
                 
                 Unit unit = new Unit(libelle);
                 Localite loc  = new Localite(libLoca,pCode);
+                
                 unit.setLoc(loc);
-                unitList.add(unit);
+                unitList.add(unit);               
+            }
+            for(Unit var: unitList)
+            {
+                String countInstruction = "SELECT COUNT(*) from DEMANDEINSCRIPT dem,LIBSECT s,PERSONNE p "
+                        +"where LIBELLESECTION = s.LIBELLESECT and s.LIBELLEUNIT = ? and dem.NUMID = p.NUMID and p.TYPEPERS = ?";
+                
+                /*select count(*)  from DEMANDeINSCRIPT dem,LIBSECT s,PERSONNE p 
+where LIBELLESECTION = s.LIBELLESECT and s.LIBELLEUNIT = 'NM005 - Scouts et Guides Andenne' 
+and dem.NUMID = p.NUMID and p.TYPEPERS = 'Animé' */
+                
+                prepStat = BDConnection.prepareStatement(countInstruction);
+                prepStat.setString(1, var.getLib());
+                prepStat.setString(2,"Animé");
+                data = prepStat.executeQuery();
                 
                 
+                while(data.next())
+                {
+                    var.setNbScout(data.getInt(1));
+                }
+                prepStat = BDConnection.prepareStatement(countInstruction);
+                prepStat.setString(1, var.getLib());
+                prepStat.setString(2, "Chef");
+                data = prepStat.executeQuery();
+                while(data.next())
+                {
+                    var.setNbChief(data.getInt(1));
+                }
             }
         }
         catch(Exception e)

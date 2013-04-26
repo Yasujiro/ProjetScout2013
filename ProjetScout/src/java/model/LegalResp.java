@@ -19,4 +19,8 @@ public class LegalResp extends Personne {
         super.setMail(mail);
     }
     
+    public String getType()
+    {
+        return "Responsable légal";
+    }
 }
