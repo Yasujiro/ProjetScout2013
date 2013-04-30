@@ -87,7 +87,26 @@ public class AddPanel extends javax.swing.JPanel {
         }     
 
     }
-
+    public void resetValues(){
+                comboType.setSelectedIndex(0);
+               
+                groupSect.clearSelection();
+                
+                
+                comboLoc.removeAllItems();
+                comboLoc.addItem("Sélectionner une localité");
+                comboLegal.setSelectedIndex(0);
+                fieldPostalCode.setText(null);
+                comboUnit.setSelectedIndex(0);
+                comboLegal.setSelectedItem(0);
+                fieldName.setText(null);
+                fieldFiName.setText(null);
+                fieldTel.setText(null);
+                fieldMail.setText(null);
+                totemField.setText(null);
+                fieldStreet.setText(null);
+                fieldNum.setText(null);
+    }
     
     private class ComboState implements ItemListener
     {
@@ -130,6 +149,7 @@ public class AddPanel extends javax.swing.JPanel {
             
             if(ae.getSource()== buttValidate)
             {
+                Personne legalResp;
                 try{
                 String section=null;
                 if(sect1Radio.isSelected())
@@ -142,13 +162,19 @@ public class AddPanel extends javax.swing.JPanel {
                     section=sect4Radio.getText();
                 
                 
+                if(comboLegal.getSelectedItem().equals("Sélectionner un responsable"))
+                    legalResp = null;
+                else
+                    legalResp = (LegalResp)comboLegal.getSelectedItem();
                 
                 Personne pers = app.addPersonne((String)comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
-                        (Date)spinDate.getValue(),(Personne)comboLegal.getSelectedItem(),fieldStreet.getText(),fieldNum.getText(),
+                        (Date)spinDate.getValue(),legalResp,fieldStreet.getText(),fieldNum.getText(),
                         fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText());
                 
                 
                    app.addRegistration(comboUnit.getSelectedItem().toString(),section,pers);
+                   JOptionPane.showMessageDialog(null, "Ajout bien déroulé","Ajout confirmé",JOptionPane.PLAIN_MESSAGE);
+                   resetValues();
                 
                     
             }
@@ -175,27 +201,7 @@ public class AddPanel extends javax.swing.JPanel {
             
             if(ae.getSource().equals(cancelButton))
             {
-                comboType.setSelectedIndex(0);
-               
-                groupSect.clearSelection();
-                
-                
-                comboLoc.removeAllItems();
-                comboLoc.addItem("Sélectionner une localité");
-                
-                fieldPostalCode.setText(null);
-                comboUnit.setSelectedIndex(0);
-                comboLegal.setSelectedItem(0);
-                fieldName.setText(null);
-                fieldFiName.setText(null);
-                fieldTel.setText(null);
-                fieldMail.setText(null);
-                totemField.setText(null);
-                fieldStreet.setText(null);
-                fieldNum.setText(null);
-                
-                
-                
+                resetValues();
             }
         }
         
@@ -376,6 +382,8 @@ public class AddPanel extends javax.swing.JPanel {
         comboUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner une unité" }));
 
         labLegal.setText("Responsable légal");
+
+        comboLegal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sélectionner un responsable" }));
 
         labAddr.setText("Adresse :");
 

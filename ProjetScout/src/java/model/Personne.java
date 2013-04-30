@@ -6,6 +6,7 @@ package model;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Personne {
@@ -18,6 +19,7 @@ public class Personne {
     public Personne(String id)
     {
         id_Personne = id;
+        birthDate = Calendar.getInstance();
     }
     public Personne(String n,String fiN)
     {
@@ -104,6 +106,7 @@ public class Personne {
         this.id_Personne = uId;
     }
     
+    
     public void setMail(String mail)
     {
         this.mail=mail;
@@ -117,9 +120,7 @@ public class Personne {
         this.loc=l;
     }
     public void setLegalPers(Personne legal)
-    { 
-        this.legalResp=legal;
-    }
+    { }
     public void setBox(String box)
     {
         this.numBox = box;
@@ -138,7 +139,17 @@ public class Personne {
         this.fiName=fName;
     }
     
+    public void setHouse(String h)
+    {
+        this.numHouse = h;
+    }
+    public void setStreet(String s){
+        this.streetName = s;
+    }
     
+    public void setBirth(Date d){
+        this.birthDate.setTime(d);
+    }
    
 
 }

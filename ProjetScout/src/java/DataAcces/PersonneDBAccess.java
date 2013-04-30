@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Anime;
 import model.LegalResp;
+import model.Localite;
 
 import model.Personne;
 
@@ -53,11 +54,13 @@ public class PersonneDBAccess {
             if(p.getType().equals("Animé"))
             {   
                 Date birthDate = new Date(p.getBirth().getTimeInMillis());
-                JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE" + p.getLegal().getId(),"error",JOptionPane.PLAIN_MESSAGE);
+                
                 instructionUpdate = "update PERSONNE set IDRESP = ?,DATENAISSANCE = ?  where numId = '"+p.getId()+"'";
                 prepStat = BDConnection.prepareStatement(instructionUpdate);
-                
-                prepStat.setString(1,p.getLegal().getId());
+                if(p.getLegal()!=null)
+                    prepStat.setString(1,p.getLegal().getId());
+                else
+                    prepStat.setString(1,null);
                 prepStat.setDate(2, birthDate);
                 prepStat.executeUpdate();
             }
@@ -131,6 +134,32 @@ public class PersonneDBAccess {
         }
     }
     
+   public void modPers(Personne p){
+       Date birthDate;
+       try{
+           Connection BDConnection = SingletonConnection.getUniqueInstance();
+           String updateInstruction = "UPDATE PERSONNE SET NOM = ?, PRENOM = ?, DATENAISSANCE = ?, POSTALCODELOC = ?, "
+                   + "LIBELLELOC = ?, RUE = ? , NUM = ? , NUMBOITE = ?  "
+                   + "where NUMID = ? ";
+           PreparedStatement prepStat = BDConnection.prepareStatement(updateInstruction);
+           birthDate = new Date(p.getBirth().getTimeInMillis());
+           prepStat.setString(1,p.getName());
+           prepStat.setString(2,p.getFiName());
+           prepStat.setDate(3,birthDate);
+           prepStat.setInt(4,p.getLoc().getPCode());
+           prepStat.setString(5,p.getLoc().getLib());
+           prepStat.setString(6,p.getStreet());
+           prepStat.setString(7,p.getHouse());           
+           prepStat.setString(8,p.getBox());
+           prepStat.setString(9, p.getId());
+           
+           prepStat.executeUpdate();
+           
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+       }
+   }
     
    /* public ArrayList<LegalPers> getResponsable () throws ConnectionException
     {

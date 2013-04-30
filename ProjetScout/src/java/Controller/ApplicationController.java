@@ -35,7 +35,9 @@ public class ApplicationController {
         
     }
     
-    
+    public void modPers(Personne p){
+        pm.modPers(p);
+    }
     
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
     {

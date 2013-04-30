@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import model.Anime;
+import model.Chief;
 import model.Localite;
 import model.Personne;
 import model.Registration;
@@ -22,8 +24,8 @@ public class RegistrationDBAccess {
     {
         ArrayList<Registration> regList = new ArrayList<Registration>();
         String libUnit, libSect,id,etat;
-        String idPers,name,fiName,street,house,box,tel=null,mail=null,idLegal,nameLegal=null,fiNameLegal=null;
-        Personne pers = r.getPers();
+        String idPers,tel=null,mail=null,idLegal,nameLegal=null,fiNameLegal=null;
+        Personne pers = r.getPers(),p;
         
         Boolean colis;
         Date creation,creaDate = new Date(r.getCrea().getTimeInMillis());
@@ -54,39 +56,36 @@ public class RegistrationDBAccess {
             
             while(data.next())
             {
-                idLegal="";
                 
+                
+                // Information de la table DEMANDEINSCRIPT
                 libUnit = data.getString("LIBELLEUNITE");
                 libSect = data.getString("LIBELLESECTION");
                 id = data.getString("IDDEM");
                 etat = data.getString("ETAT");
                 colis = data.getBoolean("ENVOISCOLIS");
                 creation = data.getDate("DATECREA");
-                
-                name = data.getString("NOM");
-                fiName = data.getString("PRENOM");
                 idPers = data.getString("NUMID");
-                street = data.getString("RUE");
-                house = data.getString("NUM");
-                box = data.getString("NUMBOITE");
-                if(data.getString("IDRESP")!=null)
-                {
-                    idLegal = data.getString("IDRESP");
-                }
                 
-               
+                if(data.getString("IDRESP")==null)
+                    idLegal="";
+                else
+                    idLegal =data.getString("IDRESP");
                 
-                String libLoc = data.getString("LIBELLE");
-                Integer pCode = data.getInt("POSTALCODE");
+                if(data.getString("TYPEPERS").equals("Animé"))
+                    p = new Anime(idPers);
+                else if (data.getString("TYPEPERS").equals("Chef"))
+                    p = new Chief(idPers);
+                else
+                    throw new Exception();
                 
-                
-                
-                Localite loc = new Localite(libLoc,pCode);
-                Personne p = new Personne(name,fiName,street,house,null);
-                if(!(idLegal.equals("")))
-                {
-                    Personne legalResp = new Personne(idLegal);  
-                    String schLegalInstruction = "SELECT legal.nom,legal.prenom from PERSONNE legal "
+                 if(!idLegal.equals("")){
+                     // Si la valeur IDRESP est garni (donc scout mineur) on récupère le nom,prénom,tel et mail du RL.
+                    idLegal = data.getString("IDRESP");                
+                    Personne legalResp = new Personne(idLegal);                     
+                    p.setLegalPers(legalResp);
+                    
+                    String schLegalInstruction = "SELECT * from PERSONNE legal "
                             + "where legal.NUMID=? ";
                     prepStat = BDConnection.prepareStatement(schLegalInstruction);
                     prepStat.setString(1,idLegal);
@@ -97,26 +96,43 @@ public class RegistrationDBAccess {
                         
                         nameLegal = dataOpt.getString("NOM");
                         fiNameLegal = dataOpt.getString("PRENOM");
+                        
+                        p.setTel(dataOpt.getString("GSM"));
+                        p.setMail(dataOpt.getString("EMAIL"));
                     }
                     
                     legalResp.setName(nameLegal);
                     legalResp.setFiName(fiNameLegal);
-                    p.setLegalPers(legalResp);
+                    
+                    
                 }
+                 else{
+                     //Sinon on récupère le Tel et le mail de la personne "initiales"
+                       p.setTel(data.getString("GSM"));
+                       p.setMail(data.getString("EMAIL"));
+                 }
+                                
+                // Information sur le demandeur
+                p.setName(data.getString("NOM"));                
+                p.setFiName(data.getString("PRENOM"));                 
+                p.setStreet(data.getString("RUE"));                
+                p.setHouse(data.getString("NUM"));                
+                p.setBox (data.getString("NUMBOITE"));
+                p.setBirth(data.getDate("DATENAISSANCE"));
                 
+                
+                String libLoc = data.getString("LIBELLE");
+                Integer pCode = data.getInt("POSTALCODE");                
+                Localite loc = new Localite(libLoc,pCode);
                 p.setLoc(loc);
-                p.setId(idPers);
+                
                 
                 Registration reg = new Registration(libUnit,libSect,p);                
                 reg.setId(id);
                 reg.setState(etat);
                 reg.setColis(colis);
                 reg.setCrea(creaDate);
-                
-                
                 regList.add(reg);
-                
-                
             }
         }
         catch(Exception e)

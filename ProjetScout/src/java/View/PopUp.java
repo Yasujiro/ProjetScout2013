@@ -16,7 +16,7 @@ public class PopUp extends javax.swing.JFrame {
         initComponents();
         content.setBounds(this.getBounds());
         this.add(content);
-        this.setSize(500, 400);
+        this.setSize(500, 450);
         this.setDefaultCloseOperation(1);
         
         content.setVisible(true);

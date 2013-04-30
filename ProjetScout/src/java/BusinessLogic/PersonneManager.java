@@ -80,4 +80,15 @@ public class PersonneManager {
         
         
     }
+    
+    public void modPers(Personne p){
+        PersonneDBAccess dba = new PersonneDBAccess();
+        
+        try{
+            dba.modPers(p);
+        }
+        catch(Exception e){
+            
+        }
+    }
 }

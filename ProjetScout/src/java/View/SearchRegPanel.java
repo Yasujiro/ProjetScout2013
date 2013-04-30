@@ -57,6 +57,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
         
         buttVali.addActionListener(buttListener);
         buttModReg.addActionListener(buttListener);
+        buttModPers.addActionListener(buttListener);
         
         
         JComponent editor = new JSpinner.DateEditor(spinDate, "dd/MM/yyyy");
@@ -149,10 +150,15 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				    }
 				}
             }
+            if(ae.getSource()==buttModReg ||ae.getSource()== buttModPers || ae.getSource()== buttModLegal){
+                 if(resultTable.getSelectedRow() >= 0)
+                    selectedReg = tableModel.getSelectedReg(resultTable.getSelectedRow());  
+                 else
+                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner une demande","error",JOptionPane.PLAIN_MESSAGE);
+            }
             if(ae.getSource()==buttModReg)
             {
-                if(resultTable.getSelectedRow() != -1){
-                    selectedReg = tableModel.getSelectedReg(resultTable.getSelectedRow());                
+                if(selectedReg!=null){
                     ModRegPanel modReg = new ModRegPanel(selectedReg);
                     if(popUpFrame == null)
                     {
@@ -166,8 +172,25 @@ public class SearchRegPanel extends javax.swing.JPanel {
                     popUpFrame.setLocation(200,150);
                     popUpFrame.setVisible(true);
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner une demande","error",JOptionPane.PLAIN_MESSAGE);
+                
+            }
+            if(ae.getSource()==buttModPers){
+                if(selectedReg!=null){
+                    ModPersPanel modPers = new ModPersPanel(selectedReg.getPers());
+                    
+                    if(popUpFrame == null)
+                    {
+                        popUpFrame = new PopUp(modPers);
+                        popUpFrame.setResizable(false);
+                    }
+                    else
+                        popUpFrame.setContentPane(modPers);
+                    modPers.setParents(popUpFrame);
+                    popUpFrame.setLocation(200,150);
+                    popUpFrame.setVisible(true);
+                    
+                    
+                }
                 
             }
         }

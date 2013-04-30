@@ -41,16 +41,20 @@ public class ModRegPanel extends javax.swing.JPanel {
         
         buttValid.addActionListener(buttList);
         buttCancel.addActionListener(buttList);
-        comboUnit.setSelectedItem(reg.getSect().getUnit());
-        comboSect.setSelectedItem(reg.getSect().getLib());
-        radButtColis.setSelected(reg.getColis());
-        comboState.setSelectedItem(reg.getState());
+        setInitValues(reg);
         
     }
 
     public void setParents(JFrame frame)
     {
         parents = frame;
+    }
+    public void setInitValues(Registration reg){
+        int i;
+            
+        comboSect.setSelectedItem(reg.getSect().getLib());
+        radButtColis.setSelected(reg.getColis());
+        comboState.setSelectedItem(reg.getState());
     }
     
     private class ButtonListener implements ActionListener
