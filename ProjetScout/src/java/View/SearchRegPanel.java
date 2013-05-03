@@ -58,6 +58,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
         buttVali.addActionListener(buttListener);
         buttModReg.addActionListener(buttListener);
         buttModPers.addActionListener(buttListener);
+        buttModLegal.addActionListener(buttListener);
         
         
         JComponent editor = new JSpinner.DateEditor(spinDate, "dd/MM/yyyy");
@@ -191,8 +192,27 @@ public class SearchRegPanel extends javax.swing.JPanel {
                     
                     
                 }
-                
             }
+            if(ae.getSource()==buttModLegal){
+                
+                if(selectedReg.getPers().getLegal()!=null){
+                ModLegalPanel modLegal = new ModLegalPanel(selectedReg.getPers().getLegal());
+                        
+                    if(popUpFrame == null)
+                            {
+                                popUpFrame = new PopUp(modLegal);
+                                popUpFrame.setResizable(false);
+                            }
+                            else
+                                popUpFrame.setContentPane(modLegal);
+                            modLegal.setParents(popUpFrame);
+                            popUpFrame.setLocation(200,150);
+                            popUpFrame.setVisible(true);
+            }
+                else{
+                    JOptionPane.showMessageDialog(null, "Cette demande concerne une personne majeure /n Il n'y a donc pas de responsable légal","error",JOptionPane.PLAIN_MESSAGE);
+                }
+           }
         }
         
     }

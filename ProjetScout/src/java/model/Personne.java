@@ -19,7 +19,7 @@ public class Personne {
     public Personne(String id)
     {
         id_Personne = id;
-        birthDate = Calendar.getInstance();
+        birthDate = null;
     }
     public Personne(String n,String fiN)
     {
@@ -148,6 +148,9 @@ public class Personne {
     }
     
     public void setBirth(Date d){
+        
+        if(this.birthDate==null)
+            this.birthDate=Calendar.getInstance();
         this.birthDate.setTime(d);
     }
    

@@ -62,7 +62,7 @@ public class ModPersPanel extends javax.swing.JPanel {
         fieldBox.setText(p.getBox());
         spinBirth.setValue(new Date(p.getBirth().getTimeInMillis()));
         fieldPostalCode.setText(pCode);
-        postalCode = Integer.parseInt(fieldPostalCode.getText());
+        postalCode = p.getLoc().getPCode();
         fieldTel.setText(p.getTel());
         fieldMail.setText(p.getMail());
         
@@ -99,26 +99,20 @@ public class ModPersPanel extends javax.swing.JPanel {
         
         
     }
-    public void changePersValues(Personne p){
-        
-        
-        
-        p.setBirth((Date)spinBirth.getValue());
-        p.setName(fieldName.getText());
-        p.setFiName(fieldFiName.getText());
-        p.setStreet(fieldStreet.getText());
-        p.setBox(fieldBox.getText());
-        p.setHouse(fieldNum.getText());
-        p.setLoc((Localite)comboLoc.getSelectedItem());
-        
-    }
+   
     private class ButtonListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()== buttVali){
                 
-                changePersValues(mPers);
+                mPers.setBirth((Date)spinBirth.getValue());
+                mPers.setName(fieldName.getText());
+                mPers.setFiName(fieldFiName.getText());
+                mPers.setStreet(fieldStreet.getText());
+                mPers.setBox(fieldBox.getText());
+                mPers.setHouse(fieldNum.getText());
+                mPers.setLoc((Localite)comboLoc.getSelectedItem());
                 app.modPers(mPers);
                 parents.dispose();
             }

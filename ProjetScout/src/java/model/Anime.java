@@ -26,7 +26,7 @@ public class Anime extends Personne {
     
     public String getTel(){
         if(legal!=null)
-            return legal.getTel();
+            return "";
         else
             return super.getTel();
     }
@@ -34,7 +34,7 @@ public class Anime extends Personne {
     public String getMail()
     {
         if(legal!=null)
-            return legal.getMail();
+            return "";
         else
             return super.getMail();
     }

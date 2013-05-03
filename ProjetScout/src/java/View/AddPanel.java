@@ -96,7 +96,7 @@ public class AddPanel extends javax.swing.JPanel {
                 comboLoc.removeAllItems();
                 comboLoc.addItem("Sélectionner une localité");
                 comboLegal.setSelectedIndex(0);
-                fieldPostalCode.setText(null);
+                fieldPostalCode.setText("");
                 comboUnit.setSelectedIndex(0);
                 comboLegal.setSelectedItem(0);
                 fieldName.setText(null);
@@ -118,6 +118,9 @@ public class AddPanel extends javax.swing.JPanel {
            {
                 if(ie.getItem().equals("Chef"))
                 {
+                         comboLegal.setSelectedIndex(0);
+                         comboLegal.setEnabled(false);
+                         buttAddLegal.setEnabled(false);
                          fieldTel.setEnabled(true);
                          fieldMail.setEnabled(true);
                          labPhone.setForeground(Color.black);
@@ -221,7 +224,7 @@ public class AddPanel extends javax.swing.JPanel {
                 ArrayList<Localite> listLoca=null;
                 Integer postalCode = null;
                 
-                if(!fieldPostalCode.equals(""))
+                if(!fieldPostalCode.getText().equals(""))
                 {
                     try{
                          postalCode = Integer.parseInt(fieldPostalCode.getText());

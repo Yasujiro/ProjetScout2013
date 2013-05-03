@@ -135,14 +135,15 @@ public class PersonneDBAccess {
     }
     
    public void modPers(Personne p){
-       Date birthDate;
+       Date birthDate=null;
        try{
            Connection BDConnection = SingletonConnection.getUniqueInstance();
            String updateInstruction = "UPDATE PERSONNE SET NOM = ?, PRENOM = ?, DATENAISSANCE = ?, POSTALCODELOC = ?, "
-                   + "LIBELLELOC = ?, RUE = ? , NUM = ? , NUMBOITE = ?  "
+                   + "LIBELLELOC = ?, RUE = ? , NUM = ? , NUMBOITE = ?, GSM = ?,EMAIL = ?  "
                    + "where NUMID = ? ";
            PreparedStatement prepStat = BDConnection.prepareStatement(updateInstruction);
-           birthDate = new Date(p.getBirth().getTimeInMillis());
+           if(p.getBirth()!=null)
+                birthDate = new Date(p.getBirth().getTimeInMillis());
            prepStat.setString(1,p.getName());
            prepStat.setString(2,p.getFiName());
            prepStat.setDate(3,birthDate);
@@ -152,6 +153,8 @@ public class PersonneDBAccess {
            prepStat.setString(7,p.getHouse());           
            prepStat.setString(8,p.getBox());
            prepStat.setString(9, p.getId());
+           prepStat.setString(10,p.getTel());
+           prepStat.setString(11,p.getMail());
            
            prepStat.executeUpdate();
            

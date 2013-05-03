@@ -72,6 +72,7 @@ public class RegistrationDBAccess {
                 else
                     idLegal =data.getString("IDRESP");
                 
+                
                 if(data.getString("TYPEPERS").equals("Animé"))
                     p = new Anime(idPers);
                 else if (data.getString("TYPEPERS").equals("Chef"))
@@ -79,9 +80,13 @@ public class RegistrationDBAccess {
                 else
                     throw new Exception();
                 
+                
+                
+                
                  if(!idLegal.equals("")){
-                     // Si la valeur IDRESP est garni (donc scout mineur) on récupère le nom,prénom,tel et mail du RL.
-                    idLegal = data.getString("IDRESP");                
+                     // Si la valeur IDRESP est garni (donc scout mineur) on récupère les info du RL.
+                    idLegal = data.getString("IDRESP");  
+                    // Création et "garniture" de l'objet "Responsable Légal
                     Personne legalResp = new Personne(idLegal);                     
                     p.setLegalPers(legalResp);
                     
@@ -94,15 +99,22 @@ public class RegistrationDBAccess {
                     while(dataOpt.next())
                     {
                         
-                        nameLegal = dataOpt.getString("NOM");
-                        fiNameLegal = dataOpt.getString("PRENOM");
                         
-                        p.setTel(dataOpt.getString("GSM"));
-                        p.setMail(dataOpt.getString("EMAIL"));
+                        String libLoc = dataOpt.getString("LIBELLELOC");
+                        Integer pCode = dataOpt.getInt("POSTALCODELOC");
+                        legalResp.setStreet(dataOpt.getString("RUE"));
+                        legalResp.setHouse(dataOpt.getString("NUM"));
+                        legalResp.setBox(dataOpt.getString("NUMBOITE"));
+                        legalResp.setTel(dataOpt.getString("GSM"));
+                        legalResp.setMail(dataOpt.getString("EMAIL"));
+                        legalResp.setName(dataOpt.getString("NOM"));
+                        legalResp.setFiName(dataOpt.getString("PRENOM"));
+                        Localite loc = new Localite (libLoc,pCode);
+                        legalResp.setLoc(loc);
+                        
                     }
                     
-                    legalResp.setName(nameLegal);
-                    legalResp.setFiName(fiNameLegal);
+                    
                     
                     
                 }
