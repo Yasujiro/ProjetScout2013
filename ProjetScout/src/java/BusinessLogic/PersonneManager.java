@@ -91,4 +91,29 @@ public class PersonneManager {
             
         }
     }
+    
+    public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc){
+        PersonneDBAccess dba = new PersonneDBAccess();
+        Personne persSought;
+        if(name.equals(""))
+            name ="%";
+        if(fiName.equals(""))
+            fiName="%";
+        if(loc.getLib().equals(""))
+            loc.setLib("%");
+        if(loc.getPCode()==null){
+            loc.setPCode(9999);
+        }
+        if(type.equals("Chef"))
+            persSought = new Chief(name,fiName); 
+        
+        else if (type.equals("Animé"))
+            persSought = new Anime(name,fiName);
+        else if (type.equals("Responsable légal"))
+            persSought = new LegalResp(name,fiName);
+        else
+            persSought = new Personne (name,fiName);
+        persSought.setLoc(loc);
+        return dba.getPers(persSought);
+    }
 }

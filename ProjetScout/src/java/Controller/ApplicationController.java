@@ -39,6 +39,10 @@ public class ApplicationController {
         pm.modPers(p);
     }
     
+    public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc){
+        return pm.getPers(type,name,fiName,loc);
+    }
+    
     public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
     {
         return lm.getLocalite(pCode);

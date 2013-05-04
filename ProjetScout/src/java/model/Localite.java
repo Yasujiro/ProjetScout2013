@@ -16,6 +16,14 @@ public class Localite {
         postalCode = pCode;
     }
     
+    
+    public void setLib(String l){
+        libelle = l;
+    }
+    public void setPCode(Integer pCode){
+        postalCode = pCode;
+    }
+    
     public String getLib()
     {
         return this.libelle;

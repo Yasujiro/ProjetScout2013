@@ -12,18 +12,20 @@ import java.util.Calendar;
  */
 public class Chief extends Personne {
     
-    private String telNum;
-    private String email;
+    
     
     public Chief(String id)
     {
         super(id);
     }
+    public Chief(String name, String fiName){
+        super(name,fiName);
+    }
     public Chief(String name,String fiName,String street,String house,Calendar birth,String tel,String mail)
     {
         super(name,fiName,street,house,birth);
-        telNum = tel;
-        email = mail;
+        super.setTel(tel);
+        super.setMail(mail);
     }
     
     public String getType()

@@ -61,7 +61,7 @@ public class Personne {
     }
     public String getType()
     {
-        return "";
+        return "Inconnu";
     }    
     public Calendar getBirth()
     {
@@ -83,6 +83,9 @@ public class Personne {
     }
     public String getBox()
     {
+        /*if(this.numBox.equals(""))
+            return "";
+        else*/
         return this.numBox;
     }
     
@@ -105,6 +108,8 @@ public class Personne {
     {
         this.id_Personne = uId;
     }
+    
+
     
     
     public void setMail(String mail)

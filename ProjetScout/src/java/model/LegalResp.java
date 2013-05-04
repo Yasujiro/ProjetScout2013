@@ -18,6 +18,12 @@ public class LegalResp extends Personne {
         super.setTel(tel);
         super.setMail(mail);
     }
+    public LegalResp(String name, String fiName){
+        super(name,fiName);
+    }
+    public LegalResp(String id){
+        super(id);
+    }
     
     public String getType()
     {

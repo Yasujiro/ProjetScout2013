@@ -18,6 +18,9 @@ public class Anime extends Personne {
     {
         super(id);
     }
+    public Anime(String name,String fiName){
+        super(name,fiName);
+    }
     public Anime(String n,String fiN,String street,String house, Calendar bDate,Personne legalResp )
     {
         super(n,fiN,street,house,bDate);
