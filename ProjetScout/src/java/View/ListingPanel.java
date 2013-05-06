@@ -4,17 +4,62 @@
  */
 package View;
 
-/**
- *
- * @author Jérémy
- */
+import Controller.ApplicationController;
+import java.util.ArrayList;
+import javax.swing.table.TableColumn;
+import model.Registration;
+import model.SearchRegModel;
+
 public class ListingPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ListingPanel
-     */
+    private ApplicationController app;
+    private SearchRegModel tableModel;
+    private ArrayList<Registration> listReg;
     public ListingPanel() {
         initComponents();
+        app = new ApplicationController();
+        try{
+            listReg = app.getReg(null);
+            tableModel = new SearchRegModel(listReg);
+            tableResult.setModel(tableModel);
+             TableColumn column = null;
+				for (int i = 0; i < 4; i++) {
+				    column = tableResult.getColumnModel().getColumn(i);
+				    switch (i) 
+				    {	//Unité
+				    	case 0 : column.setPreferredWidth(20);                                                 
+				    		break;
+				    	//Section
+				    	case 1 : column.setPreferredWidth(20);
+			    			break;	
+				    	//Etat	
+				    	case 2 : column.setPreferredWidth(20);
+				    		break;
+				    	//Date Création	
+				    	case 3 : column.setPreferredWidth(20); 
+				    		break;
+                                        //Demandeur
+                                        case 4 : column.setPreferredWidth(100);
+				    		break;
+                                        // Responsable
+                                        case 5: column.setPreferredWidth(100);
+                                            break;
+                                        //Adresse
+                                        case 6:column.setPreferredWidth(400);
+                                            break;
+                                        case 7: column.setPreferredWidth(20);
+                                            break;
+                                        default :
+                                            column.setPreferredWidth(20);
+                                            break;                                            
+				    }
+				}
+        }
+        catch(Exception e){
+            
+        }
+        
+        
     }
 
     /**
@@ -27,11 +72,11 @@ public class ListingPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListingTable = new javax.swing.JTable();
+        tableResult = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(700, 500));
 
-        jScrollPane1.setViewportView(ListingTable);
+        jScrollPane1.setViewportView(tableResult);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -39,19 +84,19 @@ public class ListingPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ListingTable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableResult;
     // End of variables declaration//GEN-END:variables
 }

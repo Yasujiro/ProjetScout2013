@@ -117,7 +117,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 resultTable.setModel(tableModel);
                 
                 
-                //resultTable.setSize(900,resultTable.getHeight());
+                
                 TableColumn column = null;
 				for (int i = 0; i < 4; i++) {
 				    column = resultTable.getColumnModel().getColumn(i);
@@ -210,7 +210,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
                             popUpFrame.setVisible(true);
             }
                 else{
-                    JOptionPane.showMessageDialog(null, "Cette demande concerne une personne majeure /n Il n'y a donc pas de responsable légal","error",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cette demande concerne une personne majeure. Il n'y a donc pas de responsable légal","error",JOptionPane.PLAIN_MESSAGE);
                 }
            }
         }

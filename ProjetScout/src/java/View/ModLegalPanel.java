@@ -55,6 +55,8 @@ public class ModLegalPanel extends javax.swing.JPanel {
             for(Localite var: listLoc)
                     {
                         comboLoc.addItem(var);
+                        if(var.getLib().equals(modLegal.getLoc().getLib()))
+                            comboLoc.setSelectedItem(var);
                     }                    
         }
         catch(Exception e){}

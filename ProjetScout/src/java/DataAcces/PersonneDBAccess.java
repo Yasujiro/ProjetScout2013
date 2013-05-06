@@ -25,10 +25,15 @@ public class PersonneDBAccess {
             Connection BDConnection = SingletonConnection.getUniqueInstance();
             String instructionAddPers;
             String instructionUpdate;
+            Date birthDate=null;
+            if(p.getBirth()!=null)
+              birthDate = new Date(p.getBirth().getTimeInMillis());
             
             
            
-            instructionAddPers = "INSERT INTO PERSONNE(NUMID,NOM,PRENOM,TYPEPERS,POSTALCODELOC,LIBELLELOC,RUE,NUM)VALUES (?,?,?,?,?,?,?,?)";
+            instructionAddPers = "INSERT INTO PERSONNE(NUMID,NOM,PRENOM,TYPEPERS,POSTALCODELOC,LIBELLELOC,"
+                    + "RUE,NUM,GSM,EMAIL,DATENAISSANCE,NUMBOITE,IDRESP) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement prepStat = BDConnection.prepareStatement(instructionAddPers);
             
             
@@ -39,51 +44,21 @@ public class PersonneDBAccess {
             prepStat.setInt(5,p.getLoc().getPCode());
             prepStat.setString(6,p.getLoc().getLib());
             prepStat.setString(7,p.getStreet());
-            prepStat.setString(8,p.getHouse());          
+            prepStat.setString(8,p.getHouse());
+            prepStat.setString(9,p.getTel());
+            prepStat.setString(10,p.getMail());
+            prepStat.setDate(11,birthDate);
+            prepStat.setString(12,p.getBox());
+            if(p.getLegal()!=null)
+                prepStat.setString(13,p.getLegal().getId());
+            else
+                prepStat.setString(13,null);
             
+                    
             prepStat.executeUpdate();
             
-            if(p.getBox()!=null)
-            {
-                instructionUpdate = "update Personne set NUMBOITE = ? where numId ='"+p.getId()+"'";
-                prepStat = BDConnection.prepareStatement(instructionUpdate);
-                prepStat.setString(1,p.getBox());
-                prepStat.executeUpdate();
-            }
             
-            
-            if(p.getType().equals("Animé"))
-            {   
-                Date birthDate = new Date(p.getBirth().getTimeInMillis());
-                
-                instructionUpdate = "update PERSONNE set IDRESP = ?,DATENAISSANCE = ?  where numId = '"+p.getId()+"'";
-                prepStat = BDConnection.prepareStatement(instructionUpdate);
-                if(p.getLegal()!=null)
-                    prepStat.setString(1,p.getLegal().getId());
-                else
-                    prepStat.setString(1,null);
-                prepStat.setDate(2, birthDate);
-                prepStat.executeUpdate();
-            }
-            else
-            {
-                instructionUpdate = "update PERSONNE set GSM = ?, EMAIL = ? where numID ='"+p.getId()+"'";
-                prepStat = BDConnection.prepareStatement(instructionUpdate);
-                
-                prepStat.setString(1,p.getTel());
-                prepStat.setString(2,p.getMail());
-                prepStat.executeUpdate();
-               
-                if(p.getType().equals("Chef"))
-                {
-                    Date birthDate = new Date(p.getBirth().getTimeInMillis());
-                    instructionUpdate = "update PERSONNE set DATENAISSANCE = ? where numId = '"+p.getId()+"'";
-                    prepStat = BDConnection.prepareStatement(instructionUpdate);
-                    
-                    prepStat.setDate(1,birthDate);
-                    prepStat.executeUpdate();
-                }
-            }
+           
             
         }
         catch(Exception e)
@@ -244,37 +219,5 @@ public class PersonneDBAccess {
        }
    }
     
-   /* public ArrayList<LegalPers> getResponsable () throws ConnectionException
-    {
-        
-        ArrayList<LegalPers> searchLegal = new ArrayList<LegalPers>();
-        try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
-            
-            String instructionSearchLegal = "";// Commande SQL a excecuter.
-            PreparedStatement prepStat = BDConnection.prepareStatement(instructionSearchLegal);
-            ResultSet data = prepStat.executeQuery();
-            
-            while(data.next())
-            {
-                // Récupération des données et/ou objet.
-                
-                // Création d'un objet LegalPers;
-                // Ajout dans la liste du nouvel objet.
-                
-            }
-        }
-        catch(SQLException e)
-        {
-            // Liste d'erreur;
-        }           
-            
-           return searchLegal;
-        
-    }*/
-    
-    
-    
-    
-    
+  
 }

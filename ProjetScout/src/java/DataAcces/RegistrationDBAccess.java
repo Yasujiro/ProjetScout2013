@@ -24,22 +24,24 @@ public class RegistrationDBAccess {
     {
         ArrayList<Registration> regList = new ArrayList<Registration>();
         String libUnit, libSect,id,etat;
-        String idPers,tel=null,mail=null,idLegal,nameLegal=null,fiNameLegal=null;
-        Personne pers = r.getPers(),p;
+        String idPers,idLegal;
+        Personne p;
         
         Boolean colis;
-        Date creation,creaDate = new Date(r.getCrea().getTimeInMillis());
+        
         try{
             Connection BDConnection = SingletonConnection.getUniqueInstance();
-            
-            PreparedStatement prepStat =null; 
-            
-                String schInstruction ="Select dem.*,p.*,loc.* "
+            String schInstruction ="Select * "
                         + "from DEMANDEINSCRIPT dem "                        
                         + "join PERSONNE p on (dem.NUMID = p.NUMID )" 
-                        + "join LOCALITES loc on(loc.LIBELLE = p.LIBELLELOC and loc.POSTALCODE= p.POSTALCODELOC) "
-                        + "and  dem.ETAT = ? and dem.ENVOISCOLIS = ? and dem.DATECREA = ? and dem.LIBELLEUNITE like ? and dem.LIBELLESECTION like ? "
-                        +"and p.NOM like ? and p.PRENOM like ?" ;
+                        + "join LOCALITES loc on(loc.LIBELLE = p.LIBELLELOC and loc.POSTALCODE= p.POSTALCODELOC) ";
+            PreparedStatement prepStat =null; 
+            if(r !=null){
+                Date creaDate = new Date(r.getCrea().getTimeInMillis());
+                schInstruction += "and  dem.ETAT = ? and dem.ENVOISCOLIS = ? and dem.DATECREA = ? and "
+                                + "dem.LIBELLEUNITE like ? and dem.LIBELLESECTION like ? "
+                                + "and p.NOM like ? and p.PRENOM like ?"
+                                + "ORDER BY LIBELLEUNITE asc, LIBELLESECTIOn asc " ;
                 prepStat = BDConnection.prepareStatement(schInstruction);
                 prepStat.setString(1,r.getState());
                 prepStat.setBoolean(2, r.getColis());
@@ -48,14 +50,18 @@ public class RegistrationDBAccess {
                 prepStat.setString(5,r.getSect().getLib());
                 prepStat.setString(6,r.getPers().getName());
                 prepStat.setString(7,r.getPers().getFiName());
+            }
+            else{
+                schInstruction += "ORDER BY LIBELLEUNITE asc, LIBELLESECTIOn asc " ;
+                prepStat = BDConnection.prepareStatement(schInstruction);
+                  }
                 
             
             
               ResultSet data = prepStat.executeQuery();
             
             
-            while(data.next())
-            {
+            while(data.next()){
                 
                 
                 // Information de la table DEMANDEINSCRIPT
@@ -63,8 +69,7 @@ public class RegistrationDBAccess {
                 libSect = data.getString("LIBELLESECTION");
                 id = data.getString("IDDEM");
                 etat = data.getString("ETAT");
-                colis = data.getBoolean("ENVOISCOLIS");
-                creation = data.getDate("DATECREA");
+                colis = data.getBoolean("ENVOISCOLIS");                
                 idPers = data.getString("NUMID");
                 
                 if(data.getString("IDRESP")==null)
@@ -112,11 +117,7 @@ public class RegistrationDBAccess {
                         Localite loc = new Localite (libLoc,pCode);
                         legalResp.setLoc(loc);
                         
-                    }
-                    
-                    
-                    
-                    
+                    }  
                 }
                  else{
                      //Sinon on récupère le Tel et le mail de la personne "initiales"
@@ -143,7 +144,7 @@ public class RegistrationDBAccess {
                 reg.setId(id);
                 reg.setState(etat);
                 reg.setColis(colis);
-                reg.setCrea(creaDate);
+                reg.setCrea(data.getDate("DATECREA"));
                 regList.add(reg);
             }
         }

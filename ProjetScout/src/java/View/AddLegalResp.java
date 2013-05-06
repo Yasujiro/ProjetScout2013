@@ -129,7 +129,7 @@ public class AddLegalResp extends javax.swing.JPanel {
             {
                 p = app.addPersonne("Responsable légal",fieldName.getText(),fieldFiName.getText(),null,null,
                         fieldStreet.getText(),fieldNum.getText(),fieldBox.getText(),
-                        (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText());
+                        (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),null);
                 
                 if(parents!=null)
                 {

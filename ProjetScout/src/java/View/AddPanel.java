@@ -103,7 +103,7 @@ public class AddPanel extends javax.swing.JPanel {
                 fieldFiName.setText(null);
                 fieldTel.setText(null);
                 fieldMail.setText(null);
-                totemField.setText(null);
+                fieldTotem.setText(null);
                 fieldStreet.setText(null);
                 fieldNum.setText(null);
     }
@@ -172,7 +172,7 @@ public class AddPanel extends javax.swing.JPanel {
                 
                 Personne pers = app.addPersonne((String)comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
                         (Date)spinDate.getValue(),legalResp,fieldStreet.getText(),fieldNum.getText(),
-                        fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText());
+                        fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),fieldTotem.getText());
                 
                 
                    app.addRegistration(comboUnit.getSelectedItem().toString(),section,pers);
@@ -297,12 +297,20 @@ public class AddPanel extends javax.swing.JPanel {
                         buttAddLegal.setEnabled(false);
                         comboLegal.setEnabled(false);
                         labLegal.setForeground(Color.GRAY);
+                        fieldTel.setEnabled(true);
+                        fieldMail.setEnabled(true);
+                        labMail.setForeground(Color.BLACK);
+                        labPhone.setForeground(Color.BLACK);
                     }
                     else
                     {
                         buttAddLegal.setEnabled(true);
                         comboLegal.setEnabled(true);
                         labLegal.setForeground(Color.BLACK);
+                        fieldTel.setEnabled(false);
+                        fieldMail.setEnabled(false);
+                        labMail.setForeground(Color.gray);
+                        labPhone.setForeground(Color.gray);
                     }
                }
                 
@@ -351,7 +359,7 @@ public class AddPanel extends javax.swing.JPanel {
         labMail = new javax.swing.JLabel();
         fieldMail = new javax.swing.JTextField();
         labTotem = new javax.swing.JLabel();
-        totemField = new javax.swing.JTextField();
+        fieldTotem = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         buttAddLegal = new javax.swing.JButton();
         buttValidate = new javax.swing.JButton();
@@ -496,7 +504,7 @@ public class AddPanel extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(labTotem)
                                             .addGap(18, 18, 18)
-                                            .addComponent(totemField))
+                                            .addComponent(fieldTotem))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(labName)
                                             .addGap(26, 26, 26)
@@ -536,7 +544,7 @@ public class AddPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labTotem)
-                    .addComponent(totemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldTotem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -591,6 +599,7 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JTextField fieldPostalCode;
     private javax.swing.JTextField fieldStreet;
     private javax.swing.JTextField fieldTel;
+    private javax.swing.JTextField fieldTotem;
     private javax.swing.ButtonGroup groupSect;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -613,7 +622,6 @@ public class AddPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton sect3Radio;
     private javax.swing.JRadioButton sect4Radio;
     private javax.swing.JSpinner spinDate;
-    private javax.swing.JTextField totemField;
     // End of variables declaration//GEN-END:variables
    
 }

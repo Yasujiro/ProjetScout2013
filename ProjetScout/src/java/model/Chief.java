@@ -12,7 +12,7 @@ import java.util.Calendar;
  */
 public class Chief extends Personne {
     
-    
+    private String totem;
     
     public Chief(String id)
     {
@@ -31,5 +31,12 @@ public class Chief extends Personne {
     public String getType()
     {
         return "Chef";
+    }
+    public String getTotem(){
+        return this.totem;
+    }
+    
+    public void setTotem(String t){
+        this.totem = t;
     }
 }

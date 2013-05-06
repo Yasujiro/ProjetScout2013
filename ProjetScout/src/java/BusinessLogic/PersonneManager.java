@@ -20,7 +20,7 @@ import model.Personne;
 public class PersonneManager {
     
     
-    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalResp,String street,String num,String box,Localite loc,String tel,String mail)
+    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalResp,String street,String num,String box,Localite loc,String tel,String mail,String totem)
     {
         PersonneDBAccess dba = new PersonneDBAccess();
         Personne pers;
@@ -37,7 +37,8 @@ public class PersonneManager {
         if(type.equals("Animé"))
         {
             pers = new Anime(name,fiName,street,num,birthDate,legalResp);
-            
+            pers.setTel(tel);
+            pers.setMail(mail);
         }
         else if(type.equals("Chef"))
         {
@@ -48,17 +49,16 @@ public class PersonneManager {
             pers = new LegalResp(name,fiName,street,num,tel,mail);
             
         }
-        else
-        {            
+        else            
             pers=null;
-            
-        }
+        
         if(!box.equals(""))
         {
             pers.setBox(box);
         }
         pers.setId(idPers);
         pers.setLoc(loc);
+        pers.setTotem(totem);
         dba.addPersonne(pers);
         
         return pers;

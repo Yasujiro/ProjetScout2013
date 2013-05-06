@@ -23,9 +23,9 @@ public class ApplicationController {
     private RegistrationManager rm = new RegistrationManager();
     private PersonneManager pm = new PersonneManager();
 
-    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,String street,String num,String box, Localite loc,String tel,String mail)
+    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,String street,String num,String box,Localite loc,String tel,String mail,String totem)
     {
-        return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail);
+        return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail,totem);
     }
     
     

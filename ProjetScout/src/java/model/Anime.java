@@ -13,6 +13,7 @@ public class Anime extends Personne {
     
    
     private Personne legal;
+    private String totem;
     
     public Anime(String id)
     {
@@ -29,7 +30,7 @@ public class Anime extends Personne {
     
     public String getTel(){
         if(legal!=null)
-            return "";
+            return null;
         else
             return super.getTel();
     }
@@ -37,7 +38,7 @@ public class Anime extends Personne {
     public String getMail()
     {
         if(legal!=null)
-            return "";
+            return null;
         else
             return super.getMail();
     }
@@ -48,6 +49,9 @@ public class Anime extends Personne {
     public Personne getLegal()
     {
         return this.legal;
+    }
+    public String getTotem(){
+        return this.totem;
     }
     
     
@@ -64,9 +68,15 @@ public class Anime extends Personne {
         else
             super.setMail(m);
     }
-        public void setLegalPers(Personne legalResp){
+    public void setLegalPers(Personne legalResp){
             legal = legalResp;
-        }
+    }
+    
+    public void setTotem(String t){
+        this.totem = t;
+    }
+    
+       
 
     
 }
