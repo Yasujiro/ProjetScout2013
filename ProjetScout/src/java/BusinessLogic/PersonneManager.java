@@ -52,10 +52,8 @@ public class PersonneManager {
         else            
             pers=null;
         
-        if(!box.equals(""))
-        {
-            pers.setBox(box);
-        }
+        
+        pers.setBox(box);
         pers.setId(idPers);
         pers.setLoc(loc);
         pers.setTotem(totem);

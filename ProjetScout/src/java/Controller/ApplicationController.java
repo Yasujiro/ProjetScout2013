@@ -8,6 +8,7 @@ import BusinessLogic.LocaManager;
 import BusinessLogic.PersonneManager;
 import BusinessLogic.RegistrationManager;
 import BusinessLogic.UnitManager;
+import Exception.ListRegException;
 import java.util.ArrayList;
 import java.util.Date;
 import model.LegalResp;
@@ -61,7 +62,7 @@ public class ApplicationController {
     
     
     
-    public ArrayList<Registration> getReg(Registration reg)
+    public ArrayList<Registration> getReg(Registration reg) throws ListRegException
     {
         return rm.getReg(reg);
     }

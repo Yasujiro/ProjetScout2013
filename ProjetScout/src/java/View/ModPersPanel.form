@@ -45,7 +45,6 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="fieldName" min="-2" pref="120" max="-2" attributes="0"/>
                   <Component id="fieldFiName" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   <Component id="spinDate" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -81,6 +80,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="fieldBox" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="fieldName" min="-2" pref="120" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="labTotem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="fieldTotem" min="-2" pref="90" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -110,6 +116,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fieldName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labTotem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fieldTotem" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -250,6 +258,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="fieldMail">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labTotem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Totem"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fieldTotem">
     </Component>
   </SubComponents>
 </Form>

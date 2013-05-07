@@ -5,6 +5,7 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.ListRegException;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -111,8 +112,9 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 reg.setState((String)comboState.getSelectedItem());
                 reg.setCrea((Date)spinDate.getValue());
                 
-                
+                try{
                 result = app.getReg(reg);
+                
                 tableModel = new SearchRegModel(result);
                 resultTable.setModel(tableModel);
                 
@@ -150,7 +152,13 @@ public class SearchRegPanel extends javax.swing.JPanel {
                                             break;                                            
 				    }
 				}
+                }
+                catch(ListRegException e){
+                    JOptionPane.showMessageDialog(null, "<html>Erreur lors du chargement de la liste des demandes<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
+                }
             }
+            
+            
             if(ae.getSource()==buttModReg ||ae.getSource()== buttModPers || ae.getSource()== buttModLegal){
                  if(resultTable.getSelectedRow() >= 0)
                     selectedReg = tableModel.getSelectedReg(resultTable.getSelectedRow());  

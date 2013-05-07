@@ -17,7 +17,7 @@ public class SingletonConnection {
     
     private static Connection uniqueConnection;
     
-    private SingletonConnection() throws ConnectionException
+    private SingletonConnection() throws ConnectionException, Exception
     {
         try
         {
@@ -27,24 +27,25 @@ public class SingletonConnection {
         }
         catch(SQLException e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR SQL","error",JOptionPane.PLAIN_MESSAGE);
-            throw new ConnectionException();
+            
+            throw new ConnectionException(e.toString());
             
         }
         catch(NamingException e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR NAMING","error",JOptionPane.PLAIN_MESSAGE);
-            throw new ConnectionException();
+            
+            throw new ConnectionException(e.toString());
+        }
+        catch(Exception e){
+            throw new Exception(e);
         }
     }
     
-    public static Connection getUniqueInstance() throws ConnectionException
+    public static Connection getUniqueInstance() throws ConnectionException, Exception
     {
         if(uniqueConnection == null)
         {
-            
-                new SingletonConnection();                
-              
+            new SingletonConnection();
         }
         
             return uniqueConnection;

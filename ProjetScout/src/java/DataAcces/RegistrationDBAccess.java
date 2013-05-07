@@ -4,10 +4,13 @@
  */
 package DataAcces;
 
+import Exception.ConnectionException;
+import Exception.ListRegException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -20,7 +23,7 @@ import model.Registration;
 // JOINTURE A REVOIR EN SQL;
 public class RegistrationDBAccess {
     
-    public ArrayList<Registration> getReg(Registration r)
+    public ArrayList<Registration> getReg(Registration r) throws ListRegException
     {
         ArrayList<Registration> regList = new ArrayList<Registration>();
         String libUnit, libSect,id,etat;
@@ -89,6 +92,7 @@ public class RegistrationDBAccess {
                 
                 
                  if(!idLegal.equals("")){
+                     
                      // Si la valeur IDRESP est garni (donc scout mineur) on récupère les info du RL.
                     idLegal = data.getString("IDRESP");  
                     // Création et "garniture" de l'objet "Responsable Légal
@@ -103,7 +107,7 @@ public class RegistrationDBAccess {
                     
                     while(dataOpt.next())
                     {
-                        
+                        // Information relatif au responsable légal
                         
                         String libLoc = dataOpt.getString("LIBELLELOC");
                         Integer pCode = dataOpt.getInt("POSTALCODELOC");
@@ -129,9 +133,13 @@ public class RegistrationDBAccess {
                 p.setName(data.getString("NOM"));                
                 p.setFiName(data.getString("PRENOM"));                 
                 p.setStreet(data.getString("RUE"));                
-                p.setHouse(data.getString("NUM"));                
-                p.setBox (data.getString("NUMBOITE"));
+                p.setHouse(data.getString("NUM")); 
+                if(data.getString("NUMBOITE")!=null)
+                    p.setBox (data.getString("NUMBOITE"));
+                else
+                    p.setBox("");
                 p.setBirth(data.getDate("DATENAISSANCE"));
+                p.setTotem(data.getString("TOTEM"));
                 
                 
                 String libLoc = data.getString("LIBELLE");
@@ -147,6 +155,12 @@ public class RegistrationDBAccess {
                 reg.setCrea(data.getDate("DATECREA"));
                 regList.add(reg);
             }
+        }
+        catch(ConnectionException e){
+            throw new ListRegException(e.toString());
+        }
+        catch(SQLException e){
+            throw new ListRegException(e.toString());
         }
         catch(Exception e)
         {

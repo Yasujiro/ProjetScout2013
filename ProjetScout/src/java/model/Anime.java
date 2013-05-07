@@ -55,18 +55,12 @@ public class Anime extends Personne {
     }
     
     
-    public void setTel(String t){
-        if(legal!=null)
-            legal.setTel(t);
-        else
+    public void setTel(String t){     
             super.setTel(t);
     }
     
     public void setMail(String m){
-        if(legal!=null)
-            legal.setMail(m);
-        else
-            super.setMail(m);
+        super.setMail(m);
     }
     public void setLegalPers(Personne legalResp){
             legal = legalResp;

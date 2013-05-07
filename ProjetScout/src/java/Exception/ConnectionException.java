@@ -10,7 +10,13 @@ import java.sql.SQLException;
  *
  * @author Jérémy
  */
-public class ConnectionException extends Exception 
+public class ConnectionException extends SQLException 
 {
     
+    public ConnectionException(String m){
+        super(m);
+       
+    }
+    
+
 }

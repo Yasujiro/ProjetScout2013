@@ -5,6 +5,7 @@
 package BusinessLogic;
 
 import DataAcces.RegistrationDBAccess;
+import Exception.ListRegException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
@@ -24,9 +25,11 @@ public class RegistrationManager {
     private RegistrationDBAccess dba = new RegistrationDBAccess();;
     
     
-    public ArrayList<Registration> getReg(Registration reg)
+    public ArrayList<Registration> getReg(Registration reg) throws ListRegException
     {
-        return dba.getReg(reg);
+        
+        return dba.getReg(reg); 
+        
     }
     public void addRegistration(String unit,String sect,Personne pers)
     {

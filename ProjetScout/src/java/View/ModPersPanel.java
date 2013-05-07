@@ -69,7 +69,7 @@ public class ModPersPanel extends javax.swing.JPanel {
         postalCode = p.getLoc().getPCode();
         fieldTel.setText(p.getTel());
         fieldMail.setText(p.getMail());
-        
+        fieldTotem.setText(p.getTotem());
         if(p.getType().equals("Chef"))
         {
             labPhone.setForeground(Color.BLACK);
@@ -146,6 +146,7 @@ public class ModPersPanel extends javax.swing.JPanel {
                 mPers.setLoc((Localite)comboLoc.getSelectedItem());
                 mPers.setMail(fieldMail.getText());
                 mPers.setTel(fieldTel.getText());
+                mPers.setTotem(fieldTotem.getText());
                 app.modPers(mPers);
                 parents.dispose();
             }
@@ -245,6 +246,8 @@ public class ModPersPanel extends javax.swing.JPanel {
         fieldTel = new javax.swing.JTextField();
         labMail = new javax.swing.JLabel();
         fieldMail = new javax.swing.JTextField();
+        labTotem = new javax.swing.JLabel();
+        fieldTotem = new javax.swing.JTextField();
 
         labName.setText("Nom :");
 
@@ -274,6 +277,8 @@ public class ModPersPanel extends javax.swing.JPanel {
 
         labMail.setText("Mail");
 
+        labTotem.setText("Totem");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,7 +304,6 @@ public class ModPersPanel extends javax.swing.JPanel {
                         .addComponent(labFiName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldFiName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -326,7 +330,13 @@ public class ModPersPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(labBox)
                         .addGap(18, 18, 18)
-                        .addComponent(fieldBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fieldBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labTotem)
+                        .addGap(18, 18, 18)
+                        .addComponent(fieldTotem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -350,7 +360,9 @@ public class ModPersPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labName))
+                            .addComponent(labName)
+                            .addComponent(labTotem)
+                            .addComponent(fieldTotem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldFiName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,6 +410,7 @@ public class ModPersPanel extends javax.swing.JPanel {
     private javax.swing.JTextField fieldPostalCode;
     private javax.swing.JTextField fieldStreet;
     private javax.swing.JTextField fieldTel;
+    private javax.swing.JTextField fieldTotem;
     private javax.swing.JLabel labAdrr;
     private javax.swing.JLabel labBox;
     private javax.swing.JLabel labDate;
@@ -409,6 +422,7 @@ public class ModPersPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labPCode;
     private javax.swing.JLabel labPhone;
     private javax.swing.JLabel labStreet;
+    private javax.swing.JLabel labTotem;
     private javax.swing.JSpinner spinDate;
     // End of variables declaration//GEN-END:variables
 }

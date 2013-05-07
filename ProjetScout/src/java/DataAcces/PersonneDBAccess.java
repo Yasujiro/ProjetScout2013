@@ -32,15 +32,15 @@ public class PersonneDBAccess {
             
            
             instructionAddPers = "INSERT INTO PERSONNE(NUMID,NOM,PRENOM,TYPEPERS,POSTALCODELOC,LIBELLELOC,"
-                    + "RUE,NUM,GSM,EMAIL,DATENAISSANCE,NUMBOITE,IDRESP) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "RUE,NUM,GSM,EMAIL,DATENAISSANCE,NUMBOITE,IDRESP,TOTEM) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement prepStat = BDConnection.prepareStatement(instructionAddPers);
             
             
             prepStat.setString(1, p.getId());
             prepStat.setString(2,p.getName());
             prepStat.setString(3,p.getFiName());
-            prepStat.setString(4,p.getType());            
+            prepStat.setString(4,p.getType());
             prepStat.setInt(5,p.getLoc().getPCode());
             prepStat.setString(6,p.getLoc().getLib());
             prepStat.setString(7,p.getStreet());
@@ -53,6 +53,7 @@ public class PersonneDBAccess {
                 prepStat.setString(13,p.getLegal().getId());
             else
                 prepStat.setString(13,null);
+            prepStat.setString(14,p.getTotem());
             
                     
             prepStat.executeUpdate();
