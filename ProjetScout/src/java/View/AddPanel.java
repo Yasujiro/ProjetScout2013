@@ -6,6 +6,8 @@ package View;
 
 
 import Controller.ApplicationController;
+import Exception.AddDataException;
+import Exception.UnknowException;
 import Exception.WrongValuesException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,8 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -181,11 +185,15 @@ public class AddPanel extends javax.swing.JPanel {
                 
                     
             }
-            catch(Exception e)
-            {
+            catch(AddDataException e){
+                JOptionPane.showMessageDialog(null,"<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+            }   
+            catch (UnknowException e) {
+                    JOptionPane.showMessageDialog(null,"<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
                 
-            }
-            }
+                
+          }
             
             if(ae.getSource()==buttAddLegal)
             {

@@ -28,6 +28,8 @@ public class Anime extends Personne {
         legal = legalResp;
     }
     
+    // Fonctions gettor
+    //<editor-fold>
     public String getTel(){
         if(legal!=null)
             return null;
@@ -53,8 +55,11 @@ public class Anime extends Personne {
     public String getTotem(){
         return this.totem;
     }
+    //</editor-fold>
     
     
+    //Fonctions settor
+    //<editor-fold>
     public void setTel(String t){     
             super.setTel(t);
     }
@@ -69,7 +74,7 @@ public class Anime extends Personne {
     public void setTotem(String t){
         this.totem = t;
     }
-    
+    //</editor-fold>
        
 
     

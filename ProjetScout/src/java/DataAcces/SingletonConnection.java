@@ -5,6 +5,7 @@
 package DataAcces;
 
 import Exception.ConnectionException;
+import Exception.UnknowException;
 import java.sql.*;
 import javax.sql.*;
 import javax.naming.*;
@@ -17,7 +18,7 @@ public class SingletonConnection {
     
     private static Connection uniqueConnection;
     
-    private SingletonConnection() throws ConnectionException, Exception
+    private SingletonConnection() throws ConnectionException, UnknowException
     {
         try
         {
@@ -27,21 +28,18 @@ public class SingletonConnection {
         }
         catch(SQLException e)
         {
-            
             throw new ConnectionException(e.toString());
-            
         }
         catch(NamingException e)
         {
-            
             throw new ConnectionException(e.toString());
         }
         catch(Exception e){
-            throw new Exception(e);
+            throw new UnknowException(e.toString());
         }
     }
     
-    public static Connection getUniqueInstance() throws ConnectionException, Exception
+    public static Connection getUniqueInstance() throws ConnectionException, UnknowException
     {
         if(uniqueConnection == null)
         {

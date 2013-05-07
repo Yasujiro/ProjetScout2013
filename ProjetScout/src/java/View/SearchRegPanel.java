@@ -6,6 +6,7 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.ListRegException;
+import Exception.UnknowException;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -155,6 +156,9 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 }
                 catch(ListRegException e){
                     JOptionPane.showMessageDialog(null, "<html>Erreur lors du chargement de la liste des demandes<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
+                }
+                catch(UnknowException e){
+                    JOptionPane.showMessageDialog(null, "<html>Erreur inconnue rencontrée<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
             }
             

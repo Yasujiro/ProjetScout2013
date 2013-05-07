@@ -5,7 +5,10 @@
 package BusinessLogic;
 
 import DataAcces.RegistrationDBAccess;
+import Exception.AddDataException;
 import Exception.ListRegException;
+import Exception.ModDataException;
+import Exception.UnknowException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
@@ -25,13 +28,13 @@ public class RegistrationManager {
     private RegistrationDBAccess dba = new RegistrationDBAccess();;
     
     
-    public ArrayList<Registration> getReg(Registration reg) throws ListRegException
+    public ArrayList<Registration> getReg(Registration reg) throws ListRegException, UnknowException
     {
         
         return dba.getReg(reg); 
         
     }
-    public void addRegistration(String unit,String sect,Personne pers)
+    public void addRegistration(String unit,String sect,Personne pers) throws AddDataException, UnknowException
     {
         
         reg = new Registration(unit,sect, pers);
@@ -47,7 +50,7 @@ public class RegistrationManager {
         
         dba.addRegistration(reg);  
     }
-    public void modRegistration(Registration reg)
+    public void modRegistration(Registration reg) throws ModDataException, UnknowException
     {
         dba.modRegistration(reg);
     }

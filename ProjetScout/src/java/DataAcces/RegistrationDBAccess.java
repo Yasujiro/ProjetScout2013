@@ -4,8 +4,11 @@
  */
 package DataAcces;
 
+import Exception.AddDataException;
 import Exception.ConnectionException;
 import Exception.ListRegException;
+import Exception.ModDataException;
+import Exception.UnknowException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Date;
@@ -23,7 +26,7 @@ import model.Registration;
 // JOINTURE A REVOIR EN SQL;
 public class RegistrationDBAccess {
     
-    public ArrayList<Registration> getReg(Registration r) throws ListRegException
+    public ArrayList<Registration> getReg(Registration r) throws ListRegException,UnknowException
     {
         ArrayList<Registration> regList = new ArrayList<Registration>();
         String libUnit, libSect,id,etat;
@@ -164,13 +167,13 @@ public class RegistrationDBAccess {
         }
         catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access DEMANDE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+            throw new UnknowException(e.toString());
         }
         
         return regList;
     }
     
-    public void addRegistration(Registration reg)
+    public void addRegistration(Registration reg) throws AddDataException, UnknowException
     {
         try{
                 Connection BDConnection = SingletonConnection.getUniqueInstance();
@@ -195,12 +198,18 @@ public class RegistrationDBAccess {
                 
                 
         }
-        catch(Exception e)
+        catch(ConnectionException e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access DEMANDE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+            throw new AddDataException(e.toString());
+        }
+        catch(SQLException e){
+            throw new AddDataException(e.toString());
+        }
+        catch(Exception e){
+            throw new UnknowException(e.toString());
         }
     }
-    public void modRegistration(Registration reg)
+    public void modRegistration(Registration reg) throws ModDataException, UnknowException
     {
         try{
              Connection BDConnection = SingletonConnection.getUniqueInstance();
@@ -220,10 +229,17 @@ public class RegistrationDBAccess {
              
              
         }
-        catch(Exception e)
+        catch(ConnectionException e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access DEMANDE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+            throw new ModDataException(e.toString());
         }
+        catch(SQLException e){
+            throw new ModDataException(e.toString());
+        }
+        catch(Exception e){
+            throw new UnknowException(e.toString());
+        }
+        
         
     }
     

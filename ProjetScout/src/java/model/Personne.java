@@ -16,6 +16,7 @@ public class Personne {
     private Calendar birthDate;
     private Localite loc;
     
+    
     public Personne(String id)
     {
         id_Personne = id;
@@ -47,6 +48,8 @@ public class Personne {
     {
         return this.name+" "+this.fiName;
     }
+    // Fonction Gettor
+    //<editor-fold>
     public String getFiName()
     {
         return this.fiName;
@@ -104,9 +107,10 @@ public class Personne {
     {
         return this.mail;
     }
+    //</editor-fold>
  
      // Fonctions Setter;
-
+    //<editor-fold>
     public void setId(String uId)
     {
         this.id_Personne = uId;
@@ -155,6 +159,6 @@ public class Personne {
             this.birthDate=Calendar.getInstance();
         this.birthDate.setTime(d);
     }
-   
+   //</editor-fold>
 
 }

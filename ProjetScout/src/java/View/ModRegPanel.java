@@ -5,9 +5,13 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.ModDataException;
+import Exception.UnknowException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Registration;
@@ -67,8 +71,15 @@ public class ModRegPanel extends javax.swing.JPanel {
                updatedReg.setColis(radButtColis.isSelected());
                updatedReg.setState((String)comboState.getSelectedItem());
                updatedReg.setSect((String)comboSect.getSelectedItem(),comboUnit.getSelectedItem().toString());
-               
-               app.modRegistration(updatedReg);
+               try{
+                 app.modRegistration(updatedReg);
+               }
+               catch(ModDataException e){
+                   JOptionPane.showMessageDialog(null, "<html>Erreur lors de la modification<br><br>"+e.toString()+"</html>","error",JOptionPane.ERROR_MESSAGE);
+               }
+              catch (UnknowException e) {
+                    JOptionPane.showMessageDialog(null, "<html>Erreur lors de la modification<br><br>"+e.toString()+"</html>","error",JOptionPane.ERROR_MESSAGE);
+               }
                
                parents.dispose();
            }
