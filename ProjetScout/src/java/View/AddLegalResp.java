@@ -5,12 +5,15 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.AddDataException;
+import Exception.SearchDataException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.LegalResp;
 import model.Localite;
@@ -20,7 +23,7 @@ import model.Personne;
 public class AddLegalResp extends javax.swing.JPanel {
 
     private ApplicationController app = new ApplicationController();
-    private PopUp parents=null;
+    private JFrame parents=null;
     private ActionListener buttListener = new ButtonListener();
     private Personne p;
     private JComboBox updatedBox;
@@ -37,7 +40,7 @@ public class AddLegalResp extends javax.swing.JPanel {
         
     }
     
-    public void setPopUp(PopUp p)
+    public void setPopUp(JFrame p)
     {
         parents = p;
     }
@@ -62,44 +65,32 @@ public class AddLegalResp extends javax.swing.JPanel {
         @Override
         public void focusLost(FocusEvent fe) {
             
-            if(fe.getSource()==fieldPostalCode)
-            {
+            if(fe.getSource()==fieldPostalCode){
                               
                 ArrayList<Localite> listLoca=null;
                 Integer postalCode = null;
-                
-                if(!fieldPostalCode.equals(""))
-                {
-                    try{
-                         postalCode = Integer.parseInt(fieldPostalCode.getText());
-                    }
-                    catch(Exception e)
-                    {
-                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                //
-                
-                comboLoc.removeAllItems();
-                comboLoc.addItem("Sélectionner une localité");
-                
-                try{
-                    listLoca = app.getLocalite(postalCode);
-                }
-                catch(Exception e) // Exception a créer
-                {
-                    JOptionPane.showMessageDialog(null, "ERREUR FocusLost"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
-                }
-                
-                for(Localite var: listLoca)
-                {
-
-                    comboLoc.addItem(var);
-                }
+               try{
+                    if(!fieldPostalCode.equals(""))
+                        postalCode = Integer.parseInt(fieldPostalCode.getText());
                     
-    
+                    comboLoc.removeAllItems();
+                    comboLoc.addItem("Sélectionner une localité");
+                    listLoca = app.getLocalite(postalCode);
+                    for(Localite var: listLoca)
+                    {
+                        comboLoc.addItem(var);
+                    }
             }
-            
+               catch(SearchDataException e){
+                    JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                   }
+               catch(NumberFormatException e){
+                   JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
+                   }
+               catch(Exception e){
+                   JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                   }
+           }
             
         }
 
@@ -127,20 +118,28 @@ public class AddLegalResp extends javax.swing.JPanel {
             }
             if(ae.getSource()==buttVali)
             {
-                p = app.addPersonne("Responsable légal",fieldName.getText(),fieldFiName.getText(),null,null,
-                        fieldStreet.getText(),fieldNum.getText(),fieldBox.getText(),
-                        (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),null);
-                
-                if(parents!=null)
-                {
-                    resetValues();
-                    parents.dispose();
+                try{
+                    p = app.addPersonne("Responsable légal",fieldName.getText(),fieldFiName.getText(),null,null,
+                            fieldStreet.getText(),fieldNum.getText(),fieldBox.getText(),
+                            (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),null);
+
+                    if(parents!=null)
+                    {
+                        resetValues();
+                        parents.dispose();
+                    }
+
+                    if(updatedBox!=null)
+                    {
+                        updatedBox.addItem(p);
+                        updatedBox.setSelectedItem(p);
+                    }
                 }
-                    
-                if(updatedBox!=null)
-                {
-                    updatedBox.addItem(p);
-                    updatedBox.setSelectedItem(p);
+                catch(AddDataException e){
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"Erreur inconnue rencontrée"+e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

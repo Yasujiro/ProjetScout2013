@@ -7,8 +7,7 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.AddDataException;
-import Exception.UnknowException;
-import Exception.WrongValuesException;
+import Exception.SearchDataException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,9 +18,8 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
@@ -37,7 +35,7 @@ public class AddPanel extends javax.swing.JPanel {
     /**
      * Creates new form AddPanel
      */
-    private PopUp popUpFrame;
+    private JFrame popUpFrame;
     private ApplicationController app = new ApplicationController();
     private ArrayList<Unit> listUnit;
     private ArrayList<LegalResp> listLegal;
@@ -85,10 +83,12 @@ public class AddPanel extends javax.swing.JPanel {
                  comboLegal.addItem(var);
              }
         }
-        catch(Exception e) // Exception a créer
-        {
-            
-        }     
+        catch(SearchDataException e){
+            JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+        } 
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"<html>Une Erreur est survenue lors du chargement des données<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+        }
 
     }
     public void resetValues(){
@@ -186,26 +186,19 @@ public class AddPanel extends javax.swing.JPanel {
                     
             }
             catch(AddDataException e){
-                JOptionPane.showMessageDialog(null,"<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
-            }   
-            catch (UnknowException e) {
-                    JOptionPane.showMessageDialog(null,"<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
-                }
-                
-                
-          }
+                JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+            }
+            catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+            }
+        }
             
             if(ae.getSource()==buttAddLegal)
             {
                 AddLegalResp popUpPanel = new AddLegalResp(comboLegal);
-                if(AddPanel.this.popUpFrame == null)
-                {
-                     popUpFrame = new PopUp(popUpPanel);
-                     popUpFrame.setLocation(200,150);                     
-                }
-                else{
-                    popUpFrame.setContentPane(popUpPanel);
-                }
+                popUpFrame = PopUp.getPopUpInstance();
+                popUpFrame.setLocation(200,150);
+                PopUp.setContent(popUpPanel); 
                 popUpPanel.setPopUp(popUpFrame);
                 popUpFrame.setVisible(true);
             }
@@ -226,43 +219,32 @@ public class AddPanel extends javax.swing.JPanel {
         @Override
         public void focusLost(FocusEvent fe) {
             
-            if(fe.getSource()==fieldPostalCode)
-            {
-                              
-                ArrayList<Localite> listLoca=null;
-                Integer postalCode = null;
-                
-                if(!fieldPostalCode.getText().equals(""))
-                {
-                    try{
-                         postalCode = Integer.parseInt(fieldPostalCode.getText());
-                    }
-                    catch(Exception e)
-                    {
-                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                //
-                
-                AddPanel.this.comboLoc.removeAllItems();
-                AddPanel.this.comboLoc.addItem("Sélectionner une localité");
+            if(fe.getSource()==fieldPostalCode){
                 
                 try{
-                    listLoca = app.getLocalite(postalCode);
-                }
-                catch(Exception e) // Exception a créer
-                {
-                    JOptionPane.showMessageDialog(null, "ERREUR FocusLost"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
-                }
-                
-                for(Localite var: listLoca)
-                {
+                    ArrayList<Localite> listLoca=null;
+                    Integer postalCode = null;
 
-                    AddPanel.this.comboLoc.addItem(var);
+                    if(!fieldPostalCode.getText().equals(""))                        
+                        postalCode = Integer.parseInt(fieldPostalCode.getText());
+                    AddPanel.this.comboLoc.removeAllItems();
+                    AddPanel.this.comboLoc.addItem("Sélectionner une localité");
+                    listLoca = app.getLocalite(postalCode);
+                    for(Localite var: listLoca)
+                    {
+                        AddPanel.this.comboLoc.addItem(var);
+                    }
                 }
-                    
-    
-            }
+                catch(SearchDataException e){
+                     JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                  }
+                catch(NumberFormatException e){
+                     JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                  }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                  }
+           }
             
             
         }

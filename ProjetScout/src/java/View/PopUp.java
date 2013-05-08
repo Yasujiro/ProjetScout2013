@@ -4,22 +4,40 @@
  */
 package View;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class PopUp extends javax.swing.JFrame {
+public class PopUp extends JFrame {
 
     /**
      * Creates new form PopUp
      */
-    public PopUp(JPanel content) {
+    private JPanel content;
+    private static JFrame popFrame;
+    
+    public PopUp() {
         initComponents();
-        content.setBounds(this.getBounds());
-        this.add(content);
+        this.setResizable(false);
         this.setSize(500, 450);
+        
         this.setDefaultCloseOperation(1);
         
-        content.setVisible(true);
+        
+    }    
+    public static JFrame getPopUpInstance(){
+        if(PopUp.popFrame==null)
+            popFrame= new PopUp();
+        popFrame.setLocation(200,150);
+        return popFrame;
+    }
+    
+    public static void setContent(JPanel p){
+        popFrame.getContentPane().removeAll();
+        p.setBounds(popFrame.getContentPane().getBounds());        
+        popFrame.getContentPane().add(p);        
+        popFrame.validate();
+        popFrame.repaint();       
         
     }
     

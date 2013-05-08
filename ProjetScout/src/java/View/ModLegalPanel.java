@@ -5,11 +5,14 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.ModDataException;
+import Exception.SearchDataException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.LegalResp;
 import model.Localite;
@@ -19,7 +22,7 @@ import model.Personne;
 public class ModLegalPanel extends javax.swing.JPanel {
 
     private ApplicationController app;
-    private PopUp parents;
+    private JFrame parents;
     private Personne modLegal;
     private ArrayList<Localite> listLoc;
     private ButtonListener buttList;
@@ -59,9 +62,14 @@ public class ModLegalPanel extends javax.swing.JPanel {
                             comboLoc.setSelectedItem(var);
                     }                    
         }
-        catch(Exception e){}
+        catch(SearchDataException e){
+            JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+        }
     }
-    public void setParents(PopUp p){
+    public void setParents(JFrame p){
         parents = p;
     }
     
@@ -71,17 +79,24 @@ public class ModLegalPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()==buttVali){
-                
-                modLegal.setName(fieldName.getText());
-                modLegal.setFiName(fieldFiName.getText());
-                modLegal.setTel(fieldTel.getText());
-                modLegal.setMail(fieldMail.getText());
-                modLegal.setStreet(fieldStreet.getText());
-                modLegal.setHouse(fieldNum.getText());
-                modLegal.setBox(fieldNum.getText());
-                modLegal.setLoc((Localite)comboLoc.getSelectedItem());
-                app.modPers(modLegal);
-                parents.dispose();
+                try{
+                    modLegal.setName(fieldName.getText());
+                    modLegal.setFiName(fieldFiName.getText());
+                    modLegal.setTel(fieldTel.getText());
+                    modLegal.setMail(fieldMail.getText());
+                    modLegal.setStreet(fieldStreet.getText());
+                    modLegal.setHouse(fieldNum.getText());
+                    modLegal.setBox(fieldNum.getText());
+                    modLegal.setLoc((Localite)comboLoc.getSelectedItem());
+                    app.modPers(modLegal);
+                    parents.dispose();
+                }
+                catch(ModDataException e){
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
                 
             }
             if(ae.getSource()==buttCancel){
@@ -111,8 +126,11 @@ public class ModLegalPanel extends javax.swing.JPanel {
                         comboLoc.addItem(var);
                     }             
                 }
+                catch(SearchDataException e){
+                    JOptionPane.showMessageDialog(null,toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
                 catch(Exception e){
-                    
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
               }
           }

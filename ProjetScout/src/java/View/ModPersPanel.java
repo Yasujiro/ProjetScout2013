@@ -5,6 +5,8 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.ModDataException;
+import Exception.SearchDataException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
@@ -27,7 +30,7 @@ public class ModPersPanel extends javax.swing.JPanel {
     /**
      * Creates new form modPersPanel
      */
-    private PopUp parents;
+    private JFrame parents;
     private Personne mPers;
     private ApplicationController app;
     private Integer postalCode;
@@ -50,7 +53,7 @@ public class ModPersPanel extends javax.swing.JPanel {
         
     }
     
-    public void setParents(PopUp p){
+    public void setParents(JFrame p){
         parents = p;
     }
     
@@ -105,9 +108,12 @@ public class ModPersPanel extends javax.swing.JPanel {
                             comboLoc.setSelectedItem(var);
                     }                    
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+        catch(SearchDataException e){
+            JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
           }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+        }
         
         
     }
@@ -136,19 +142,26 @@ public class ModPersPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()== buttVali){
-                
-                mPers.setBirth((Date)spinDate.getValue());
-                mPers.setName(fieldName.getText());
-                mPers.setFiName(fieldFiName.getText());
-                mPers.setStreet(fieldStreet.getText());
-                mPers.setBox(fieldBox.getText());
-                mPers.setHouse(fieldNum.getText());
-                mPers.setLoc((Localite)comboLoc.getSelectedItem());
-                mPers.setMail(fieldMail.getText());
-                mPers.setTel(fieldTel.getText());
-                mPers.setTotem(fieldTotem.getText());
-                app.modPers(mPers);
-                parents.dispose();
+                try{
+                    mPers.setBirth((Date)spinDate.getValue());
+                    mPers.setName(fieldName.getText());
+                    mPers.setFiName(fieldFiName.getText());
+                    mPers.setStreet(fieldStreet.getText());
+                    mPers.setBox(fieldBox.getText());
+                    mPers.setHouse(fieldNum.getText());
+                    mPers.setLoc((Localite)comboLoc.getSelectedItem());
+                    mPers.setMail(fieldMail.getText());
+                    mPers.setTel(fieldTel.getText());
+                    mPers.setTotem(fieldTotem.getText());
+                    app.modPers(mPers);
+                    parents.dispose();
+                }
+                catch(ModDataException e){
+                    JOptionPane.showMessageDialog(null,e.toString(),"error",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
             }
             if(ae.getSource()== buttCancel){
                 parents.dispose();
@@ -159,9 +172,7 @@ public class ModPersPanel extends javax.swing.JPanel {
     private class Focus implements FocusListener{
 
         @Override
-        public void focusGained(FocusEvent fe) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
+        public void focusGained(FocusEvent fe) { }
 
         @Override
         public void focusLost(FocusEvent fe) {
@@ -177,8 +188,11 @@ public class ModPersPanel extends javax.swing.JPanel {
                     }
                     
                 }
+                catch(SearchDataException e){
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
                 catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

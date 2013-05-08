@@ -5,6 +5,7 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.SearchDataException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,46 +49,50 @@ public class SearchPanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()==buttValid)
             {
-                String type="";
-                Localite loc;
-                
-                if(comboLoc.getSelectedItem().equals("Sélectionner une localité"))
-                    if(fieldPostalCode.getText().equals(""))
-                        loc = new Localite("",null);
+                try{
+                    String type="";
+                    Localite loc;
+
+                    if(comboLoc.getSelectedItem().equals("Sélectionner une localité"))
+                        if(fieldPostalCode.getText().equals(""))
+                            loc = new Localite("",null);
+                        else
+                            loc = new Localite("",Integer.parseInt(fieldPostalCode.getText()));
                     else
-                        loc = new Localite("",Integer.parseInt(fieldPostalCode.getText()));
-                else
-                    loc = (Localite)comboLoc.getSelectedItem();
-                
-                if(!comboType.getSelectedItem().equals("Tous"))
-                    type = (String)comboType.getSelectedItem();
-                
-               listPersFound = app.getPers(type, fieldName.getText(),fieldFiName.getText(),loc);
-               modelTable = new SchPersModel(listPersFound);
-               resultTable.setModel(modelTable);
-               
-               TableColumn column = null;
-				for (int i = 0; i < 4; i++) {
-				    column = resultTable.getColumnModel().getColumn(i);
-				    switch (i) 
-				    {	//Type
-				    	case 0 : column.setPreferredWidth(50);
-				    		break;
-				    	//Nom
-				    	case 1 : column.setPreferredWidth(50);
-			    			break;	
-				    	//Prénom
-				    	case 2 : column.setPreferredWidth(50);
-				    		break;
-				    	//Adresse
-				    	case 3 : column.setPreferredWidth(200); 
-				    		break;
-                                        //Responsable
-                                        case 4 : column.setPreferredWidth(150);
-				    		break;
+                        loc = (Localite)comboLoc.getSelectedItem();
+
+                    if(!comboType.getSelectedItem().equals("Tous"))
+                        type = (String)comboType.getSelectedItem();
+
+                   listPersFound = app.getPers(type, fieldName.getText(),fieldFiName.getText(),loc);
+                   modelTable = new SchPersModel(listPersFound);
+                   resultTable.setModel(modelTable);
+
+                   TableColumn column = null;
+                                    for (int i = 0; i < 4; i++) {
+                                        column = resultTable.getColumnModel().getColumn(i);
+                                        switch (i) 
+                                        {	//Type
+                                            case 0 : column.setPreferredWidth(50);
+                                                    break;
+                                            //Nom
+                                            case 1 : column.setPreferredWidth(50);
+                                                    break;	
+                                            //Prénom
+                                            case 2 : column.setPreferredWidth(50);
+                                                    break;
+                                            //Adresse
+                                            case 3 : column.setPreferredWidth(200); 
+                                                    break;
+                                            //Responsable
+                                            case 4 : column.setPreferredWidth(150);
+                                                    break;
+                                        }
                                     }
-                                }
-            
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
             }
             if(ae.getSource()==buttCancel)
             {
@@ -125,7 +130,7 @@ public class SearchPanel extends javax.swing.JPanel {
                     }
                     catch(Exception e)
                     {
-                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 
@@ -136,9 +141,12 @@ public class SearchPanel extends javax.swing.JPanel {
                 try{
                     listLoca = app.getLocalite(postalCode);
                 }
-                catch(Exception e) // Exception a créer
+                catch(SearchDataException e)
                 {
-                    JOptionPane.showMessageDialog(null, "ERREUR FocusLost"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 
                 for(Localite var: listLoca)

@@ -24,54 +24,55 @@ public class ApplicationController {
     private RegistrationManager rm = new RegistrationManager();
     private PersonneManager pm = new PersonneManager();
 
-    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,String street,String num,String box,Localite loc,String tel,String mail,String totem)
+    public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,
+            String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException
     {
         return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail,totem);
     }
     
     
-    public ArrayList<LegalResp> getLegal()
+    public ArrayList<LegalResp> getLegal() throws SearchDataException
     {
         return pm.getLegal();
         
     }
     
-    public void modPers(Personne p){
+    public void modPers(Personne p)throws ModDataException{
         pm.modPers(p);
     }
     
-    public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc){
+    public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc) throws SearchDataException{
         return pm.getPers(type,name,fiName,loc);
     }
     
-    public ArrayList<Localite> getLocalite(Integer pCode) throws Exception //Exception a créer;
+    public ArrayList<Localite> getLocalite(Integer pCode) throws SearchDataException 
     {
         return lm.getLocalite(pCode);
     }
     
     
     
-    public ArrayList<Unit> getUnits() throws Exception
+    public ArrayList<Unit> getUnits() throws SearchDataException
     {
         return um.getUnits();
     }
-    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws Exception
+    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws SearchDataException
     {
         return um.getUnits(name,postalCode,libLoc);
     }
     
     
     
-    public ArrayList<Registration> getReg(Registration reg) throws ListRegException, UnknowException
+    public ArrayList<Registration> getReg(Registration reg) throws SearchDataException
     {
         return rm.getReg(reg);
     }
 
-    public void addRegistration(String unit,String sect,Personne pers)throws AddDataException, UnknowException {
+    public void addRegistration(String unit,String sect,Personne pers)throws AddDataException {
         rm.addRegistration(unit,sect,pers);
         
     }
-    public void modRegistration(Registration reg) throws ModDataException, UnknowException
+    public void modRegistration(Registration reg) throws ModDataException
     {
         rm.modRegistration(reg);
     }

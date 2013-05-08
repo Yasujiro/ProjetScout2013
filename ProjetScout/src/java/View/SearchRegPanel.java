@@ -5,14 +5,13 @@
 package View;
 
 import Controller.ApplicationController;
-import Exception.ListRegException;
-import Exception.UnknowException;
-import java.awt.Dimension;
+import Exception.SearchDataException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.TableColumn;
@@ -30,7 +29,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
     private ArrayList<Registration> result;
     private ArrayList<Unit>listUnit;
     private SearchRegModel tableModel;
-    private PopUp popUpFrame;
+    private JFrame popUpFrame;
     private Registration selectedReg;
     private String section ="",unit,name,fiName;
     
@@ -52,8 +51,11 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 comboUnit.addItem(var);
             }
         }
+        catch(SearchDataException e){
+           JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+        }
         catch(Exception e){
-            //Excpetion a créer
+            JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue <br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -154,11 +156,11 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				    }
 				}
                 }
-                catch(ListRegException e){
+                catch(SearchDataException e){
                     JOptionPane.showMessageDialog(null, "<html>Erreur lors du chargement de la liste des demandes<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
-                catch(UnknowException e){
-                    JOptionPane.showMessageDialog(null, "<html>Erreur inconnue rencontrée<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
             }
             
@@ -167,22 +169,15 @@ public class SearchRegPanel extends javax.swing.JPanel {
                  if(resultTable.getSelectedRow() >= 0)
                     selectedReg = tableModel.getSelectedReg(resultTable.getSelectedRow());  
                  else
-                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner une demande","error",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner une demande","Erreur",JOptionPane.PLAIN_MESSAGE);
             }
             if(ae.getSource()==buttModReg)
             {
                 if(selectedReg!=null){
                     ModRegPanel modReg = new ModRegPanel(selectedReg);
-                    if(popUpFrame == null)
-                    {
-                        popUpFrame = new PopUp(modReg);
-                        popUpFrame.setResizable(false);
-                    }
-                    else
-                        popUpFrame.setContentPane(modReg);
-
+                    popUpFrame =PopUp.getPopUpInstance();                    
+                    PopUp.setContent(modReg);
                     modReg.setParents(popUpFrame);
-                    popUpFrame.setLocation(200,150);
                     popUpFrame.setVisible(true);
                 }
                 
@@ -190,16 +185,10 @@ public class SearchRegPanel extends javax.swing.JPanel {
             if(ae.getSource()==buttModPers){
                 if(selectedReg!=null){
                     ModPersPanel modPers = new ModPersPanel(selectedReg.getPers());
-                    
-                    if(popUpFrame == null)
-                    {
-                        popUpFrame = new PopUp(modPers);
-                        popUpFrame.setResizable(false);
-                    }
-                    else
-                        popUpFrame.setContentPane(modPers);
+                    popUpFrame = PopUp.getPopUpInstance();;
+                    PopUp.setContent(modPers);
                     modPers.setParents(popUpFrame);
-                    popUpFrame.setLocation(200,150);
+                    
                     popUpFrame.setVisible(true);
                     
                     
@@ -210,19 +199,14 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 if(selectedReg.getPers().getLegal()!=null){
                 ModLegalPanel modLegal = new ModLegalPanel(selectedReg.getPers().getLegal());
                         
-                    if(popUpFrame == null)
-                            {
-                                popUpFrame = new PopUp(modLegal);
-                                popUpFrame.setResizable(false);
-                            }
-                            else
-                                popUpFrame.setContentPane(modLegal);
-                            modLegal.setParents(popUpFrame);
-                            popUpFrame.setLocation(200,150);
-                            popUpFrame.setVisible(true);
+                    popUpFrame = PopUp.getPopUpInstance();
+                    PopUp.setContent(modLegal);
+                    popUpFrame.setResizable(false);
+                    modLegal.setParents(popUpFrame);
+                    popUpFrame.setVisible(true);
             }
                 else{
-                    JOptionPane.showMessageDialog(null, "Cette demande concerne une personne majeure. Il n'y a donc pas de responsable légal","error",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cette demande concerne une personne majeure. Il n'y a donc pas de responsable légal","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
            }
         }

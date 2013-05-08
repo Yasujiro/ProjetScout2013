@@ -5,6 +5,7 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.SearchDataException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -49,7 +50,7 @@ public class SearchUnit extends javax.swing.JPanel {
                     }
                     catch(Exception e)
                     {
-                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else
@@ -63,9 +64,12 @@ public class SearchUnit extends javax.swing.JPanel {
                 
                 
                 }
-                catch(Exception e)
+                catch(SearchDataException e)
                 {
-                    // Excpetion a créer...
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue "+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -95,7 +99,7 @@ public class SearchUnit extends javax.swing.JPanel {
                     }
                     catch(Exception e)
                     {
-                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
                 }
                
@@ -106,9 +110,12 @@ public class SearchUnit extends javax.swing.JPanel {
                 try{
                     listLoca = app.getLocalite(postalCode);
                 }
-                catch(Exception e) // Exception a créer
+                catch(SearchDataException e)
                 {
-                    JOptionPane.showMessageDialog(null, "ERREUR FocusLost"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 
                 for(Localite var: listLoca)

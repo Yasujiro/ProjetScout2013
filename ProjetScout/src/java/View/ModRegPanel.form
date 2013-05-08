@@ -34,6 +34,7 @@
                           <Component id="labSect" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="labUnit" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="labState" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labPrice" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -42,15 +43,18 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="comboSect" alignment="0" pref="114" max="32767" attributes="0"/>
-                  <Component id="comboUnit" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="buttCancel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="comboSect" alignment="0" pref="114" max="32767" attributes="0"/>
+                      <Component id="comboUnit" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="buttCancel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="radButtColis" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboState" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="radButtColis" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboState" alignment="0" max="32767" attributes="0"/>
+                  <Component id="fieldPrice" min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="115" max="32767" attributes="0"/>
           </Group>
@@ -81,7 +85,12 @@
                       <Component id="radButtColis" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="55" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fieldPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttValid" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -153,6 +162,13 @@
           </StringArray>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labPrice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Prix"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fieldPrice">
     </Component>
   </SubComponents>
 </Form>

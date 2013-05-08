@@ -4,23 +4,26 @@
  */
 package DataAcces;
 
+import Exception.ConnectionException;
+import Exception.SearchDataException;
+import Interface.UnitDataAccess;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import model.Localite;
 import model.Unit;
 
 
-public class UnitDBAccess {
+public class UnitDBAccess implements UnitDataAccess {
     
     
-    public ArrayList<Unit> getUnits() throws Exception
+    public ArrayList<Unit> getUnits() throws SearchDataException
     {
         ArrayList<Unit> unitList = new ArrayList();
         try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
             
             String instructionSearchUnit = "SELECT LIBELLEUNIT FROM UNIT";
             PreparedStatement  prepStat = BDConnection.prepareStatement(instructionSearchUnit);
@@ -35,19 +38,24 @@ public class UnitDBAccess {
                 unitList.add(unit);
             }
         }
-        catch(Exception e)
+        catch(ConnectionException e)
         {
-            
+            throw new SearchDataException(e.toString());
         }
+        catch(SQLException e){
+            throw new SearchDataException(e.toString());
+        }
+        
+        
         return unitList;
     }
 
-    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) {
+    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws SearchDataException {
         ArrayList<Unit> unitList = new ArrayList();
         String instructionSearchUnit=null;
         PreparedStatement prepStat;
         try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
             
             if(postalCode != null)
             {
@@ -94,9 +102,7 @@ public class UnitDBAccess {
                 String countInstruction = "SELECT COUNT(*) from DEMANDEINSCRIPT dem,LIBSECT s,PERSONNE p "
                         +"where LIBELLESECTION = s.LIBELLESECT and s.LIBELLEUNIT = ? and dem.NUMID = p.NUMID and p.TYPEPERS = ?";
                 
-                /*select count(*)  from DEMANDeINSCRIPT dem,LIBSECT s,PERSONNE p 
-where LIBELLESECTION = s.LIBELLESECT and s.LIBELLEUNIT = 'NM005 - Scouts et Guides Andenne' 
-and dem.NUMID = p.NUMID and p.TYPEPERS = 'Animé' */
+                
                 
                 prepStat = BDConnection.prepareStatement(countInstruction);
                 prepStat.setString(1, var.getLib());
@@ -118,9 +124,12 @@ and dem.NUMID = p.NUMID and p.TYPEPERS = 'Animé' */
                 }
             }
         }
-        catch(Exception e)
+        catch(ConnectionException e)
         {
-            JOptionPane.showMessageDialog(null, "Erreur - SQl "+e,"error",JOptionPane.ERROR_MESSAGE);
+            throw new SearchDataException(e.toString());
+        }
+        catch(SQLException e){
+            throw new SearchDataException(e.toString());
         }
         return unitList;
     }

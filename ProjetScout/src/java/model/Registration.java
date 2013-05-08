@@ -26,7 +26,7 @@ public class Registration {
         dateCrea = Calendar.getInstance();
         lastModif = Calendar.getInstance();
         state ="En attente";
-        price = 0;
+        price = 50;
         
         colis = false;
         

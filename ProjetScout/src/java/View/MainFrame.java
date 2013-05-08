@@ -1,5 +1,6 @@
 
 import DataAcces.SingletonConnection;
+import Exception.ConnectionException;
 import View.SearchPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,14 @@ import View.ListingPanel;
 import View.AddPanel;
 import View.SearchRegPanel;
 import View.SearchUnit;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.sql.Connection;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -19,23 +26,35 @@ import java.sql.Connection;
 public class MainFrame extends javax.swing.JFrame {
 
    
+    
+    private JTextField fieldUser;
+    private JPasswordField fieldPassword;
+    private JPanel panLabelsLog,panFieldsLog,panelLog;
+    private JLabel labUser, labPassword;
+    private static boolean connected=false;
     public MainFrame() {
         initComponents();
         
-       // this.setResizable(false);
+        
+        
+        
         Dimension d = new Dimension(900,700);
         this.setMinimumSize(d);
         this.setSize(d);
-        MenuBarListener menuListener = new MenuBarListener();        
+        MenuBarListener menuListener = new MenuBarListener();
+        
         menuSchPers.addActionListener(menuListener);
         menuSchUnit.addActionListener(menuListener);
         menuSchReg.addActionListener(menuListener);
-        exitMenu.addActionListener(menuListener);
-        listMenu.addActionListener(menuListener);
-        newRegistration.addActionListener(menuListener);
+        menuExit.addActionListener(menuListener);
+        menuList.addActionListener(menuListener);
+        menuAddReg.addActionListener(menuListener);
+        menuConnect.addActionListener(menuListener);
+        menuDisc.addActionListener(menuListener);
         
         
     }
+
     
     public void ChangePanel (JPanel newPanel)
     {
@@ -45,6 +64,40 @@ public class MainFrame extends javax.swing.JFrame {
         this.validate();
         this.repaint();
     }
+    public void Loggin(){
+        panelLog = new JPanel();
+        panLabelsLog = new JPanel();
+        panFieldsLog = new JPanel();
+        fieldUser = new JTextField();
+        labUser = new JLabel("Identifiant:",SwingConstants.RIGHT);
+        fieldPassword = new JPasswordField();
+        labPassword = new JLabel("Password:",SwingConstants.RIGHT);
+        
+        panelLog.setLayout(new BorderLayout(5,5));
+        panLabelsLog.setLayout(new GridLayout(0,1,2,2));
+        panFieldsLog.setLayout(new GridLayout(0,1,2,2));
+        panLabelsLog.add(labUser);
+        panFieldsLog.add(fieldUser);
+        panLabelsLog.add(labPassword);
+        panFieldsLog.add(fieldPassword);
+        panelLog.add(panLabelsLog,BorderLayout.WEST);
+        panelLog.add(panFieldsLog,BorderLayout.CENTER);
+        
+        JOptionPane.showMessageDialog(this,panelLog, "Identification",JOptionPane.PLAIN_MESSAGE);
+        
+        String password="";
+                     int i;
+                     for(i=0;i<fieldPassword.getPassword().length;i++){
+                            password+=fieldPassword.getPassword()[i];
+                        }
+        try{
+        SingletonConnection.getUniqueInstance(fieldUser.getText(), password);
+        }
+        catch(ConnectionException e){
+            JOptionPane.showMessageDialog(this,"Identifiant ou mot de passe incorrect","Erreur",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void Disconnect(){}
     
     private class MenuBarListener implements ActionListener
     {
@@ -53,40 +106,80 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             
-            if(ae.getSource()==newRegistration)
+            if(ae.getSource()==menuConnect){
+                MainFrame.this.Loggin();
+            }
+            if(ae.getSource()==menuDisc){
+                MainFrame.this.Disconnect();
+            }
+            if(ae.getSource()==menuAddReg)
             {
-                AddPanel addPan = new AddPanel();
-                MainFrame.this.ChangePanel(addPan);
-                
+                AddPanel addPan;
+                if(SingletonConnection.getConnectionState())
+                    Loggin();
+                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
+                // correctement déroulé
+                if(!SingletonConnection.getConnectionState()){ 
+                    addPan = new AddPanel();
+                    MainFrame.this.ChangePanel(addPan);
+                }
             }
             if(ae.getSource()==menuSchPers)
             {
-                SearchPanel searchPersonne = new SearchPanel();
-                MainFrame.this.ChangePanel(searchPersonne);
+                SearchPanel searchPersonne;
+                if(SingletonConnection.getConnectionState())
+                    Loggin();
+                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
+                // correctement déroulé
+                if(!SingletonConnection.getConnectionState()){
+                    searchPersonne = new SearchPanel();
+                    MainFrame.this.ChangePanel(searchPersonne);
+                }
                 
             }
             
             if(ae.getSource()==menuSchUnit)
             {
-                SearchUnit searchUnitPan = new SearchUnit();
-                MainFrame.this.ChangePanel(searchUnitPan);
+                SearchUnit searchUnitPan;
+                if(SingletonConnection.getConnectionState())
+                    Loggin();
+                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
+                // correctement déroulé
+                if(!SingletonConnection.getConnectionState()){
+                    searchUnitPan = new SearchUnit();
+                    MainFrame.this.ChangePanel(searchUnitPan);
+                }
             }
             
             if(ae.getSource()==menuSchReg)
             {
-                SearchRegPanel searchRegPan = new SearchRegPanel();
-                MainFrame.this.ChangePanel(searchRegPan);
+                SearchRegPanel searchRegPan;
+                if(SingletonConnection.getConnectionState())
+                    Loggin();
+                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
+                // correctement déroulé
+                if(!SingletonConnection.getConnectionState()){
+                    searchRegPan = new SearchRegPanel();
+                    MainFrame.this.ChangePanel(searchRegPan);
+                }
             }
             
-            if(ae.getSource()==exitMenu)
+            if(ae.getSource()==menuExit)
             {
                 System.exit(0);
             } 
             
-            if(ae.getSource()==listMenu)
+            if(ae.getSource()==menuList)
             {
-                ListingPanel listPanel = new ListingPanel();
-                MainFrame.this.ChangePanel(listPanel);
+                ListingPanel listPanel;
+                if(SingletonConnection.getConnectionState())
+                    Loggin();
+                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
+                // correctement déroulé
+                if(!SingletonConnection.getConnectionState()){
+                    listPanel = new ListingPanel();
+                    MainFrame.this.ChangePanel(listPanel);
+                }
             }
         }
         
@@ -105,18 +198,19 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
-        newRegistration = new javax.swing.JMenuItem();
-        exitMenu = new javax.swing.JMenuItem();
-        ActionMenu = new javax.swing.JMenu();
-        SearchMenu = new javax.swing.JMenu();
+        menuConnect = new javax.swing.JMenuItem();
+        menuDisc = new javax.swing.JMenuItem();
+        menuExit = new javax.swing.JMenuItem();
+        menuAction = new javax.swing.JMenu();
+        menuAddReg = new javax.swing.JMenuItem();
+        menuSearch = new javax.swing.JMenu();
         menuSchReg = new javax.swing.JMenuItem();
         menuSchPers = new javax.swing.JMenuItem();
         menuSchUnit = new javax.swing.JMenuItem();
-        listMenu = new javax.swing.JMenuItem();
+        menuList = new javax.swing.JMenuItem();
         AboutMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,33 +227,39 @@ public class MainFrame extends javax.swing.JFrame {
 
         FileMenu.setText("Fichier");
 
-        newRegistration.setText("Ajouter nouvelle demande");
-        FileMenu.add(newRegistration);
+        menuConnect.setText("Connexion");
+        FileMenu.add(menuConnect);
 
-        exitMenu.setText("Quitter");
-        FileMenu.add(exitMenu);
+        menuDisc.setText("Déconnexion");
+        FileMenu.add(menuDisc);
+
+        menuExit.setText("Quitter");
+        FileMenu.add(menuExit);
 
         MenuBar.add(FileMenu);
 
-        ActionMenu.setText("Action");
+        menuAction.setText("Action");
 
-        SearchMenu.setText("Recherches");
+        menuAddReg.setText("Ajouter nouvelle demande");
+        menuAction.add(menuAddReg);
+
+        menuSearch.setText("Recherches");
 
         menuSchReg.setText("Demande d'inscription");
-        SearchMenu.add(menuSchReg);
+        menuSearch.add(menuSchReg);
 
         menuSchPers.setText("Personne");
-        SearchMenu.add(menuSchPers);
+        menuSearch.add(menuSchPers);
 
         menuSchUnit.setText("Unité");
-        SearchMenu.add(menuSchUnit);
+        menuSearch.add(menuSchUnit);
 
-        ActionMenu.add(SearchMenu);
+        menuAction.add(menuSearch);
 
-        listMenu.setText("Listing");
-        ActionMenu.add(listMenu);
+        menuList.setText("Listing");
+        menuAction.add(menuList);
 
-        MenuBar.add(ActionMenu);
+        MenuBar.add(menuAction);
 
         AboutMenu.setText("About");
         MenuBar.add(AboutMenu);
@@ -200,6 +300,7 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
+                
             }
         });
     }
@@ -207,16 +308,18 @@ public class MainFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AboutMenu;
-    private javax.swing.JMenu ActionMenu;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenu SearchMenu;
-    private javax.swing.JMenuItem exitMenu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem listMenu;
+    private javax.swing.JMenu menuAction;
+    private javax.swing.JMenuItem menuAddReg;
+    private javax.swing.JMenuItem menuConnect;
+    private javax.swing.JMenuItem menuDisc;
+    private javax.swing.JMenuItem menuExit;
+    private javax.swing.JMenuItem menuList;
     private javax.swing.JMenuItem menuSchPers;
     private javax.swing.JMenuItem menuSchReg;
     private javax.swing.JMenuItem menuSchUnit;
-    private javax.swing.JMenuItem newRegistration;
+    private javax.swing.JMenu menuSearch;
     // End of variables declaration//GEN-END:variables
 }

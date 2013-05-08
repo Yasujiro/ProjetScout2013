@@ -89,10 +89,10 @@ public class Personne {
     }
     public String getBox()
     {
-        if(this.numBox.equals(""))
-            return null;
+        if(this.numBox==null)
+            return "";
         else
-        return this.numBox;
+            return this.numBox;
     }
     
     public Personne getLegal()

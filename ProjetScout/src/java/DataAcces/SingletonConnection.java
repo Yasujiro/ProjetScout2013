@@ -5,12 +5,9 @@
 package DataAcces;
 
 import Exception.ConnectionException;
-import Exception.UnknowException;
 import java.sql.*;
 import javax.sql.*;
 import javax.naming.*;
-import javax.swing.JOptionPane;
-
 
 
 
@@ -18,13 +15,16 @@ public class SingletonConnection {
     
     private static Connection uniqueConnection;
     
-    private SingletonConnection() throws ConnectionException, UnknowException
+    private SingletonConnection(String id, String pwd) throws ConnectionException
     {
+       
         try
         {
             Context cont = new InitialContext();
+            
             DataSource source = (DataSource)cont.lookup("jdbc/ProjetScout");
-            uniqueConnection = source.getConnection("etu20275","Leb830Se");
+            uniqueConnection = source.getConnection(id,pwd);
+            
         }
         catch(SQLException e)
         {
@@ -34,18 +34,26 @@ public class SingletonConnection {
         {
             throw new ConnectionException(e.toString());
         }
-        catch(Exception e){
-            throw new UnknowException(e.toString());
-        }
     }
     
-    public static Connection getUniqueInstance() throws ConnectionException, UnknowException
+    public static Connection getUniqueInstance(String id, String pwd) throws ConnectionException
     {
         if(uniqueConnection == null)
         {
-            new SingletonConnection();
+            new SingletonConnection(id,pwd);
         }
         
             return uniqueConnection;
+    }
+    public static boolean getConnectionState(){
+        try{
+            return uniqueConnection.isClosed();
+        }
+        catch(NullPointerException e){
+            return true;
+        }
+        catch(SQLException e){
+            return true;
+        }
     }
 }

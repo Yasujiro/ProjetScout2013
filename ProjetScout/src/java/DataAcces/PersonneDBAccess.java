@@ -4,7 +4,11 @@
  */
 package DataAcces;
 
+import Exception.AddDataException;
 import Exception.ConnectionException;
+import Exception.ModDataException;
+import Exception.SearchDataException;
+import Interface.PersonneDataAccess;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,13 +20,13 @@ import model.Localite;
 import model.Personne;
 
 
-public class PersonneDBAccess {
+public class PersonneDBAccess implements PersonneDataAccess {
     
     
-    public void addPersonne(Personne p)
+    public void addPersonne(Personne p) throws AddDataException
     {
         try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
             String instructionAddPers;
             String instructionUpdate;
             Date birthDate=null;
@@ -62,18 +66,19 @@ public class PersonneDBAccess {
            
             
         }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+       catch(ConnectionException e){
+           throw new AddDataException(e.toString());
+       }
+        catch(SQLException e){
+            throw new AddDataException(e.toString());
         }
         
-        
     }
-    public ArrayList<Personne> getPers(Personne p){
+    public ArrayList<Personne> getPers(Personne p) throws SearchDataException{
         ArrayList<Personne> listPers = new ArrayList<Personne>();
         Personne pFound;
         try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
             String searchInstruct;
             
             
@@ -140,22 +145,26 @@ public class PersonneDBAccess {
                 }
                 
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+        catch(ConnectionException e){
+            throw new SearchDataException(e.toString());
         }
+        catch(SQLException e){
+            throw new SearchDataException(e.toString());
+        }
+        
         finally{
             return listPers;
         }
        
     }
-    public ArrayList<LegalResp> getLegal()
+    public ArrayList<LegalResp> getLegal() throws SearchDataException
     {
         ArrayList<LegalResp> listLegal = new ArrayList<LegalResp>();
         try{
         
         String searchLegalInstruction;
         String name,fiName,street,num,tel,mail,id;
-        Connection BDConnection = SingletonConnection.getUniqueInstance();
+        Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
         searchLegalInstruction = "SELECT * FROM PERSONNE where TYPEPERS = ? ORDER BY NOM ASC";
         
         PreparedStatement prepStat = BDConnection.prepareStatement(searchLegalInstruction);
@@ -181,19 +190,22 @@ public class PersonneDBAccess {
             
         
         }
-        catch(Exception e)
+        catch(ConnectionException e)
         {
-            JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+            throw new SearchDataException(e.toString());
+        }
+        catch(SQLException e){
+            throw new SearchDataException(e.toString());
         }
         finally {
             return listLegal;
         }
     }
     
-   public void modPers(Personne p){
+   public void modPers(Personne p)throws ModDataException{
        Date birthDate=null;
        try{
-           Connection BDConnection = SingletonConnection.getUniqueInstance();
+           Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
            String updateInstruction = "UPDATE PERSONNE SET NOM = ?, PRENOM = ?, DATENAISSANCE = ?, POSTALCODELOC = ?, "
                    + "LIBELLELOC = ?, RUE = ? , NUM = ? , NUMBOITE = ?, GSM = ?,EMAIL = ?  "
                    + "where NUMID = ? ";
@@ -215,8 +227,34 @@ public class PersonneDBAccess {
            prepStat.executeUpdate();
            
        }
-       catch(Exception e){
-           JOptionPane.showMessageDialog(null, "ERREUR Data Access PERSONNE"+e.toString(),"error",JOptionPane.PLAIN_MESSAGE);
+       catch(ConnectionException e){
+           throw new ModDataException(e.toString());
+       }
+       catch(SQLException e){
+           throw new ModDataException(e.toString());
+       }
+   }
+   public int countPers(String id) throws SearchDataException
+   {
+       try{
+           int nbPers=0;
+           Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
+           String countInstruct = "SELECT COUNT(*) FROM PERSONNE legal " +
+                                  "join PERSONNE p on (p.idresp = legal.numID) " +
+                                  "where legal.numid = ?";
+           PreparedStatement prepStat = BDConnection.prepareStatement(countInstruct);
+           prepStat.setString(1, id);
+           ResultSet data = prepStat.executeQuery();
+           while(data.next()){
+               nbPers = data.getInt(1);
+           }
+           return nbPers;
+       }
+       catch(ConnectionException e){
+           throw new SearchDataException(e.toString());
+       }
+       catch(SQLException e) {
+           throw new SearchDataException(e.toString());
        }
    }
     

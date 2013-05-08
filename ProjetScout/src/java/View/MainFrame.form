@@ -9,24 +9,34 @@
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="newRegistration">
+            <MenuItem class="javax.swing.JMenuItem" name="menuConnect">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ajouter nouvelle demande"/>
+                <Property name="text" type="java.lang.String" value="Connexion"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="exitMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="menuDisc">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D&#xe9;connexion"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quitter"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="ActionMenu">
+        <Menu class="javax.swing.JMenu" name="menuAction">
           <Properties>
             <Property name="text" type="java.lang.String" value="Action"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="SearchMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="menuAddReg">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ajouter nouvelle demande"/>
+              </Properties>
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="menuSearch">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Recherches"/>
               </Properties>
@@ -48,7 +58,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="listMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="menuList">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listing"/>
               </Properties>
@@ -65,9 +75,6 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 600]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="MenuBar"/>

@@ -6,9 +6,9 @@ package DataAcces;
 
 import Exception.AddDataException;
 import Exception.ConnectionException;
-import Exception.ListRegException;
 import Exception.ModDataException;
-import Exception.UnknowException;
+import Exception.SearchDataException;
+import Interface.RegistrationDataAccess;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Date;
@@ -16,17 +16,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
 import model.Anime;
 import model.Chief;
 import model.Localite;
 import model.Personne;
 import model.Registration;
 
-// JOINTURE A REVOIR EN SQL;
-public class RegistrationDBAccess {
+public class RegistrationDBAccess implements RegistrationDataAccess {
     
-    public ArrayList<Registration> getReg(Registration r) throws ListRegException,UnknowException
+    public ArrayList<Registration> getReg(Registration r) throws SearchDataException
     {
         ArrayList<Registration> regList = new ArrayList<Registration>();
         String libUnit, libSect,id,etat;
@@ -36,7 +34,7 @@ public class RegistrationDBAccess {
         Boolean colis;
         
         try{
-            Connection BDConnection = SingletonConnection.getUniqueInstance();
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
             String schInstruction ="Select * "
                         + "from DEMANDEINSCRIPT dem "                        
                         + "join PERSONNE p on (dem.NUMID = p.NUMID )" 
@@ -89,7 +87,7 @@ public class RegistrationDBAccess {
                 else if (data.getString("TYPEPERS").equals("Chef"))
                     p = new Chief(idPers);
                 else
-                    throw new Exception();
+                    p = new Personne(idPers);
                 
                 
                 
@@ -156,27 +154,23 @@ public class RegistrationDBAccess {
                 reg.setState(etat);
                 reg.setColis(colis);
                 reg.setCrea(data.getDate("DATECREA"));
+                reg.setPrice(data.getInt("PRIX"));
                 regList.add(reg);
             }
         }
         catch(ConnectionException e){
-            throw new ListRegException(e.toString());
+            throw new SearchDataException(e.toString());
         }
         catch(SQLException e){
-            throw new ListRegException(e.toString());
+            throw new SearchDataException(e.toString());
         }
-        catch(Exception e)
-        {
-            throw new UnknowException(e.toString());
-        }
-        
         return regList;
     }
     
-    public void addRegistration(Registration reg) throws AddDataException, UnknowException
+    public void addRegistration(Registration reg) throws AddDataException
     {
         try{
-                Connection BDConnection = SingletonConnection.getUniqueInstance();
+                Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
                 Date crea = new Date(reg.getCrea().getTimeInMillis());
                 Date modification = new Date(reg.getLastModif().getTimeInMillis());
                 String instructionInsertReg = "INSERT INTO DEMANDEINSCRIPT (IDDEM,NUMID,ETAT,DATECREA,DATEMODIF,ENVOISCOLIS,PRIX,LIBELLESECTION,LIBELLEUnite)"
@@ -205,14 +199,11 @@ public class RegistrationDBAccess {
         catch(SQLException e){
             throw new AddDataException(e.toString());
         }
-        catch(Exception e){
-            throw new UnknowException(e.toString());
-        }
     }
-    public void modRegistration(Registration reg) throws ModDataException, UnknowException
+    public void modRegistration(Registration reg) throws ModDataException
     {
         try{
-             Connection BDConnection = SingletonConnection.getUniqueInstance();
+             Connection BDConnection = SingletonConnection.getUniqueInstance(null,null);
              Date modDate = new Date(Calendar.getInstance().getTimeInMillis());
              
              String updateInstruction = "update DEMANDEINSCRIPT set LIBELLEUNITE = ?, LIBELLESECTION = ?,ETAT = ?, ENVOISCOLIS = ?, DATEMODIF = ?"
@@ -223,7 +214,7 @@ public class RegistrationDBAccess {
              prepStat.setString(3,reg.getState());
              prepStat.setBoolean(4,reg.getColis());
              prepStat.setDate(5, modDate);
-             prepStat.setString(6,reg.getId());
+             prepStat.setString(7,reg.getId());
              
              prepStat.executeUpdate();
              
@@ -235,9 +226,6 @@ public class RegistrationDBAccess {
         }
         catch(SQLException e){
             throw new ModDataException(e.toString());
-        }
-        catch(Exception e){
-            throw new UnknowException(e.toString());
         }
         
         

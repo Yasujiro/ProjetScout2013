@@ -10,7 +10,12 @@ package Exception;
  */
 public class ModDataException extends Exception {
     
+    private String message;
         public ModDataException(String m){
-            super(m);
+            message = m;
+            
+        }
+        public String toString(){
+            return "<html>Une erreur est survenue lors de la modification des données<br><br>"+this.message+"</html>";
         }
 }

@@ -6,12 +6,12 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.ModDataException;
-import Exception.UnknowException;
+import Exception.SearchDataException;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Registration;
@@ -38,9 +38,11 @@ public class ModRegPanel extends javax.swing.JPanel {
                 comboUnit.addItem(var);
             }
         }
-        catch(Exception e)
-        {
-            //Exception a créer;
+        catch(SearchDataException e){
+            JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
         buttValid.addActionListener(buttList);
@@ -59,6 +61,9 @@ public class ModRegPanel extends javax.swing.JPanel {
         comboSect.setSelectedItem(reg.getSect().getLib());
         radButtColis.setSelected(reg.getColis());
         comboState.setSelectedItem(reg.getState());
+        fieldPrice.setText(""+reg.getPrice());
+        fieldPrice.setEnabled(false);
+        labPrice.setForeground(Color.gray);
     }
     
     private class ButtonListener implements ActionListener
@@ -71,14 +76,15 @@ public class ModRegPanel extends javax.swing.JPanel {
                updatedReg.setColis(radButtColis.isSelected());
                updatedReg.setState((String)comboState.getSelectedItem());
                updatedReg.setSect((String)comboSect.getSelectedItem(),comboUnit.getSelectedItem().toString());
+               
                try{
                  app.modRegistration(updatedReg);
                }
                catch(ModDataException e){
-                   JOptionPane.showMessageDialog(null, "<html>Erreur lors de la modification<br><br>"+e.toString()+"</html>","error",JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(null,e.toString(),"error",JOptionPane.ERROR_MESSAGE);
                }
-              catch (UnknowException e) {
-                    JOptionPane.showMessageDialog(null, "<html>Erreur lors de la modification<br><br>"+e.toString()+"</html>","error",JOptionPane.ERROR_MESSAGE);
+              catch (Exception e) {
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                }
                
                parents.dispose();
@@ -109,6 +115,8 @@ public class ModRegPanel extends javax.swing.JPanel {
         buttCancel = new javax.swing.JButton();
         labState = new javax.swing.JLabel();
         comboState = new javax.swing.JComboBox();
+        labPrice = new javax.swing.JLabel();
+        fieldPrice = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -128,6 +136,8 @@ public class ModRegPanel extends javax.swing.JPanel {
 
         comboState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En attente", "Acceptée", "Refusée" }));
 
+        labPrice.setText("Prix");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,19 +150,22 @@ public class ModRegPanel extends javax.swing.JPanel {
                             .addComponent(labColis)
                             .addComponent(labSect)
                             .addComponent(labUnit)
-                            .addComponent(labState)))
+                            .addComponent(labState)
+                            .addComponent(labPrice)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(buttValid)))
                 .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboSect, 0, 114, Short.MAX_VALUE)
-                    .addComponent(comboUnit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(buttCancel))
-                    .addComponent(radButtColis)
-                    .addComponent(comboState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(comboSect, 0, 114, Short.MAX_VALUE)
+                        .addComponent(comboUnit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(buttCancel))
+                        .addComponent(radButtColis)
+                        .addComponent(comboState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -176,7 +189,11 @@ public class ModRegPanel extends javax.swing.JPanel {
                         .addComponent(comboSect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
                         .addComponent(radButtColis)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labPrice)
+                    .addComponent(fieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttValid)
                     .addComponent(buttCancel))
@@ -191,8 +208,10 @@ public class ModRegPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboSect;
     private javax.swing.JComboBox comboState;
     private javax.swing.JComboBox comboUnit;
+    private javax.swing.JTextField fieldPrice;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labColis;
+    private javax.swing.JLabel labPrice;
     private javax.swing.JLabel labSect;
     private javax.swing.JLabel labState;
     private javax.swing.JLabel labUnit;

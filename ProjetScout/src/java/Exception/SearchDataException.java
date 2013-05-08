@@ -8,15 +8,14 @@ package Exception;
  *
  * @author Jérémy
  */
-public class AddDataException extends Exception {
-   
+public class SearchDataException extends Exception {
+    
     private String message;
-    public AddDataException (String m){
+    public SearchDataException(String m){
         message = m;
     }
-    
     public String toString(){
-        return "<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+message+"</html>";
+         return "<html>Une erreur est survenue lors de la récupération des données<br><br>"+this.message+"</html>";
     }
     
 }

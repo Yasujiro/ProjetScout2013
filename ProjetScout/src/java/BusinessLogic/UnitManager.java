@@ -5,23 +5,28 @@
 package BusinessLogic;
 
 import DataAcces.UnitDBAccess;
+import Exception.SearchDataException;
+import Interface.UnitDataAccess;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import model.Unit;
 
 
 public class UnitManager {
     
-    private UnitDBAccess dba = new UnitDBAccess();
+    private UnitDataAccess dba;
     private String nameUnit =null;
     private String libLoca;
     
-    public ArrayList<Unit> getUnits() throws Exception
+    public UnitManager(){
+        dba = new UnitDBAccess();
+    }
+    
+    public ArrayList<Unit> getUnits() throws SearchDataException
     {
         return dba.getUnits();
     }
 
-    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) {
+    public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws SearchDataException {
                    
        nameUnit = "%"+name+"%";
        if(libLoc.equals("Sélectionner une localité"))
