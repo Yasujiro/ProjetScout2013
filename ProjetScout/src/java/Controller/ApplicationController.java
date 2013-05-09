@@ -5,6 +5,7 @@
 package Controller;
 
 import BusinessLogic.LocaManager;
+import BusinessLogic.LogginManager;
 import BusinessLogic.PersonneManager;
 import BusinessLogic.RegistrationManager;
 import BusinessLogic.UnitManager;
@@ -19,6 +20,7 @@ import model.Registration;
 import model.Unit;
 
 public class ApplicationController {
+    private LogginManager logM = new LogginManager();
     private LocaManager lm = new LocaManager();
     private UnitManager um = new UnitManager();
     private RegistrationManager rm = new RegistrationManager();
@@ -29,8 +31,6 @@ public class ApplicationController {
     {
         return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail,totem);
     }
-    
-    
     public ArrayList<LegalResp> getLegal() throws SearchDataException
     {
         return pm.getLegal();
@@ -49,9 +49,6 @@ public class ApplicationController {
     {
         return lm.getLocalite(pCode);
     }
-    
-    
-    
     public ArrayList<Unit> getUnits() throws SearchDataException
     {
         return um.getUnits();
@@ -60,8 +57,6 @@ public class ApplicationController {
     {
         return um.getUnits(name,postalCode,libLoc);
     }
-    
-    
     
     public ArrayList<Registration> getReg(Registration reg) throws SearchDataException
     {
@@ -75,6 +70,15 @@ public class ApplicationController {
     public void modRegistration(Registration reg) throws ModDataException
     {
         rm.modRegistration(reg);
+    }
+    public void Loggin(String user, String password) throws ConnectionException{
+        logM.Loggin(user, password);
+    }
+    public void Disconnect() throws ConnectionException{
+        logM.Disconnect();
+    }
+    public boolean getConnectionState(){
+        return logM.getConnectionState();
     }
 
     

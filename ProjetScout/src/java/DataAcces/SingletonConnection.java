@@ -45,6 +45,12 @@ public class SingletonConnection {
         
             return uniqueConnection;
     }
+    public static void Disconnect() throws ConnectionException{
+        if(uniqueConnection!=null)
+                uniqueConnection=null;
+        else
+            throw new ConnectionException(null);
+    }
     public static boolean getConnectionState(){
         try{
             return uniqueConnection.isClosed();
