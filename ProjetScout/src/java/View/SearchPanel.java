@@ -6,20 +6,16 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.SearchDataException;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import model.Localite;
 import model.Personne;
 import model.SchPersModel;
-import model.Unit;
 
 
 public class SearchPanel extends javax.swing.JPanel {
@@ -90,8 +86,13 @@ public class SearchPanel extends javax.swing.JPanel {
                                         }
                                     }
                 }
+                catch(SearchDataException e){
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
+                }
                 catch(Exception e){
-                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
             if(ae.getSource()==buttCancel)
@@ -130,6 +131,7 @@ public class SearchPanel extends javax.swing.JPanel {
                     }
                     catch(Exception e)
                     {
+                        app.WriteLog(e.getMessage());
                         JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -143,10 +145,12 @@ public class SearchPanel extends javax.swing.JPanel {
                 }
                 catch(SearchDataException e)
                 {
-                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
                 catch(Exception e){
-                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 
                 for(Localite var: listLoca)

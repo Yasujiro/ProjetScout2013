@@ -1,0 +1,8 @@
+mai 09, 2013 5:28:38 PM BusinessLogic.LoggerManager WriteLog
+WARNING: Connection errror : java.sql.SQLNonTransientConnectionException: Un échec d'authentification de la connexion s'est produit.  Motif : ID utilisateur ou mot de passe incorrects.
+mai 09, 2013 5:28:55 PM BusinessLogic.LoggerManager WriteLog
+WARNING: For input string: "zzz"
+mai 09, 2013 5:30:23 PM BusinessLogic.LoggerManager WriteLog
+WARNING: Connection errror : java.sql.SQLNonTransientConnectionException: Un échec d'authentification de la connexion s'est produit.  Motif : ID utilisateur ou mot de passe incorrects.
+mai 09, 2013 5:30:34 PM BusinessLogic.LoggerManager WriteLog
+WARNING: For input string: "dzd"

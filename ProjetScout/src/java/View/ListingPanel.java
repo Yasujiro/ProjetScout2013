@@ -5,7 +5,9 @@
 package View;
 
 import Controller.ApplicationController;
+import Exception.SearchDataException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import model.Registration;
 import model.SearchRegModel;
@@ -55,8 +57,14 @@ public class ListingPanel extends javax.swing.JPanel {
 				    }
 				}
         }
+        catch(SearchDataException e){
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+        }
         catch(Exception e){
-            
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+
         }
         
         

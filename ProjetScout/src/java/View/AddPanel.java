@@ -15,9 +15,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -84,10 +90,12 @@ public class AddPanel extends javax.swing.JPanel {
              }
         }
         catch(SearchDataException e){
-            JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         } 
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"<html>Une Erreur est survenue lors du chargement des données<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -186,10 +194,12 @@ public class AddPanel extends javax.swing.JPanel {
                     
             }
             catch(AddDataException e){
-                JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                app.WriteLog(e.getMessage());
+                JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
             }
             catch(Exception e){
-                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                app.WriteLog(e.getMessage());
+                JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
             }
         }
             
@@ -236,13 +246,16 @@ public class AddPanel extends javax.swing.JPanel {
                     }
                 }
                 catch(SearchDataException e){
-                     JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                     app.WriteLog(e.getMessage());
+                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                   }
                 catch(NumberFormatException e){
-                     JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","error",JOptionPane.ERROR_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                   }
                 catch(Exception e){
-                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                   }
            }
             

@@ -214,7 +214,7 @@ public class RegistrationDBAccess implements RegistrationDataAccess {
              prepStat.setString(3,reg.getState());
              prepStat.setBoolean(4,reg.getColis());
              prepStat.setDate(5, modDate);
-             prepStat.setString(7,reg.getId());
+             prepStat.setString(6,reg.getId());
              
              prepStat.executeUpdate();
              

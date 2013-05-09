@@ -12,10 +12,10 @@ public class SearchDataException extends Exception {
     
     private String message;
     public SearchDataException(String m){
-        message = m;
+        message = "Search data error : "+m;
     }
     public String toString(){
-         return "<html>Une erreur est survenue lors de la récupération des données<br><br>"+this.message+"</html>";
+         return "Une erreur est survenue lors de la recherche des données";
     }
     
 }

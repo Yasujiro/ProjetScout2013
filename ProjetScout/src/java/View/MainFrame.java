@@ -1,6 +1,7 @@
 
 import Controller.ApplicationController;
 import Exception.ConnectionException;
+import Exception.DisconnectException;
 import View.SearchPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -45,8 +52,8 @@ public class MainFrame extends javax.swing.JFrame {
         Dimension d = new Dimension(900,700);
         this.setMinimumSize(d);
         this.setSize(d);
-        
         app = new ApplicationController();
+        
         labConnected = new JLabel();
         thread = new ThreadConnection(labConnected);
         thread.start();
@@ -94,7 +101,6 @@ public class MainFrame extends javax.swing.JFrame {
         panFieldsLog.add(fieldPassword);
         panelLog.add(panLabelsLog,BorderLayout.WEST);
         panelLog.add(panFieldsLog,BorderLayout.CENTER);
-        
         JOptionPane.showMessageDialog(this,panelLog, "Identification",JOptionPane.PLAIN_MESSAGE);
         
         String password="";
@@ -106,15 +112,19 @@ public class MainFrame extends javax.swing.JFrame {
         app.Loggin(fieldUser.getText(), password);
         }
         catch(ConnectionException e){
-            JOptionPane.showMessageDialog(this,"Identifiant ou mot de passe incorrect","Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(this,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
     }
     public void Disconnect(){
         try{
             app.Disconnect();
+            this.ChangePanel(panelHome);
         }
-        catch(ConnectionException e){
-            JOptionPane.showMessageDialog(this,"Vous n'êtes pas connecté","Erreur",JOptionPane.ERROR_MESSAGE);
+        catch(DisconnectException e){
+            app.WriteLog(e.getMessage());
+            
+            JOptionPane.showMessageDialog(this,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setLabConnect(boolean state){

@@ -6,7 +6,7 @@ package View;
 
 import Controller.ApplicationController;
 import java.awt.Color;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 
 public class ThreadConnection extends Thread {
@@ -19,12 +19,13 @@ public class ThreadConnection extends Thread {
         super();
         app = new ApplicationController();
         lab = j;
-}
+    }
     
     public void run() {
         
         while(true){
             try{
+                
                 if(app.getConnectionState()){
                 lab.setForeground(Color.RED);
                 lab.setText("Déconnecté");
@@ -34,14 +35,13 @@ public class ThreadConnection extends Thread {
                 lab.setText("Connecté");
                 }
                 //frame.setLabConnected(app.getConnectionState());
-                Thread.sleep(30);
+                Thread.sleep(50);
             }
             catch(Exception e){
                 
             }
         }
     }
-    
     
     
 }

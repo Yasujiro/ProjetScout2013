@@ -6,6 +6,7 @@ package BusinessLogic;
 
 import DataAcces.SingletonConnection;
 import Exception.ConnectionException;
+import Exception.DisconnectException;
 import java.sql.SQLException;
 
 
@@ -14,7 +15,7 @@ public class LogginManager {
     public void Loggin(String user, String password) throws ConnectionException{
         SingletonConnection.getUniqueInstance(user, password);
     }
-    public void Disconnect()throws ConnectionException{
+    public void Disconnect()throws DisconnectException{
         SingletonConnection.Disconnect();
     }
     public boolean getConnectionState(){

@@ -4,6 +4,7 @@
  */
 package DataAcces;
 
+import Exception.ConnectionException;
 import Exception.SearchDataException;
 import Interface.LocaliteDataAccess;
 import java.sql.Connection;
@@ -43,9 +44,12 @@ public class LocaliteDBAccess implements LocaliteDataAccess {
             }
         
         }
+        catch(ConnectionException e){
+            throw new SearchDataException(e.getMessage());
+        }
         catch(SQLException e)
         {
-            
+            throw new SearchDataException(e.getMessage());
         }
     
         

@@ -12,11 +12,11 @@ public class AddDataException extends Exception {
    
     private String message;
     public AddDataException (String m){
-        message = m;
+        message = "Add data error : "+m;
     }
     
     public String toString(){
-        return "<html>"+ "Erreur lors de l'ajout de la demande<br><br>"+message+"</html>";
+        return "Une erreur est survenue lors de l'ajout des données";
     }
     
 }

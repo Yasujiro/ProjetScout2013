@@ -18,7 +18,6 @@ import javax.swing.table.TableColumn;
 import model.Personne;
 import model.Registration;
 import model.SearchRegModel;
-import model.Section;
 import model.Unit;
 
 
@@ -52,10 +51,12 @@ public class SearchRegPanel extends javax.swing.JPanel {
             }
         }
         catch(SearchDataException e){
-           JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+           JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue <br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -157,10 +158,11 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				}
                 }
                 catch(SearchDataException e){
-                    JOptionPane.showMessageDialog(null, "<html>Erreur lors du chargement de la liste des demandes<br><br>"+e.toString()+"</html> ","Erreur",JOptionPane.PLAIN_MESSAGE);
+                    app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
                 catch(Exception e){
-                    JOptionPane.showMessageDialog(null, e.toString(),"Erreur",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
             

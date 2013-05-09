@@ -4,20 +4,15 @@
  */
 package Controller;
 
-import BusinessLogic.LocaManager;
-import BusinessLogic.LogginManager;
-import BusinessLogic.PersonneManager;
-import BusinessLogic.RegistrationManager;
-import BusinessLogic.UnitManager;
+import BusinessLogic.*;
 import Exception.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 import model.LegalResp;
 
-import model.Localite;
-import model.Personne;
-import model.Registration;
-import model.Unit;
+import model.*;
+
 
 public class ApplicationController {
     private LogginManager logM = new LogginManager();
@@ -25,6 +20,7 @@ public class ApplicationController {
     private UnitManager um = new UnitManager();
     private RegistrationManager rm = new RegistrationManager();
     private PersonneManager pm = new PersonneManager();
+    
 
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,
             String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException
@@ -74,13 +70,16 @@ public class ApplicationController {
     public void Loggin(String user, String password) throws ConnectionException{
         logM.Loggin(user, password);
     }
-    public void Disconnect() throws ConnectionException{
+    public void Disconnect() throws DisconnectException{
         logM.Disconnect();
     }
     public boolean getConnectionState(){
         return logM.getConnectionState();
     }
-
+    
+    public void WriteLog(String l){
+        LoggerManager.WriteLog(l);
+    }
     
 }
 

@@ -39,10 +39,12 @@ public class ModRegPanel extends javax.swing.JPanel {
             }
         }
         catch(SearchDataException e){
-            JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+            app.WriteLog(e.getMessage());
+            JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
         buttValid.addActionListener(buttList);
@@ -81,10 +83,12 @@ public class ModRegPanel extends javax.swing.JPanel {
                  app.modRegistration(updatedReg);
                }
                catch(ModDataException e){
-                   JOptionPane.showMessageDialog(null,e.toString(),"error",JOptionPane.ERROR_MESSAGE);
+                   app.WriteLog(e.getMessage());
+                   JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","error",JOptionPane.ERROR_MESSAGE);
                }
               catch (Exception e) {
-                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br><br>"+e.toString()+"</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                  app.WriteLog(e.getMessage());
+                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                }
                
                parents.dispose();
