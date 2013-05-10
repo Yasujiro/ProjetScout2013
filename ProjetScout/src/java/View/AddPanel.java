@@ -9,21 +9,11 @@ import Controller.ApplicationController;
 import Exception.AddDataException;
 import Exception.SearchDataException;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.IOException;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -90,11 +80,11 @@ public class AddPanel extends javax.swing.JPanel {
              }
         }
         catch(SearchDataException e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.FINER,e);
             JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         } 
         catch(Exception e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.WARNING,e);
             JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
 
@@ -104,7 +94,7 @@ public class AddPanel extends javax.swing.JPanel {
                
                 groupSect.clearSelection();
                 
-                
+                spinDate.setValue(new Date(Calendar.getInstance().getTimeInMillis()));
                 comboLoc.removeAllItems();
                 comboLoc.addItem("Sélectionner une localité");
                 comboLegal.setSelectedIndex(0);
@@ -118,6 +108,7 @@ public class AddPanel extends javax.swing.JPanel {
                 fieldTotem.setText(null);
                 fieldStreet.setText(null);
                 fieldNum.setText(null);
+                fieldBox.setText(null);
     }
     
     private class ComboState implements ItemListener
@@ -194,11 +185,11 @@ public class AddPanel extends javax.swing.JPanel {
                     
             }
             catch(AddDataException e){
-                app.WriteLog(e.getMessage());
+                app.WriteLog(e.getMessage(),Level.FINER,e);
                 JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
             }
             catch(Exception e){
-                app.WriteLog(e.getMessage());
+                app.WriteLog(e.getMessage(),Level.WARNING,e);
                 JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -246,15 +237,15 @@ public class AddPanel extends javax.swing.JPanel {
                     }
                 }
                 catch(SearchDataException e){
-                     app.WriteLog(e.getMessage());
+                     app.WriteLog(e.getMessage(),Level.FINER,e);
                      JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                   }
                 catch(NumberFormatException e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null, "Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                   }
                 catch(Exception e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                   }
            }

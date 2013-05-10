@@ -15,7 +15,10 @@ public class ModDataException extends Exception {
             message = "Modification error : "+m;
             
         }
-        public String toString(){
-            return "Une erreur est survenue lors de la modification des données";
-        }
+     public String toString(){
+         return "Une erreur est survenue lors de la modification des données";
+      }
+    public String getMessage(){
+       return message;
+    }
 }

@@ -33,6 +33,8 @@ public class SingletonConnection {
              *              
             */
             uniqueConnection =DriverManager.getConnection("jdbc:derby://localhost:1527/ProjetScout",id,pwd);
+            uniqueConnection.setAutoCommit(false);
+            
             
             
             

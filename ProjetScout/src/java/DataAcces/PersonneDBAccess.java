@@ -4,21 +4,11 @@
  */
 package DataAcces;
 
-import Exception.AddDataException;
-import Exception.ConnectionException;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
 import Interface.PersonneDataAccess;
 import java.sql.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import model.Anime;
-import model.Chief;
-import model.LegalResp;
-import model.Localite;
-
-import model.Personne;
-
+import model.*;
 
 public class PersonneDBAccess implements PersonneDataAccess {
     
@@ -220,12 +210,13 @@ public class PersonneDBAccess implements PersonneDataAccess {
            prepStat.setString(6,p.getStreet());
            prepStat.setString(7,p.getHouse());           
            prepStat.setString(8,p.getBox());
-           prepStat.setString(9, p.getId());
-           prepStat.setString(10,p.getTel());
-           prepStat.setString(11,p.getMail());
+           prepStat.setString(9,p.getTel());
+           prepStat.setString(10,p.getMail());
+           prepStat.setString(11, p.getId());
+           
            
            prepStat.executeUpdate();
-           
+           BDConnection.commit();
        }
        catch(ConnectionException e){
            throw new ModDataException(e.toString());

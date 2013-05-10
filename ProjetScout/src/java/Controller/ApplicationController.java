@@ -6,8 +6,10 @@ package Controller;
 
 import BusinessLogic.*;
 import Exception.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.LegalResp;
 
@@ -76,11 +78,13 @@ public class ApplicationController {
     public boolean getConnectionState(){
         return logM.getConnectionState();
     }
-    
-    public void WriteLog(String l){
-        LoggerManager.WriteLog(l);
+    public void DelReg(Registration reg)throws DeleteException{
+        rm.DelReg(reg);
     }
     
+    public void WriteLog(String message,Level lvl,Exception e){
+        LoggerManager.WriteLog(message,lvl,e);
+    }
 }
 
 

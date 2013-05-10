@@ -6,19 +6,12 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.SearchDataException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
+import java.awt.event.*;
+import java.util.*;
+import java.util.logging.Level;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
-import model.Personne;
-import model.Registration;
-import model.SearchRegModel;
-import model.Unit;
+import model.*;
 
 
 public class SearchRegPanel extends javax.swing.JPanel {
@@ -51,11 +44,11 @@ public class SearchRegPanel extends javax.swing.JPanel {
             }
         }
         catch(SearchDataException e){
-            app.WriteLog(e.getMessage());
+           app.WriteLog(e.getMessage(),Level.FINER,e);
            JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.WARNING,e);
             JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
@@ -158,10 +151,11 @@ public class SearchRegPanel extends javax.swing.JPanel {
 				}
                 }
                 catch(SearchDataException e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null, "<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                 }
                 catch(Exception e){
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }

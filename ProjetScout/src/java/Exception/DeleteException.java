@@ -8,17 +8,16 @@ package Exception;
  *
  * @author Jérémy
  */
-public class SearchDataException extends Exception {
+public class DeleteException extends Exception {
     
     private String message;
-    public SearchDataException(String m){
-        message = "Search data error : "+m;
+    public DeleteException (String m){
+        message =m;
     }
     public String toString(){
-         return "Une erreur est survenue lors de la recherche des données";
+        return "Une erreur est survenue lors de la suppression des données";
     }
     public String getMessage(){
         return message;
     }
-    
 }

@@ -10,8 +10,8 @@ import Exception.SearchDataException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.ArrayList;;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Registration;
@@ -39,11 +39,11 @@ public class ModRegPanel extends javax.swing.JPanel {
             }
         }
         catch(SearchDataException e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.FINER,e);
             JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.WARNING,e);
             JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
@@ -83,11 +83,11 @@ public class ModRegPanel extends javax.swing.JPanel {
                  app.modRegistration(updatedReg);
                }
                catch(ModDataException e){
-                   app.WriteLog(e.getMessage());
+                   app.WriteLog(e.getMessage(),Level.FINER,e);
                    JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","error",JOptionPane.ERROR_MESSAGE);
                }
               catch (Exception e) {
-                  app.WriteLog(e.getMessage());
+                  app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                }
                

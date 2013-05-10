@@ -18,5 +18,8 @@ public class AddDataException extends Exception {
     public String toString(){
         return "Une erreur est survenue lors de l'ajout des données";
     }
+    public String getMessage(){
+        return message;
+    }
     
 }

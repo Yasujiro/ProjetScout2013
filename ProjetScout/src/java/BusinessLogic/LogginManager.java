@@ -7,7 +7,6 @@ package BusinessLogic;
 import DataAcces.SingletonConnection;
 import Exception.ConnectionException;
 import Exception.DisconnectException;
-import java.sql.SQLException;
 
 
 public class LogginManager {

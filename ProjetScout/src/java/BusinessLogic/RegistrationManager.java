@@ -6,15 +6,11 @@ package BusinessLogic;
 
 import DataAcces.PersonneDBAccess;
 import DataAcces.RegistrationDBAccess;
-import Exception.AddDataException;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
 import Interface.PersonneDataAccess;
 import Interface.RegistrationDataAccess;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.UUID;
-import javax.swing.JOptionPane;
 import model.Personne;
 import model.Registration;
 
@@ -75,6 +71,9 @@ public class RegistrationManager {
     {
         
             dba.modRegistration(reg);
+    }
+    public void DelReg(Registration reg)throws DeleteException{
+        dba.DelReg(reg);
     }
         
     

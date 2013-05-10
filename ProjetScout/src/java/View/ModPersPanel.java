@@ -15,6 +15,7 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -109,11 +110,11 @@ public class ModPersPanel extends javax.swing.JPanel {
                     }                    
         }
         catch(SearchDataException e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.FINER,e);
             JOptionPane.showMessageDialog(null, "<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
           }
         catch(Exception e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.WARNING,e);
             JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         
@@ -159,11 +160,11 @@ public class ModPersPanel extends javax.swing.JPanel {
                     parents.dispose();
                 }
                 catch(ModDataException e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -193,11 +194,11 @@ public class ModPersPanel extends javax.swing.JPanel {
                     
                 }
                 catch(SearchDataException e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }

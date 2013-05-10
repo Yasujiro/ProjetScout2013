@@ -5,8 +5,11 @@
 package View;
 
 import Controller.ApplicationController;
-import Exception.SearchDataException;
+import Exception.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import model.Registration;
@@ -17,10 +20,18 @@ public class ListingPanel extends javax.swing.JPanel {
     private ApplicationController app;
     private SearchRegModel tableModel;
     private ArrayList<Registration> listReg;
+    private ButtonListener buttList;
     public ListingPanel() {
         initComponents();
         app = new ApplicationController();
-        try{
+        buttList = new ButtonListener();
+        buttDelete.addActionListener(buttList);
+        this.getTableValue();
+        
+        
+    }
+    public void getTableValue(){
+                try{
             listReg = app.getReg(null);
             tableModel = new SearchRegModel(listReg);
             tableResult.setModel(tableModel);
@@ -58,15 +69,32 @@ public class ListingPanel extends javax.swing.JPanel {
 				}
         }
         catch(SearchDataException e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.FINER,e);
             JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception e){
-            app.WriteLog(e.getMessage());
+            app.WriteLog(e.getMessage(),Level.WARNING,e);
             JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
 
         }
-        
+    }
+    private class ButtonListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if(ae.getSource()==buttDelete){
+                try{
+                    Registration reg = tableModel.getSelectedReg(tableResult.getSelectedRow());
+                    app.DelReg(reg);
+                    JOptionPane.showMessageDialog(null,"La suppression à correctement eue lieu","Erreur",JOptionPane.INFORMATION_MESSAGE);
+                    ListingPanel.this.getTableValue();
+                }
+                catch(DeleteException e){
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
+                    JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
         
     }
 

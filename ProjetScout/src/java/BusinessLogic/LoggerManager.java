@@ -24,6 +24,7 @@ public class LoggerManager {
                 fh  = new FileHandler("Log.log",true);
                 fh.setFormatter(new SimpleFormatter());
                 logger.addHandler(fh);
+                logger.setLevel(Level.FINEST);
             
             }
             catch(IOException e){
@@ -31,11 +32,12 @@ public class LoggerManager {
             }
     }
     
-    public static void WriteLog(String l){
+    public static void WriteLog(String message,Level lvl,Exception e){
         if(fh==null){
             new LoggerManager();
         }
-        logger.warning(l);
+        logger.log(lvl, message,(Exception)null);
+        
         
     }
     

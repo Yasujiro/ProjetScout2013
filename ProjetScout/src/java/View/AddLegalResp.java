@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -82,15 +83,15 @@ public class AddLegalResp extends javax.swing.JPanel {
                     }
             }
                catch(SearchDataException e){
-                   app.WriteLog(e.getMessage());
+                   app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+ e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.PLAIN_MESSAGE);
                    }
                catch(NumberFormatException e){
-                   app.WriteLog(e.getMessage());
+                   app.WriteLog(e.getMessage(),Level.FINER,e);
                    JOptionPane.showMessageDialog(null,"Erreur - Le code postal doit être un nombre","Erreur",JOptionPane.ERROR_MESSAGE);
                    }
                catch(Exception e){
-                   app.WriteLog(e.getMessage());
+                   app.WriteLog(e.getMessage(),Level.WARNING,e);
                    JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                    }
            }
@@ -139,11 +140,11 @@ public class AddLegalResp extends javax.swing.JPanel {
                     }
                 }
                 catch(AddDataException e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
-                    app.WriteLog(e.getMessage());
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }

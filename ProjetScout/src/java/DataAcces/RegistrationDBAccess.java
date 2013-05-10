@@ -4,23 +4,15 @@
  */
 package DataAcces;
 
-import Exception.AddDataException;
-import Exception.ConnectionException;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
+import Interface.PersonneDataAccess;
 import Interface.RegistrationDataAccess;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Date;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import model.Anime;
-import model.Chief;
-import model.Localite;
-import model.Personne;
-import model.Registration;
+import javax.swing.JOptionPane;
+import model.*;
 
 public class RegistrationDBAccess implements RegistrationDataAccess {
     
@@ -188,7 +180,7 @@ public class RegistrationDBAccess implements RegistrationDataAccess {
                 prepStat.setString(9,reg.getSect().getUnit().getLib());
                 
                 prepStat.executeUpdate();
-                
+                BDConnection.commit();
                 
                 
         }
@@ -217,7 +209,7 @@ public class RegistrationDBAccess implements RegistrationDataAccess {
              prepStat.setString(6,reg.getId());
              
              prepStat.executeUpdate();
-             
+             BDConnection.commit();
              
         }
         catch(ConnectionException e)
@@ -229,6 +221,44 @@ public class RegistrationDBAccess implements RegistrationDataAccess {
         }
         
         
+    }
+    public void DelReg(Registration reg)throws DeleteException{
+        try{
+            Connection BDConnection = SingletonConnection.getUniqueInstance(null, null);
+            String deleteInstruct = "DELETE FROM DEMANDEINSCRIPT where IDDEM = ?";
+            PreparedStatement prepStat = BDConnection.prepareStatement(deleteInstruct);
+            prepStat.setString(1,reg.getId());
+            
+            prepStat.executeUpdate();
+            deleteInstruct = "DELETE FROM PERSONNE where NUMID = ?";
+            prepStat = BDConnection.prepareStatement(deleteInstruct);
+            prepStat.setString(1, reg.getPers().getId());
+            prepStat.executeUpdate();
+            if(reg.getPers().getLegal()!=null){
+                
+                PersonneDataAccess dbaP = new PersonneDBAccess();
+                
+                int nbPers = dbaP.countPers(reg.getPers().getLegal().getId());
+
+                if(nbPers==0){
+                    deleteInstruct = "DELETE FROM PERSONNE where NUMID = ? ";
+                    prepStat = BDConnection.prepareStatement(deleteInstruct);
+                    prepStat.setString(1,reg.getPers().getLegal().getId());
+                    prepStat.executeUpdate();
+                }
+            }
+            BDConnection.commit();
+        }
+        catch(SQLException e){
+           throw new DeleteException(e.toString());
+        }
+        catch(ConnectionException e){
+            throw new DeleteException (e.toString());
+        }
+        catch(Exception e){
+            throw new DeleteException(e.toString());
+        }
+            
     }
     
 }

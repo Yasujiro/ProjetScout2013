@@ -18,5 +18,8 @@ public class WrongValuesException extends Exception {
     {
         return message;
     }
+    public String getMessage(){
+        return message;
+    }
     
 }
