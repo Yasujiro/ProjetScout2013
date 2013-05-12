@@ -25,7 +25,7 @@ public class ApplicationController {
     
 
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,
-            String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException
+            String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException,WrongValuesException
     {
         return pm.addPersonne(type,name,fiName,birth,legalPers,street,num,box,loc,tel,mail,totem);
     }
@@ -61,7 +61,7 @@ public class ApplicationController {
         return rm.getReg(reg);
     }
 
-    public void addRegistration(String unit,String sect,Personne pers)throws AddDataException {
+    public void addRegistration(String unit,String sect,Personne pers)throws AddDataException, WrongValuesException {
         rm.addRegistration(unit,sect,pers);
         
     }

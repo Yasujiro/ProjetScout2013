@@ -4,3 +4,97 @@ mai 10, 2013 3:46:26 PM BusinessLogic.LoggerManager WriteLog
 FINER: Connection errror : java.sql.SQLNonTransientConnectionException: Un échec d'authentification de la connexion s'est produit.  Motif : ID utilisateur ou mot de passe incorrects.
 mai 10, 2013 3:46:41 PM BusinessLogic.LoggerManager WriteLog
 FINER: Disconnection error : No Connection Found
+mai 12, 2013 1:32:32 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Nom invalide
+Prénom invalide
+Totem invalide
+Email invalide
+
+mai 12, 2013 1:32:45 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Prénom invalide
+Totem invalide
+Email invalide
+
+mai 12, 2013 1:32:49 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Totem invalide
+Email invalide
+
+mai 12, 2013 1:32:53 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Email invalide
+
+mai 12, 2013 1:32:58 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Email invalide
+
+mai 12, 2013 1:33:02 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Email invalide
+
+mai 12, 2013 1:33:06 PM BusinessLogic.LoggerManager WriteLog
+INFO: Ajout d'une demande
+mai 12, 2013 1:46:23 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Prénom invalide 
+Totem invalide 
+Un chef doit au minimum êtres dans son année de majorité
+mai 12, 2013 1:47:32 PM BusinessLogic.LoggerManager WriteLog
+WARNING: java.lang.String cannot be cast to model.Localite
+mai 12, 2013 1:47:41 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Nom invalide 
+Prénom invalide 
+Email invalide 
+Un chef doit au minimum êtres dans son année de majorité
+mai 12, 2013 1:49:49 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Veuillez sélectionner une localité
+mai 12, 2013 1:49:56 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Nom invalide 
+Prénom invalide 
+Email invalide 
+Un chef doit au minimum êtres dans son année de majorité
+mai 12, 2013 2:24:46 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Nom invalide 
+Prénom invalide 
+
+mai 12, 2013 2:24:55 PM BusinessLogic.LoggerManager WriteLog
+FINEST: La personne inscrite est trop jeune
+mai 12, 2013 2:25:17 PM BusinessLogic.LoggerManager WriteLog
+FINEST: La personne inscrite est trop jeune
+mai 12, 2013 2:25:22 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Les animés ne peuvent avoir plus de 18 ans
+mai 12, 2013 2:25:31 PM BusinessLogic.LoggerManager WriteLog
+FINER: Add data error : java.sql.SQLIntegrityConstraintViolationException: INSERT sur la table 'DEMANDEINSCRIPT' a entraîné la violation de la contrainte de clé externe 'DEM_LIBSECTUNIT_FK' pour la clé (Balladins,Sélectionner une unité).  L'instruction a été annulée.
+mai 12, 2013 2:25:48 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:25:52 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:25:55 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:10 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:12 PM BusinessLogic.LoggerManager WriteLog
+FINER: Add data error : java.sql.SQLIntegrityConstraintViolationException: INSERT sur la table 'DEMANDEINSCRIPT' a entraîné la violation de la contrainte de clé externe 'DEM_LIBSECTUNIT_FK' pour la clé (Louveteaux,Sélectionner une unité).  L'instruction a été annulée.
+mai 12, 2013 2:26:17 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:21 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:30 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:35 PM BusinessLogic.LoggerManager WriteLog
+FINER: Add data error : java.sql.SQLIntegrityConstraintViolationException: INSERT sur la table 'DEMANDEINSCRIPT' a entraîné la violation de la contrainte de clé externe 'DEM_LIBSECTUNIT_FK' pour la clé (Eclaireurs,Sélectionner une unité).  L'instruction a été annulée.
+mai 12, 2013 2:26:38 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:40 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:51 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:53 PM BusinessLogic.LoggerManager WriteLog
+FINER: Add data error : java.sql.SQLIntegrityConstraintViolationException: INSERT sur la table 'DEMANDEINSCRIPT' a entraîné la violation de la contrainte de clé externe 'DEM_LIBSECTUNIT_FK' pour la clé (Pionniers,Sélectionner une unité).  L'instruction a été annulée.
+mai 12, 2013 2:26:55 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:26:58 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:27:02 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:27:05 PM BusinessLogic.LoggerManager WriteLog
+FINEST: L'âge du scout ne correspond pas à la tranche d'âge de la section
+mai 12, 2013 2:27:07 PM BusinessLogic.LoggerManager WriteLog
+FINER: Add data error : java.sql.SQLIntegrityConstraintViolationException: INSERT sur la table 'DEMANDEINSCRIPT' a entraîné la violation de la contrainte de clé externe 'DEM_LIBSECTUNIT_FK' pour la clé (Eclaireurs,Sélectionner une unité).  L'instruction a été annulée.
+mai 12, 2013 2:28:12 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Les chef doit au moins êtres dans leur année de majorité

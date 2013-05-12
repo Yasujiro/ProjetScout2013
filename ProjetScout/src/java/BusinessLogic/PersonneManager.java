@@ -5,20 +5,11 @@
 package BusinessLogic;
 
 import DataAcces.PersonneDBAccess;
-import Exception.AddDataException;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
 import Interface.PersonneDataAccess;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
-import javax.swing.JOptionPane;
-import model.Anime;
-import model.Chief;
-import model.LegalResp;
-import model.Localite;
-import model.Personne;
+import java.util.*;
+import java.util.regex.Pattern;
+import model.*;
 
 
 public class PersonneManager {
@@ -31,22 +22,45 @@ public class PersonneManager {
    
     
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalResp,
-            String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException
+            String street,String num,String box,Localite loc,String tel,String mail,String totem) throws WrongValuesException,  AddDataException
     {
         
         Personne pers;
         UUID uniqueId = UUID.randomUUID();
         String idPers=""+uniqueId;
+        String wrongValuesDescript="";
+        
+        
         
         Calendar birthDate = Calendar.getInstance();
-        if(birth!=null)
-            birthDate.setTime(birth);
+        if(birth!=null){
+            birthDate.setTime(birth);            
+        }
+        
+        /*Début des test de valeurs pour les différentes variables reçu.
+         * Utilisation de regex  pour tester les String.
+         */
+        if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",name))
+            wrongValuesDescript+="Nom invalide \n";
+        if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",fiName))
+            wrongValuesDescript+="Prénom invalide \n";
+        if(!totem.equals("")){
+            if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",totem))
+                wrongValuesDescript+="Totem invalide \n";
+        }
+        if(!Pattern.matches("[0-9]+[A-Z]{0,1}", num))
+            wrongValuesDescript+="Numéro de rue invalide \n";
+        if(!Pattern.matches("[\\p{IsLatin}\\p{Digit}\\p{Punct}&&[^@]]+[@][\\p{Alpha}]+[/.][\\p{Alpha}]{2,3}",mail))
+            wrongValuesDescript+="Email invalide \n";
+        
+        
         
         
         
         
         if(type.equals("Animé"))
         {
+            
             pers = new Anime(name,fiName,street,num,birthDate,legalResp);
             pers.setTel(tel);
             pers.setMail(mail);
@@ -69,7 +83,8 @@ public class PersonneManager {
         pers.setLoc(loc);
         pers.setTotem(totem);
         dba.addPersonne(pers);
-        
+        if(!wrongValuesDescript.equals(""))
+            throw new WrongValuesException(wrongValuesDescript);
         return pers;
         
     }

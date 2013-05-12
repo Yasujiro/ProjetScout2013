@@ -8,6 +8,7 @@ package View;
 import Controller.ApplicationController;
 import Exception.AddDataException;
 import Exception.SearchDataException;
+import Exception.WrongValuesException;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -157,30 +158,34 @@ public class AddPanel extends javax.swing.JPanel {
             {
                 Personne legalResp;
                 try{
-                String section=null;
-                if(sect1Radio.isSelected())
-                    section=sect1Radio.getText();
-                else if (sect2Radio.isSelected())
-                        section=sect2Radio.getText();
-                else if (sect3Radio.isSelected())
-                    section=sect3Radio.getText();
-                else if (sect4Radio.isSelected())
-                    section=sect4Radio.getText();
-                
-                
-                if(comboLegal.getSelectedItem().equals("Sélectionner un responsable"))
-                    legalResp = null;
-                else
-                    legalResp = (LegalResp)comboLegal.getSelectedItem();
-                
-                Personne pers = app.addPersonne((String)comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
-                        (Date)spinDate.getValue(),legalResp,fieldStreet.getText(),fieldNum.getText(),
-                        fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),fieldTotem.getText());
-                
-                
-                   app.addRegistration(comboUnit.getSelectedItem().toString(),section,pers);
-                   JOptionPane.showMessageDialog(null, "Ajout bien déroulé","Ajout confirmé",JOptionPane.PLAIN_MESSAGE);
-                   resetValues();
+                    String section=null;
+                    if(sect1Radio.isSelected())
+                        section=sect1Radio.getText();
+                    else if (sect2Radio.isSelected())
+                            section=sect2Radio.getText();
+                    else if (sect3Radio.isSelected())
+                        section=sect3Radio.getText();
+                    else if (sect4Radio.isSelected())
+                        section=sect4Radio.getText();
+
+
+                    if(comboLegal.getSelectedItem().equals("Sélectionner un responsable"))
+                        legalResp = null;
+                    else
+                        legalResp = (LegalResp)comboLegal.getSelectedItem();
+                    if(comboLoc.getSelectedItem().equals("Sélectionner une localité"))
+                        throw new WrongValuesException("Veuillez sélectionner une localité");
+                    Personne pers = app.addPersonne((String)comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
+                            (Date)spinDate.getValue(),legalResp,fieldStreet.getText(),fieldNum.getText(),
+                            fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),fieldTotem.getText());
+
+
+                       app.addRegistration(comboUnit.getSelectedItem().toString(),section,pers);
+                        
+                        
+                       app.WriteLog("Ajout d'une demande", Level.INFO, null);
+                       JOptionPane.showMessageDialog(null, "Ajout bien déroulé","Ajout confirmé",JOptionPane.PLAIN_MESSAGE);
+                       resetValues();
                 
                     
             }
@@ -188,6 +193,11 @@ public class AddPanel extends javax.swing.JPanel {
                 app.WriteLog(e.getMessage(),Level.FINER,e);
                 JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
             }
+            catch(WrongValuesException e){
+                    app.WriteLog(e.toString(), Level.FINEST, e);
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+           
             catch(Exception e){
                 app.WriteLog(e.getMessage(),Level.WARNING,e);
                 JOptionPane.showMessageDialog(null,"<html>Une Erreur inattendue est survenue<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
@@ -368,7 +378,7 @@ public class AddPanel extends javax.swing.JPanel {
 
         sect1Radio.setText("Balladins");
 
-        sect2Radio.setText("Louvetaux");
+        sect2Radio.setText("Louveteaux");
 
         sect3Radio.setText("Eclaireurs");
 
