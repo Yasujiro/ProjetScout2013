@@ -5,8 +5,7 @@
 package BusinessLogic;
 
 import DataAcces.SingletonConnection;
-import Exception.ConnectionException;
-import Exception.DisconnectException;
+import Exception.*;
 
 
 public class LogginManager {

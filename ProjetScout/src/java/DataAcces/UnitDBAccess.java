@@ -4,16 +4,11 @@
  */
 package DataAcces;
 
-import Exception.ConnectionException;
-import Exception.SearchDataException;
+import Exception.*;
 import Interface.UnitDataAccess;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import model.Localite;
-import model.Unit;
+import model.*;
 
 
 public class UnitDBAccess implements UnitDataAccess {

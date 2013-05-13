@@ -4,12 +4,9 @@
  */
 package Interface;
 
-import Exception.AddDataException;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
 import java.util.ArrayList;
-import model.LegalResp;
-import model.Personne;
+import model.*;
 
 public interface PersonneDataAccess {
     public void addPersonne(Personne p) throws AddDataException;

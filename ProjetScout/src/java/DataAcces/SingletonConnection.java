@@ -7,8 +7,6 @@ package DataAcces;
 import Exception.ConnectionException;
 import Exception.DisconnectException;
 import java.sql.*;
-import javax.sql.*;
-import javax.naming.*;
 
 
 

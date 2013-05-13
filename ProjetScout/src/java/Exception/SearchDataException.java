@@ -4,10 +4,7 @@
  */
 package Exception;
 
-/**
- *
- * @author Jérémy
- */
+
 public class SearchDataException extends Exception {
     
     private String message;

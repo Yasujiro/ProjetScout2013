@@ -6,14 +6,12 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
-import model.Registration;
-import model.SearchRegModel;
+import model.*;
 
 public class ListingPanel extends javax.swing.JPanel {
 

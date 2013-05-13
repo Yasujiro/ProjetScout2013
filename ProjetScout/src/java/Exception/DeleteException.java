@@ -4,10 +4,6 @@
  */
 package Exception;
 
-/**
- *
- * @author Jérémy
- */
 public class DeleteException extends Exception {
     
     private String message;

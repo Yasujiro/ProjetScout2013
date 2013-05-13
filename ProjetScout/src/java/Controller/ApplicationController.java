@@ -6,13 +6,8 @@ package Controller;
 
 import BusinessLogic.*;
 import Exception.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.LegalResp;
-
 import model.*;
 
 
@@ -35,7 +30,7 @@ public class ApplicationController {
         
     }
     
-    public void modPers(Personne p)throws ModDataException{
+    public void modPers(Personne p)throws ModDataException, WrongValuesException {
         pm.modPers(p);
     }
     

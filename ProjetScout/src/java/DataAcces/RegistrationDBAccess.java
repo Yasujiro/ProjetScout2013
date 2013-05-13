@@ -11,7 +11,6 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
 import model.*;
 
 public class RegistrationDBAccess implements RegistrationDataAccess {

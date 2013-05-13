@@ -1,31 +1,17 @@
 
 import Controller.ApplicationController;
-import Exception.ConnectionException;
-import Exception.DisconnectException;
+import Exception.*;
 import View.SearchPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.JPanel;
 import View.ListingPanel;
 import View.AddPanel;
 import View.SearchRegPanel;
 import View.SearchUnit;
 import View.ThreadConnection;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
+import java.awt.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

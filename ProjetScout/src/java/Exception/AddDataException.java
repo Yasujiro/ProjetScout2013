@@ -4,10 +4,7 @@
  */
 package Exception;
 
-/**
- *
- * @author Jérémy
- */
+
 public class AddDataException extends Exception {
    
     private String message;

@@ -7,10 +7,6 @@ package model;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Jérémy
- */
 public class SchPersModel extends AbstractTableModel {
     
     private ArrayList<Personne> content;

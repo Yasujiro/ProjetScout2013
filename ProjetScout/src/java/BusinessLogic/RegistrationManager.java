@@ -4,17 +4,11 @@
  */
 package BusinessLogic;
 
-import DataAcces.PersonneDBAccess;
-import DataAcces.RegistrationDBAccess;
+import DataAcces.*;
 import Exception.*;
-import Interface.PersonneDataAccess;
-import Interface.RegistrationDataAccess;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
-import model.Personne;
-import model.Registration;
+import Interface.*;
+import java.util.*;
+import model.*;
 
 public class RegistrationManager {
     

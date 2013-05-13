@@ -5,19 +5,12 @@
 package View;
 
 import Controller.ApplicationController;
-import Exception.ModDataException;
-import Exception.SearchDataException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import Exception.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import model.LegalResp;
-import model.Localite;
-import model.Personne;
+import javax.swing.*;
+import model.*;
 
 
 public class ModLegalPanel extends javax.swing.JPanel {
@@ -97,6 +90,10 @@ public class ModLegalPanel extends javax.swing.JPanel {
                 catch(ModDataException e){
                     app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(WrongValuesException e){
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
                     app.WriteLog(e.getMessage(),Level.WARNING,e);

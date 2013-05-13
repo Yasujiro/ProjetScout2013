@@ -5,25 +5,14 @@
 package View;
 
 import Controller.ApplicationController;
-import Exception.ModDataException;
-import Exception.SearchDataException;
+import Exception.*;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.event.*;;
+import java.util.*;
 import java.util.logging.Level;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import model.Localite;
-import model.Personne;
+import javax.swing.*;
+import javax.swing.event.*;
+import model.*;
 
 
 public class ModPersPanel extends javax.swing.JPanel {
@@ -162,6 +151,10 @@ public class ModPersPanel extends javax.swing.JPanel {
                 catch(ModDataException e){
                     app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(WrongValuesException e){
+                    app.WriteLog(e.getMessage(),Level.FINER,e);
+                    JOptionPane.showMessageDialog(null,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
                     app.WriteLog(e.getMessage(),Level.WARNING,e);

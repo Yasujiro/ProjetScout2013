@@ -50,9 +50,11 @@ public class PersonneManager {
         }
         if(!Pattern.matches("[0-9]+[A-Z]{0,1}", num))
             wrongValuesDescript+="Numéro de rue invalide \n";
-        if(!Pattern.matches("[\\p{IsLatin}\\p{Digit}\\p{Punct}&&[^@]]+[@][\\p{Alpha}]+[/.][\\p{Alpha}]{2,3}",mail))
-            wrongValuesDescript+="Email invalide \n";
-        
+        if(type.equals("Chef")||type.equals("Responsable légal")){
+            if(!Pattern.matches("[qq\\p{IsLatin}\\p{Digit}\\p{Punct}&&[^@]]+[@][\\p{Alpha}]+[/.][\\p{Alpha}]{2,3}",mail))
+                wrongValuesDescript+="Email invalide \n";
+        }
+
         
         
         
@@ -94,9 +96,27 @@ public class PersonneManager {
         return dba.getLegal();
     }
     
-    public void modPers(Personne p)throws ModDataException{
+    public void modPers(Personne p)throws ModDataException, WrongValuesException{
         
+        String wrongValuesDescript="";
+        if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",p.getName()))
+            wrongValuesDescript+="Nom invalide \n";
+        if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",p.getFiName()))
+            wrongValuesDescript+="Prénom invalide \n";
+        if(!p.getTotem().equals("")){
+            if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",p.getTotem()))
+                wrongValuesDescript+="Totem invalide \n";
+        }
+        if(!Pattern.matches("[0-9]+[A-Z]{0,1}", p.getHouse()))
+            wrongValuesDescript+="Numéro de rue invalide \n";
+        if(p.getType().equals("Chef")||p.getType().equals("Responsable légal")){
+            if(!Pattern.matches("[\\p{IsLatin}\\p{Digit}\\p{Punct}&&[^@]]+[@][\\p{Alpha}]+[/.][\\p{Alpha}]{2,3}",p.getMail()))
+                wrongValuesDescript+="Email invalide \n";
+        }
+        if (!wrongValuesDescript.equals(""))
+            throw new WrongValuesException(wrongValuesDescript);
         dba.modPers(p);
+        
     }
     
     public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc)throws SearchDataException{

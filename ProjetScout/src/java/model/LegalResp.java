@@ -4,10 +4,6 @@
  */
 package model;
 
-/**
- *
- * @author Jérémy
- */
 public class LegalResp extends Personne {
     
     

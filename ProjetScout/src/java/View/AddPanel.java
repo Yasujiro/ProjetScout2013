@@ -6,25 +6,14 @@ package View;
 
 
 import Controller.ApplicationController;
-import Exception.AddDataException;
-import Exception.SearchDataException;
-import Exception.WrongValuesException;
+import Exception.*;
 import java.awt.Color;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.logging.Level;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import model.LegalResp;
-import model.Localite;
-import model.Personne;
-import model.Unit;
+import javax.swing.*;
+import javax.swing.event.*;
+import model.*;
 
 
 public class AddPanel extends javax.swing.JPanel {

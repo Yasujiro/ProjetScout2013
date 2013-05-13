@@ -6,17 +6,12 @@ package View;
 
 import Controller.ApplicationController;
 import Exception.SearchDataException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
-import model.Localite;
-import model.Personne;
-import model.SchPersModel;
+import model.*;;
 
 
 public class SearchPanel extends javax.swing.JPanel {

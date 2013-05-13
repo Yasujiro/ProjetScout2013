@@ -6,10 +6,6 @@ package model;
 
 import java.util.Calendar;
 
-/**
- *
- * @author Jérémy
- */
 public class Chief extends Personne {
     
     private String totem;
