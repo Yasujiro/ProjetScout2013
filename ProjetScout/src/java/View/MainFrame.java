@@ -1,6 +1,7 @@
 
 import Controller.ApplicationController;
 import Exception.*;
+import View.AboutPanel;
 import View.SearchPanel;
 import java.awt.event.*;
 import javax.swing.JPanel;
@@ -45,7 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         thread.start();
         panelHome.add(labConnected);
         labConnected.setLocation(0,620);
-        labConnected.setSize(100,10);
+        labConnected.setSize(100,10);        
         MenuBarListener menuListener = new MenuBarListener();
         menuSchPers.addActionListener(menuListener);
         menuSchUnit.addActionListener(menuListener);
@@ -55,7 +56,7 @@ public class MainFrame extends javax.swing.JFrame {
         menuAddReg.addActionListener(menuListener);
         menuConnect.addActionListener(menuListener);
         menuDisc.addActionListener(menuListener);
-        
+        menuAPropos.addActionListener(menuListener);
         
     }
 
@@ -206,6 +207,13 @@ public class MainFrame extends javax.swing.JFrame {
                     MainFrame.this.ChangePanel(listPanel);
                 }
             }
+            if (ae.getSource()==menuAPropos)
+            {
+                
+                AboutPanel abPanel;
+                abPanel = new AboutPanel();
+                MainFrame.this.ChangePanel(abPanel);
+            }
         }
         
     }
@@ -221,6 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         panelHome = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         menuConnect = new javax.swing.JMenuItem();
@@ -233,19 +242,29 @@ public class MainFrame extends javax.swing.JFrame {
         menuSchPers = new javax.swing.JMenuItem();
         menuSchUnit = new javax.swing.JMenuItem();
         menuList = new javax.swing.JMenuItem();
-        AboutMenu = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenu();
+        menuAPropos = new javax.swing.JMenuItem();
+        menuAide = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/header3.jpg"))); // NOI18N
 
         javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
         panelHome.setLayout(panelHomeLayout);
         panelHomeLayout.setHorizontalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 953, Short.MAX_VALUE)
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         panelHomeLayout.setVerticalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelHome, java.awt.BorderLayout.CENTER);
@@ -286,8 +305,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         MenuBar.add(menuAction);
 
-        AboutMenu.setText("About");
-        MenuBar.add(AboutMenu);
+        aboutMenu.setText("?");
+
+        menuAPropos.setText("A propos");
+        aboutMenu.add(menuAPropos);
+
+        menuAide.setText("Aide");
+        aboutMenu.add(menuAide);
+
+        MenuBar.add(aboutMenu);
 
         setJMenuBar(MenuBar);
 
@@ -332,11 +358,14 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu AboutMenu;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenu aboutMenu;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem menuAPropos;
     private javax.swing.JMenu menuAction;
     private javax.swing.JMenuItem menuAddReg;
+    private javax.swing.JMenuItem menuAide;
     private javax.swing.JMenuItem menuConnect;
     private javax.swing.JMenuItem menuDisc;
     private javax.swing.JMenuItem menuExit;
