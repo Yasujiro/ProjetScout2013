@@ -32,6 +32,7 @@ public class UnitDBAccess implements UnitDataAccess {
                 Unit unit = new Unit(libelle);
                 unitList.add(unit);
             }
+            //BDConnection.commit();
         }
         catch(ConnectionException e)
         {
@@ -118,6 +119,7 @@ public class UnitDBAccess implements UnitDataAccess {
                     var.setNbChief(data.getInt(1));
                 }
             }
+            //BDConnection.commit();
         }
         catch(ConnectionException e)
         {

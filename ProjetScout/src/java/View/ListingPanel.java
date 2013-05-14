@@ -84,6 +84,7 @@ public class ListingPanel extends javax.swing.JPanel {
                 try{
                     Registration reg = tableModel.getSelectedReg(tableResult.getSelectedRow());
                     app.DelReg(reg);
+                    app.WriteLog("Suppression d'une demande", Level.INFO, null);
                     JOptionPane.showMessageDialog(null,"La suppression à correctement eue lieu","Erreur",JOptionPane.INFORMATION_MESSAGE);
                     ListingPanel.this.getTableValue();
                 }

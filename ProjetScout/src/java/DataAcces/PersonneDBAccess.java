@@ -133,7 +133,7 @@ public class PersonneDBAccess implements PersonneDataAccess {
                     }
                     listPers.add(pFound);
                 }
-                
+                //BDConnection.commit();
         }
         catch(ConnectionException e){
             throw new SearchDataException(e.toString());
@@ -143,6 +143,7 @@ public class PersonneDBAccess implements PersonneDataAccess {
         }
         
         finally{
+            
             return listPers;
         }
        
@@ -177,7 +178,7 @@ public class PersonneDBAccess implements PersonneDataAccess {
             listLegal.add(p);
         }
         
-            
+            //BDConnection.commit();
         
         }
         catch(ConnectionException e)
@@ -239,6 +240,7 @@ public class PersonneDBAccess implements PersonneDataAccess {
            while(data.next()){
                nbPers = data.getInt(1);
            }
+           //BDConnection.commit();
            return nbPers;
        }
        catch(ConnectionException e){

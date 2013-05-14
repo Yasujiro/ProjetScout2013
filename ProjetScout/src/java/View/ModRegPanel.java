@@ -81,6 +81,7 @@ public class ModRegPanel extends javax.swing.JPanel {
                
                try{
                  app.modRegistration(updatedReg);
+                 app.WriteLog("Modification d'une demande", Level.INFO, null);
                }
                catch(ModDataException e){
                    app.WriteLog(e.getMessage(),Level.FINER,e);

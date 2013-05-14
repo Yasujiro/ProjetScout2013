@@ -146,6 +146,7 @@ public class ModPersPanel extends javax.swing.JPanel {
                     mPers.setTel(fieldTel.getText());
                     mPers.setTotem(fieldTotem.getText());
                     app.modPers(mPers);
+                    app.WriteLog("Modification d'une personne", Level.INFO, null);
                     parents.dispose();
                 }
                 catch(ModDataException e){

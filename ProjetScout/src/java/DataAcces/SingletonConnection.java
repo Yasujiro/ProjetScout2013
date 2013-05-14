@@ -7,6 +7,10 @@ package DataAcces;
 import Exception.ConnectionException;
 import Exception.DisconnectException;
 import java.sql.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 
 
@@ -20,7 +24,7 @@ public class SingletonConnection {
         {
             /*Context cont = new InitialContext();            
             DataSource source = (DataSource)cont.lookup("jdbc/ProjetScout");
-            uniqueConnection = source.getConnection(id,pwd);
+            uniqueConnection = source.getConnection(id,pwd);*/
             /*
              * Utilisation de la méthode getConnection de DriverManager plutôt que des méthodes expliquées dans
              * les slides pour deux raisons :
@@ -42,7 +46,7 @@ public class SingletonConnection {
         {
             throw new ConnectionException(e.toString());
         }
-       /* catch(NamingException e)
+       /*catch(NamingException e)
         {
             throw new ConnectionException(e.toString());
         }*/
@@ -63,6 +67,7 @@ public class SingletonConnection {
     public static void Disconnect() throws DisconnectException{
         if(uniqueConnection!=null){
             try{
+                uniqueConnection.rollback();
                 uniqueConnection.close();
             }
             catch(SQLException e){

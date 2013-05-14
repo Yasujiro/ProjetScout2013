@@ -148,6 +148,7 @@ public class RegistrationDBAccess implements RegistrationDataAccess {
                 reg.setPrice(data.getInt("PRIX"));
                 regList.add(reg);
             }
+            //BDConnection.commit();
         }
         catch(ConnectionException e){
             throw new SearchDataException(e.toString());

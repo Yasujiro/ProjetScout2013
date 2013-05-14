@@ -1,8 +1,4 @@
-mai 13, 2013 8:57:19 AM BusinessLogic.LoggerManager WriteLog
-FINER: Connection errror : java.sql.SQLNonTransientConnectionException: Un échec d'authentification de la connexion s'est produit.  Motif : ID utilisateur ou mot de passe incorrects.
-mai 13, 2013 9:21:29 AM BusinessLogic.LoggerManager WriteLog
-FINEST: Email invalide 
-
-mai 13, 2013 9:23:33 AM BusinessLogic.LoggerManager WriteLog
-FINEST: Nom invalide 
-
+mai 13, 2013 11:39:19 AM BusinessLogic.LoggerManager WriteLog
+INFO: Ajout d'une demande
+mai 13, 2013 1:30:42 PM BusinessLogic.LoggerManager WriteLog
+INFO: Modification d'une personne

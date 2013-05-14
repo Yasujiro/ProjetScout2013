@@ -44,9 +44,11 @@ public class PersonneManager {
             wrongValuesDescript+="Nom invalide \n";
         if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",fiName))
             wrongValuesDescript+="Prénom invalide \n";
-        if(!totem.equals("")){
-            if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",totem))
-                wrongValuesDescript+="Totem invalide \n";
+        if(totem!=null){
+            if(!totem.equals("")){
+                if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",totem))
+                    wrongValuesDescript+="Totem invalide \n";
+            }
         }
         if(!Pattern.matches("[0-9]+[A-Z]{0,1}", num))
             wrongValuesDescript+="Numéro de rue invalide \n";

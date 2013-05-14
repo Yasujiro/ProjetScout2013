@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DataAcces;
 
 import Exception.*;
@@ -33,6 +30,7 @@ public class LocaliteDBAccess implements LocaliteDataAccess {
                     Integer postalCode = data.getInt("POSTALCODE");
 
                     Localite loc = new Localite (libelle, postalCode);
+                    //BDConnection.commit();
                     searchLoca.add(loc);
 
 

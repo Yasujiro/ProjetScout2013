@@ -85,6 +85,7 @@ public class ModLegalPanel extends javax.swing.JPanel {
                     modLegal.setBox(fieldNum.getText());
                     modLegal.setLoc((Localite)comboLoc.getSelectedItem());
                     app.modPers(modLegal);
+                    app.WriteLog("Modification d'un responsable légal", Level.INFO, null);
                     parents.dispose();
                 }
                 catch(ModDataException e){
