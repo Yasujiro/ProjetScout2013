@@ -121,6 +121,8 @@ public class AddPanel extends javax.swing.JPanel {
                 }
                 else
                 {
+                    fieldMail.setText(null);
+                    fieldTel.setText(null);
                     fieldTel.setEnabled(false);
                     fieldMail.setEnabled(false);
                     labPhone.setForeground(Color.gray);

@@ -1,10 +1,6 @@
-mai 13, 2013 11:39:19 AM BusinessLogic.LoggerManager WriteLog
-INFO: Ajout d'une demande
-mai 13, 2013 1:30:42 PM BusinessLogic.LoggerManager WriteLog
-INFO: Modification d'une personne
-mai 14, 2013 10:52:22 AM BusinessLogic.LoggerManager WriteLog
-FINER: Connection errror : java.sql.SQLNonTransientConnectionException: La longueur de l'ID utilisateur (0) se situe hors de l'intervalle de 1 à 255.
-mai 14, 2013 11:22:24 AM BusinessLogic.LoggerManager WriteLog
-FINER: Une erreur est survenue lors de la recherche des données
-mai 14, 2013 11:26:25 AM BusinessLogic.LoggerManager WriteLog
-FINER: Search data error : La colonne 'DEM.LIBELLEUNIT' ne se trouve dans aucune table de la liste FROM ou figure dans une spécification de jointure et se trouve en dehors de la portée de cette spécification ou figure dans une clause HAVING mais ne se trouve pas dans la liste GROUP BY. S'il s'agit d'une instruction CREATE ou ALTER TABLE, alors 'DEM.LIBELLEUNIT' n'est pas une colonne de la table cible.
+mai 14, 2013 11:59:15 AM BusinessLogic.LoggerManager WriteLog
+FINEST: Veuillez sélectionner une section
+mai 14, 2013 12:03:39 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Veuillez sélectionner une unitéVeuillez sélectionner une section
+mai 14, 2013 12:03:44 PM BusinessLogic.LoggerManager WriteLog
+FINEST: Veuillez sélectionner une section

@@ -44,7 +44,11 @@ public class RegistrationManager {
             * Test de l'âge de la personne pour vérifier que celui-ci correspond bien a son type
             * et, dans le cas d'un animé, à sa section.
             */
-           if(pers.getType().equals("Animé")){
+           if(unit.equals("Sélectionner une unité"))
+               wrongValuesDesc+="Veuillez sélectionner une unité\n";
+           if(sect==null)
+               wrongValuesDesc+="Veuillez sélectionner une section\n";
+            if(pers.getType().equals("Animé") && sect!=null){
                if(age<5)
                  wrongValuesDesc+="La personne inscrite est trop jeune";
                else if(age<8){ // Si entre 5 et 8 ans
