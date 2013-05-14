@@ -17,8 +17,10 @@ public class ApplicationController {
     private UnitManager um = new UnitManager();
     private RegistrationManager rm = new RegistrationManager();
     private PersonneManager pm = new PersonneManager();
-    
-
+  
+    // méthode relative aux personne
+    //<editor-fold>
+   
     public Personne addPersonne(String type,String name,String fiName, Date birth,Personne legalPers,
             String street,String num,String box,Localite loc,String tel,String mail,String totem) throws AddDataException,WrongValuesException
     {
@@ -37,11 +39,17 @@ public class ApplicationController {
     public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc) throws SearchDataException{
         return pm.getPers(type,name,fiName,loc);
     }
-    
+    //</editor-fold>
+
+    // méthode relative aux localites
+    //<editor-fold>
     public ArrayList<Localite> getLocalite(Integer pCode) throws SearchDataException 
     {
         return lm.getLocalite(pCode);
     }
+//</editor-fold>
+    // méthode relative aux unités
+    //<editor-fold>
     public ArrayList<Unit> getUnits() throws SearchDataException
     {
         return um.getUnits();
@@ -50,7 +58,9 @@ public class ApplicationController {
     {
         return um.getUnits(name,postalCode,libLoc);
     }
-    
+    //</editor-fold>
+    // Méthode relative aus demandes
+    //<editor-fold>
     public ArrayList<Registration> getReg(Registration reg) throws SearchDataException
     {
         return rm.getReg(reg);
@@ -64,6 +74,12 @@ public class ApplicationController {
     {
         rm.modRegistration(reg);
     }
+        public void DelReg(Registration reg)throws DeleteException{
+        rm.DelReg(reg);
+    }
+    //</editor-fold>
+    //méthode relative a la connexion
+    //<editor-fold>
     public void Loggin(String user, String password) throws ConnectionException{
         logM.Loggin(user, password);
     }
@@ -73,9 +89,8 @@ public class ApplicationController {
     public boolean getConnectionState(){
         return logM.getConnectionState();
     }
-    public void DelReg(Registration reg)throws DeleteException{
-        rm.DelReg(reg);
-    }
+    //</editor-fold>
+
     
     public void WriteLog(String message,Level lvl,Exception e){
         LoggerManager.WriteLog(message,lvl,e);

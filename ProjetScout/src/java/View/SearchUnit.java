@@ -63,11 +63,11 @@ public class SearchUnit extends javax.swing.JPanel {
                 }
                 catch(SearchDataException e)
                 {
-                   app.WriteLog(e.toString(),Level.FINER,e);
+                   app.WriteLog(e.getMessage(),Level.FINER,e);
                     JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 catch(Exception e){
-                    app.WriteLog(e.toString(),Level.WARNING,e);
+                    app.WriteLog(e.getMessage(),Level.WARNING,e);
                     JOptionPane.showMessageDialog(null,"<html>Une erreur inattendue est survenue"+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
                 

@@ -83,10 +83,11 @@ public class RegistrationManager {
                 ristourne -= ((double)nbPers*10/100);
             }
             
+            // Création d'un uuid grâce à la méthode static 'randomUUID()'
             UUID uniqueId = UUID.randomUUID();
             String idReg=""+uniqueId;
 
-            // Calculer prix en fonction du nombre de personne à la charge du RL de "membre"
+            // Calculer prix en fonction du nombre de personne à la charge du RL de "membre", avec valeur minimum de 35.
             priceReg *= ristourne;
             if(priceReg<35)
                 priceReg = 35;

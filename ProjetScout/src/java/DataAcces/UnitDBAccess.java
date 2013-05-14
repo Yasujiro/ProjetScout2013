@@ -32,7 +32,6 @@ public class UnitDBAccess implements UnitDataAccess {
                 Unit unit = new Unit(libelle);
                 unitList.add(unit);
             }
-            //BDConnection.commit();
         }
         catch(ConnectionException e)
         {
@@ -95,8 +94,9 @@ public class UnitDBAccess implements UnitDataAccess {
             }
             for(Unit var: unitList)
             {
-                String countInstruction = "SELECT COUNT(*) from DEMANDEINSCRIPT dem,LIBSECT s,PERSONNE p "
-                        +"where LIBELLESECTION = s.LIBELLESECT and s.LIBELLEUNIT = ? and dem.NUMID = p.NUMID and p.TYPEPERS = ?";
+                String countInstruction = "SELECT COUNT(*) from demandeinscript dem " +
+                                            "join personne p on (dem.NUMID=p.NUMID) " +
+                                            "where dem.LIBELLEUNITE =? and p.TYPEPERS = ?";
                 
                 
                 
@@ -123,10 +123,10 @@ public class UnitDBAccess implements UnitDataAccess {
         }
         catch(ConnectionException e)
         {
-            throw new SearchDataException(e.toString());
+            throw new SearchDataException(e.getMessage());
         }
         catch(SQLException e){
-            throw new SearchDataException(e.toString());
+            throw new SearchDataException(e.getMessage());
         }
         return unitList;
     }

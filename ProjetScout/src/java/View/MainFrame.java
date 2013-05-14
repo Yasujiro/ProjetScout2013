@@ -45,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         thread.start();
         panelHome.add(labConnected);
         labConnected.setLocation(0,620);
-        labConnected.setSize(100,10);        
+        labConnected.setSize(100,10);
         MenuBarListener menuListener = new MenuBarListener();
         menuSchPers.addActionListener(menuListener);
         menuSchUnit.addActionListener(menuListener);

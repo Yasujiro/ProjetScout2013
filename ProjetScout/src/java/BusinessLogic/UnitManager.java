@@ -27,7 +27,8 @@ public class UnitManager {
     }
 
     public ArrayList<Unit> getUnits(String name, Integer postalCode, String libLoc) throws SearchDataException {
-                   
+        
+        // Ajout de '%' devant et dernière le nom pour permettre un recherche sur base d'un nom partielle d'unité.
        nameUnit = "%"+name+"%";
        if(libLoc.equals("Sélectionner une localité"))
        {

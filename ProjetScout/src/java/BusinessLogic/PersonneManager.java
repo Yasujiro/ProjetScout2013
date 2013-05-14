@@ -26,8 +26,13 @@ public class PersonneManager {
     {
         
         Personne pers;
+        /*
+         * Création d'un UUID grâce à la méthode static 'randomUUID()'
+         * et "conversion" de celui en string pour pouvoir être intégré plus tard dans la BD.
+         */
         UUID uniqueId = UUID.randomUUID();
         String idPers=""+uniqueId;
+        
         String wrongValuesDescript="";
         
         
@@ -40,6 +45,7 @@ public class PersonneManager {
         /*Début des test de valeurs pour les différentes variables reçu.
          * Utilisation de regex  pour tester les String.
          */
+        //<editor-fold>
         if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",name))
             wrongValuesDescript+="Nom invalide \n";
         if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",fiName))
@@ -56,12 +62,16 @@ public class PersonneManager {
             if(!Pattern.matches("[qq\\p{IsLatin}\\p{Digit}\\p{Punct}&&[^@]]+[@][\\p{Alpha}]+[/.][\\p{Alpha}]{2,3}",mail))
                 wrongValuesDescript+="Email invalide \n";
         }
-
+        /*
+         * Fin des Test
+         */
+//</editor-fold>
+         if(!wrongValuesDescript.equals(""))
+            throw new WrongValuesException(wrongValuesDescript);
         
         
         
-        
-        
+        // "Choix" de la classe fille utilisé pour la création de l'objet personne en fonction du type reçu en argument.
         if(type.equals("Animé"))
         {
             
@@ -81,14 +91,13 @@ public class PersonneManager {
         else            
             pers=null;
         
-        
+        // Garniture des attributs restant de la personne + appel de la méthode de la couche dataaccess.
         pers.setBox(box);
         pers.setId(idPers);
         pers.setLoc(loc);
         pers.setTotem(totem);
         dba.addPersonne(pers);
-        if(!wrongValuesDescript.equals(""))
-            throw new WrongValuesException(wrongValuesDescript);
+       
         return pers;
         
     }
@@ -100,6 +109,10 @@ public class PersonneManager {
     
     public void modPers(Personne p)throws ModDataException, WrongValuesException{
         
+        /*Début des test de valeurs pour les différentes variables reçu.
+         * Utilisation de regex  pour tester les String.
+         */
+        //<editor-fold>
         String wrongValuesDescript="";
         if(!Pattern.matches("\\p{Upper}([\\p{IsLatin}]|\\p{Blank})+",p.getName()))
             wrongValuesDescript+="Nom invalide \n";
@@ -117,13 +130,17 @@ public class PersonneManager {
         }
         if (!wrongValuesDescript.equals(""))
             throw new WrongValuesException(wrongValuesDescript);
+        //</editor-fold>
         dba.modPers(p);
         
     }
     
     public ArrayList<Personne> getPers(String type,String name,String fiName, Localite loc)throws SearchDataException{
         
-            
+         /*
+          * Modification des éventuelles string vide ainsi que du code postal afin d'effectuer une recherche global 
+          * sur la BD dans ce cas.
+          */   
             Personne persSought;
             if(name.equals(""))
                 name ="%";
@@ -134,6 +151,7 @@ public class PersonneManager {
             if(loc.getPCode()==null){
                 loc.setPCode(9999);
             }
+            // "Choix" de la classe fille utilisé pour la création de l'objet personne en fonction du type reçu en argument.
             if(type.equals("Chef"))
                 persSought = new Chief(name,fiName); 
 
