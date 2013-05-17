@@ -10,15 +10,14 @@ public class ThreadConnection extends Thread {
 
   private ApplicationController app;
   private JLabel lab;
-  private int i;
-  private boolean ascendant;
+  private int i, coeff;
     public ThreadConnection(JLabel j){
     
         super();
         app = new ApplicationController();
         lab = j;
         i=0;
-        ascendant = true;
+        coeff = 5;
         
         
     }
@@ -41,14 +40,12 @@ public class ThreadConnection extends Thread {
                 
                 Thread.sleep(50);
                 if(i==255)
-                    ascendant = false;
+                    coeff = -5;
                 else if (i==0)
-                    ascendant = true;
+                    coeff = 5;
                 
-                if(ascendant==true)
-                    i+=5;
-                else
-                    i-=5;
+                
+               i+=coeff;
                 
             }
             catch(Exception e){

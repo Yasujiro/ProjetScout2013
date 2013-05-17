@@ -31,23 +31,24 @@ public class AddPanel extends javax.swing.JPanel {
         initComponents();
         
         ComboState comboListener = new ComboState();
-        ButtonListener buttonListener = new ButtonListener();
         
+        //Création du groupe de boutton pour qu'une seule section ne puisse être sélectionnée
+        ButtonListener buttonListener = new ButtonListener();        
         groupSect.add(sect1Radio);
         groupSect.add(sect2Radio);
         groupSect.add(sect3Radio);
         groupSect.add(sect4Radio);
         
-        
+        // Choix du format d'affichage de la date dans la JSpinner.
         JComponent editor = new JSpinner.DateEditor(spinDate, "dd/MM/yyyy");
         spinDate.setEditor(editor);
+        
         buttAddLegal.setEnabled(false);
         comboLegal.setEnabled(false);
         labLegal.setForeground(Color.GRAY);
        
-        
+        // Ajouts des différents écouteur aux composants
         comboType.addItemListener(comboListener);
-        comboLoc.addItemListener(comboListener);
         cancelButton.addActionListener(buttonListener);
         buttAddLegal.addActionListener(buttonListener);
         buttValidate.addActionListener(buttonListener);
@@ -55,7 +56,7 @@ public class AddPanel extends javax.swing.JPanel {
         spinDate.addChangeListener(new Change());
         
         
-        try{
+        try{ // On tente de garnir les comboBox Unit et ResponsableLégal.
             listUnit = app.getUnits();            
             listLegal = app.getLegal();
             
@@ -79,11 +80,13 @@ public class AddPanel extends javax.swing.JPanel {
         }
 
     }
+    /*
+     * Méthode permettant de remettre les attributs par défaut des composants swing.
+     * Cette méthode est surtout utilisée en réponse a l'action du boutton Cancel.
+     */
     public void resetValues(){
-                comboType.setSelectedIndex(0);
-               
-                groupSect.clearSelection();
-                
+                comboType.setSelectedIndex(0);               
+                groupSect.clearSelection();                
                 spinDate.setValue(new Date(Calendar.getInstance().getTimeInMillis()));
                 comboLoc.removeAllItems();
                 comboLoc.addItem("Sélectionner une localité");
@@ -100,17 +103,22 @@ public class AddPanel extends javax.swing.JPanel {
                 fieldNum.setText(null);
                 fieldBox.setText(null);
     }
-    
+    /*
+     * Classe interne permettant de gérer les évenements des comboBox.
+     */
     private class ComboState implements ItemListener
     {
 
         @Override
         public void itemStateChanged(ItemEvent ie) {
             
+            // Si la comboBox est celle des type.
            if(ie.getSource().equals(comboType))
            {
                 if(ie.getItem().equals("Chef"))
-                {
+                {/*Si type "Chef" sélectionné on empèche le choix d'un responsable légal
+                 * Et on rend éditable les champs Tel et mail.
+                 */
                          comboLegal.setSelectedIndex(0);
                          comboLegal.setEnabled(false);
                          buttAddLegal.setEnabled(false);
@@ -120,7 +128,10 @@ public class AddPanel extends javax.swing.JPanel {
                          labMail.setForeground(Color.black);
                 }
                 else
-                {
+                {/*
+                 * Si type "Animé" sélectionné, on rend inéditable les champs Tel et Mail
+                 * L'édition du choix de Rl ne se fait pas ici.
+                 */
                     fieldMail.setText(null);
                     fieldTel.setText(null);
                     fieldTel.setEnabled(false);
@@ -129,26 +140,26 @@ public class AddPanel extends javax.swing.JPanel {
                     labMail.setForeground(Color.gray);
                 }
                
-           }
-           
-           if(ie.getSource().equals(comboLoc))
-           {
-               
-               
-           }           
+           }       
            
         }
     }
+    /*
+     * Classe interne gérant les action effectuées sur clique de bouttons.
+     */
     private class ButtonListener implements ActionListener
     {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             
+            // Si boutton Valider
             if(ae.getSource()== buttValidate)
             {
                 Personne legalResp;
+                
                 try{
+                    // On garni un string en fonction du boutton de section sélectionné.
                     String section=null;
                     if(sect1Radio.isSelected())
                         section=sect1Radio.getText();
@@ -159,13 +170,19 @@ public class AddPanel extends javax.swing.JPanel {
                     else if (sect4Radio.isSelected())
                         section=sect4Radio.getText();
 
-
+                    // Si pas de RL sélectionner, valeur de RL mise à null (car on va passer l'objet à la méthode d'ajout plus bas)
                     if(comboLegal.getSelectedItem().equals("Sélectionner un responsable"))
                         legalResp = null;
-                    else
+                    else // Sinon on le garni avec l'objet sélectionné.
                         legalResp = (LegalResp)comboLegal.getSelectedItem();
+                    // Si pas de localité sélectionnée, nouvelle exception jetée.
                     if(comboLoc.getSelectedItem().equals("Sélectionner une localité"))
                         throw new WrongValuesException("Veuillez sélectionner une localité");
+                    
+                    /*
+                     * Appel de la fonction "addPersonne" du controlleur afin d'ajouter la personne dans la BD et de créer l'objet Personne
+                     * utilisé dans la fonction "addRegistration" par la suite.
+                     */
                     Personne pers = app.addPersonne((String)comboType.getSelectedItem(),fieldName.getText(),fieldFiName.getText(),
                             (Date)spinDate.getValue(),legalResp,fieldStreet.getText(),fieldNum.getText(),
                             fieldBox.getText(),(Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),fieldTotem.getText());
@@ -176,7 +193,7 @@ public class AddPanel extends javax.swing.JPanel {
                         
                        app.WriteLog("Ajout d'une demande", Level.INFO, null);
                        JOptionPane.showMessageDialog(null, "Ajout bien déroulé","Ajout confirmé",JOptionPane.PLAIN_MESSAGE);
-                       resetValues();
+                       resetValues(); // On remet les valeur par défaut si tout s'est bien passé.
                 
                     
             }
@@ -195,8 +212,14 @@ public class AddPanel extends javax.swing.JPanel {
             }
         }
             
+            // Si boutton "Ajout RL"
             if(ae.getSource()==buttAddLegal)
             {
+                /*
+                 * On crée un panneau d'ajout de RL
+                 * On appel la fonction getPopUpInstance() afin d'obtenir la fenêtre "popUp"
+                 * Une fois celle-ci "obtenu" on la garni du pannel créé.
+                 */
                 AddLegalResp popUpPanel = new AddLegalResp(comboLegal);
                 popUpFrame = PopUp.getPopUpInstance();
                 popUpFrame.setLocation(200,150);
@@ -204,7 +227,7 @@ public class AddPanel extends javax.swing.JPanel {
                 popUpPanel.setPopUp(popUpFrame);
                 popUpFrame.setVisible(true);
             }
-            
+            //Si boutton "Annulé", mise par défault des valeurs.
             if(ae.getSource().equals(cancelButton))
             {
                 resetValues();
@@ -212,18 +235,27 @@ public class AddPanel extends javax.swing.JPanel {
         }
         
     }
-    
+    /*
+     * Classe interne permettant de gérer le gain ou la perte de focus d'un composant swing.
+     * Dans notre cas elle sera utilisée avec le champs "PostalCode"
+     */
     private class Focus implements FocusListener
     {
 
         
 
         @Override
+        
         public void focusLost(FocusEvent fe) {
-            
+           // Si le champs PostalCode perds le focus 
             if(fe.getSource()==fieldPostalCode){
                 
                 try{
+                    /*
+                     * Si le code postal n'est pas null, on transforme le string reçu du champs texte en un entier
+                     * On effectue ensuite une recherche des localités ayant ce code postal
+                     * On ajoute toutes ces localités à la comboBox, en ayant au préalable enlever les anciennes localités
+                     */
                     ArrayList<Localite> listLoca=null;
                     Integer postalCode = null;
 
@@ -260,7 +292,9 @@ public class AddPanel extends javax.swing.JPanel {
         }
         
     }
-    
+    /*
+     * Classe interne permettant de gérant le changement d'état de notre JSpinner.
+     */
     private class Change implements ChangeListener
     {
 
@@ -268,6 +302,11 @@ public class AddPanel extends javax.swing.JPanel {
         public void stateChanged(ChangeEvent ce) {
            if(ce.getSource()==spinDate)
             {
+                /*
+                 * Si la valeur de la JSpinner change et que le type sélectionné est "Animé"
+                 * On calcule l'age
+                 * Si l'âge est inférieur à 18, on rends sélectionnable le choix du Responsable légal.
+                 */
                if(comboType.getSelectedItem() == "Animé")
                {
                     Calendar curr = Calendar.getInstance();

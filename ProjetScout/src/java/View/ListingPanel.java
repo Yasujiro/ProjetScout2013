@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import model.*;
 
@@ -33,6 +34,7 @@ public class ListingPanel extends javax.swing.JPanel {
             listReg = app.getReg(null);
             tableModel = new SearchRegModel(listReg);
             tableResult.setModel(tableModel);
+            tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
              TableColumn column = null;
 				for (int i = 0; i < 4; i++) {
 				    column = tableResult.getColumnModel().getColumn(i);
@@ -78,7 +80,7 @@ public class ListingPanel extends javax.swing.JPanel {
     }
     private class ButtonListener implements ActionListener{
 
-        @Override
+        
         public void actionPerformed(ActionEvent ae) {
             if(ae.getSource()==buttDelete){
                 try{
@@ -88,9 +90,14 @@ public class ListingPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"La suppression à correctement eue lieu","Erreur",JOptionPane.INFORMATION_MESSAGE);
                     ListingPanel.this.getTableValue();
                 }
+                catch(ArrayIndexOutOfBoundsException e){
+                    app.WriteLog(e.getMessage(),Level.FINEST,e);
+                    JOptionPane.showMessageDialog(null,"Veuillez sélectionner une ligne","Erreur",JOptionPane.ERROR_MESSAGE);
+                    
+                }
                 catch(DeleteException e){
                     app.WriteLog(e.getMessage(),Level.FINER,e);
-                    JOptionPane.showMessageDialog(null,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"<html>"+e.getMessage()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

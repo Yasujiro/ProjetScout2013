@@ -4,10 +4,6 @@
  */
 package View;
 
-/**
- *
- * @author gauthier
- */
 public class AboutPanel extends javax.swing.JPanel {
     
     /**

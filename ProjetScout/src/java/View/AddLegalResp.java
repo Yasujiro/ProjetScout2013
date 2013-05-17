@@ -11,14 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.logging.Level;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import model.LegalResp;
-import model.Localite;
-import model.Personne;
+import javax.swing.*;;
+import model.*;
 
 
 public class AddLegalResp extends javax.swing.JPanel {
@@ -37,6 +33,7 @@ public class AddLegalResp extends javax.swing.JPanel {
         fieldPostalCode.addFocusListener(new Focus());
         buttVali.addActionListener(buttListener);
         buttCancel.addActionListener(buttListener);
+        // Cette variable va permettre de mettre à jour directement la comboBox du panneau d'ajout.
         updatedBox = uBox;
         
     }
@@ -58,6 +55,9 @@ public class AddLegalResp extends javax.swing.JPanel {
         fieldNum.setText(null);
         fieldBox.setText(null);
     }
+   /*
+    * Classe interne permettant de gérer le gain ou la perte du focus d'un composant.
+    */
     private class Focus implements FocusListener
     {
 
@@ -67,7 +67,7 @@ public class AddLegalResp extends javax.swing.JPanel {
         public void focusLost(FocusEvent fe) {
             
             if(fe.getSource()==fieldPostalCode){
-                              
+                  // Même chose que dans le panneau d'ajout.            
                 ArrayList<Localite> listLoca=null;
                 Integer postalCode = null;
                try{
@@ -114,7 +114,7 @@ public class AddLegalResp extends javax.swing.JPanel {
                 if(parents!=null){
                     
                     resetValues();
-                     parents.dispose();
+                    parents.dispose();
                 }
                 
                                    
@@ -123,6 +123,10 @@ public class AddLegalResp extends javax.swing.JPanel {
             if(ae.getSource()==buttVali)
             {
                 try{
+                    /* 
+                     * Appel de la méthode "addPersonne", si le panneau à un parent, donc est dans une popUp, on ferme cette popUp
+                     * On met à jour la comboBox et on met l'item sélectionné au nouveau RL.
+                     */
                     p = app.addPersonne("Responsable légal",fieldName.getText(),fieldFiName.getText(),null,null,
                             fieldStreet.getText(),fieldNum.getText(),fieldBox.getText(),
                             (Localite)comboLoc.getSelectedItem(),fieldTel.getText(),fieldMail.getText(),null);

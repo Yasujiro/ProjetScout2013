@@ -42,11 +42,14 @@ public class MainFrame extends javax.swing.JFrame {
         app = new ApplicationController();
         
         labConnected = new JLabel();
+        //Création du thread, lancement de celui-ci.
         thread = new ThreadConnection(labConnected);
         thread.start();
+        
         panelHome.add(labConnected);
         labConnected.setLocation(0,620);
-        labConnected.setSize(100,10);        
+        labConnected.setSize(100,10);
+        // Ajout de l'écouteur au différents menus.
         MenuBarListener menuListener = new MenuBarListener();
         menuSchPers.addActionListener(menuListener);
         menuSchUnit.addActionListener(menuListener);
@@ -57,10 +60,13 @@ public class MainFrame extends javax.swing.JFrame {
         menuConnect.addActionListener(menuListener);
         menuDisc.addActionListener(menuListener);
         menuAPropos.addActionListener(menuListener);
+        menuHome.addActionListener(menuListener);
         
     }
 
-    
+    /*
+     * La méthode ChangePanel permet de changer le panel courrant de la fenêtre     
+     */
     public void ChangePanel (JPanel newPanel)
     {
         newPanel.setBounds(this.getBounds());
@@ -70,7 +76,15 @@ public class MainFrame extends javax.swing.JFrame {
         this.validate();
         this.repaint();
     }
+    /*
+     * Méthode permettant de gérer la connexion à la base de donnée.
+     */
     public void Loggin(){
+        
+        /*
+         * Création des JPanel qui seviront à la construction du JOptionPane.
+         * Une fois c'est pannel créés on leur ajoute leurs composant (label, champs texte,etc)
+         */
         panelLog = new JPanel();
         panLabelsLog = new JPanel();
         panFieldsLog = new JPanel();
@@ -88,13 +102,18 @@ public class MainFrame extends javax.swing.JFrame {
         panFieldsLog.add(fieldPassword);
         panelLog.add(panLabelsLog,BorderLayout.WEST);
         panelLog.add(panFieldsLog,BorderLayout.CENTER);
+        
+        //Affichage du JOptionPane contenant le panel formé plus haut
         JOptionPane.showMessageDialog(this,panelLog, "Identification",JOptionPane.PLAIN_MESSAGE);
         
+        // On transforme le tableau de char récupéré via le JPasswordField en une chaîne de caractère.
         String password="";
                      int i;
                      for(i=0;i<fieldPassword.getPassword().length;i++){
                             password+=fieldPassword.getPassword()[i];
                         }
+        
+        // Appel de la méthode de la couche inférieur.
         try{
         app.Loggin(fieldUser.getText(), password);
         }
@@ -103,8 +122,14 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"<html>"+e.toString()+"<br>Référez vous au fichier de log pour plus de détails</html>","Erreur",JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    /*
+     * Cette méthode permet de gérer la déconnexion à la BD.
+     */
     public void Disconnect(){
+        //Appel de la méthode de la couche inférieure.
         try{
+            
             app.Disconnect();
             this.ChangePanel(panelHome);
         }
@@ -114,17 +139,11 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,e.toString(),"Erreur",JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setLabConnect(boolean state){
-        if(state){
-            labConnected.setForeground(Color.RED);
-            labConnected.setText("Déconnecté");
-        }
-        else{
-            labConnected.setForeground(Color.GREEN);
-            labConnected.setText("Connecté");
-        }
-    }
     
+    
+    /*
+     * Classe interne permettant de gérer l'action des différents menus.
+     */
     private class MenuBarListener implements ActionListener
     {
        
@@ -132,6 +151,9 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             
+            if(ae.getSource()==menuHome){
+                MainFrame.this.ChangePanel(panelHome);
+            }
             if(ae.getSource()==menuConnect){
                 MainFrame.this.Loggin();
             }
@@ -141,10 +163,13 @@ public class MainFrame extends javax.swing.JFrame {
             if(ae.getSource()==menuAddReg)
             {
                 AddPanel addPan;
+                //Si connexion fermée on appel la fonction Loggin.
                 if(app.getConnectionState())
                     Loggin();
-                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
-                // correctement déroulé
+                /* 
+                 * Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel 
+                 * se fasse si le loggin s'est correctement déroulé
+                */ 
                 if(!app.getConnectionState()){ 
                     addPan = new AddPanel();
                     MainFrame.this.ChangePanel(addPan);
@@ -155,8 +180,6 @@ public class MainFrame extends javax.swing.JFrame {
                 SearchPanel searchPersonne;
                 if(app.getConnectionState())
                     Loggin();
-                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
-                // correctement déroulé
                 if(!app.getConnectionState()){
                     searchPersonne = new SearchPanel();
                     MainFrame.this.ChangePanel(searchPersonne);
@@ -169,8 +192,6 @@ public class MainFrame extends javax.swing.JFrame {
                 SearchUnit searchUnitPan;
                 if(app.getConnectionState())
                     Loggin();
-                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
-                // correctement déroulé
                 if(!app.getConnectionState()){
                     searchUnitPan = new SearchUnit();
                     MainFrame.this.ChangePanel(searchUnitPan);
@@ -182,8 +203,6 @@ public class MainFrame extends javax.swing.JFrame {
                 SearchRegPanel searchRegPan;
                 if(app.getConnectionState())
                     Loggin();
-                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
-                // correctement déroulé
                 if(!app.getConnectionState()){
                     searchRegPan = new SearchRegPanel();
                     MainFrame.this.ChangePanel(searchRegPan);
@@ -200,8 +219,6 @@ public class MainFrame extends javax.swing.JFrame {
                 ListingPanel listPanel;
                 if(app.getConnectionState())
                     Loggin();
-                // Utilisation d'un If avec condition inverse plutôt que d'un else afin que l'affichage des panel se fasse si le loggin s'est
-                // correctement déroulé
                 if(!app.getConnectionState()){
                     listPanel = new ListingPanel();
                     MainFrame.this.ChangePanel(listPanel);
@@ -230,8 +247,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelHome = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
+        menuHome = new javax.swing.JMenuItem();
         menuConnect = new javax.swing.JMenuItem();
         menuDisc = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
@@ -244,11 +263,12 @@ public class MainFrame extends javax.swing.JFrame {
         menuList = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
         menuAPropos = new javax.swing.JMenuItem();
-        menuAide = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/header3.jpg"))); // NOI18N
+
+        jLabel2.setText("<html><b>Le logiciel va vous permettre de :</b> <br><br> - <b>Ajouter des demandes</b> via le menu \"Action - Ajouter demande\" <br> -<b> Rechercher</b> des demandes, personnes ou unités via les menus \"Action - Recherche <br> -<b> Lister</b> l'ensemble des demandes via l'option \"Action - Listing\"<br> La modification des demandes s'effectue à la site d'une recherche de demande.<br>Quant à la suppression, elle s'effectue après le listing.</html>");
 
         javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
         panelHome.setLayout(panelHomeLayout);
@@ -256,7 +276,11 @@ public class MainFrame extends javax.swing.JFrame {
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         panelHomeLayout.setVerticalGroup(
@@ -264,12 +288,17 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelHome, java.awt.BorderLayout.CENTER);
 
         FileMenu.setText("Fichier");
+
+        menuHome.setText("Accueil");
+        FileMenu.add(menuHome);
 
         menuConnect.setText("Connexion");
         FileMenu.add(menuConnect);
@@ -309,9 +338,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         menuAPropos.setText("A propos");
         aboutMenu.add(menuAPropos);
-
-        menuAide.setText("Aide");
-        aboutMenu.add(menuAide);
 
         MenuBar.add(aboutMenu);
 
@@ -362,13 +388,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem menuAPropos;
     private javax.swing.JMenu menuAction;
     private javax.swing.JMenuItem menuAddReg;
-    private javax.swing.JMenuItem menuAide;
     private javax.swing.JMenuItem menuConnect;
     private javax.swing.JMenuItem menuDisc;
     private javax.swing.JMenuItem menuExit;
+    private javax.swing.JMenuItem menuHome;
     private javax.swing.JMenuItem menuList;
     private javax.swing.JMenuItem menuSchPers;
     private javax.swing.JMenuItem menuSchReg;

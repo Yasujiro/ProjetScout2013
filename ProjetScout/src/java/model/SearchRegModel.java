@@ -6,6 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -54,8 +55,7 @@ public class SearchRegModel extends AbstractTableModel {
             case 2:
                 return selectedReg.getState();
             case 3:
-                return selectedReg.getCrea().get(Calendar.DAY_OF_MONTH)+"/"+(selectedReg.getCrea().get((Calendar.MONTH))+1)
-                        +"/"+selectedReg.getCrea().get(Calendar.YEAR);
+                return new Date(selectedReg.getCrea().getTimeInMillis());
                         
             case 4:
                 return  pers.getName()+" "+ pers.getFiName();
@@ -80,6 +80,31 @@ public class SearchRegModel extends AbstractTableModel {
         }
         
     }
+    public Class getColumnClass(int col) {
+		Class c;
+		switch(col) {
+			case 0 : c = String.class;
+				break;
+			case 1 : c = String.class;
+				break;
+			case 2 : c = String.class;
+				break;
+			case 3 : c = Date.class;
+				break;
+			case 4 : c = String.class;
+				break;
+			case 5 : c = String.class;
+				break;
+			case 6 : c = String.class;
+				break;
+			case 7 : c = String.class;
+				break;
+                        default:
+                            c= String.class;
+                            break;
+		}
+		return c;
+	}
     
     public Registration getSelectedReg(int row)
     {

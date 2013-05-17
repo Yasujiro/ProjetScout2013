@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -60,6 +61,27 @@ public class SearchUnitModel extends AbstractTableModel{
                 return null;
         }
     }
+    public Class getColumnClass(int col) {
+		Class c;
+		switch(col) {
+			case 0 : c = String.class;
+				break;
+			case 1 : c = Integer.class;
+				break;
+			case 2 : c = String.class;
+				break;
+			case 3 : c = Integer.class;
+				break;
+			case 4 : c = Integer.class;
+				break;
+			case 5 : c = Integer.class;
+				break;
+                        default:
+                            c= String.class;
+                            break;
+		}
+		return c;
+	}
     
     public Unit getSelectedUnit(int row)
     {

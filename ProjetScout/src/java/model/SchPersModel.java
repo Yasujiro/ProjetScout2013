@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 public class SchPersModel extends AbstractTableModel {
@@ -64,4 +65,23 @@ public class SchPersModel extends AbstractTableModel {
     }
     
 }
+    public Class getColumnClass(int col) {
+		Class c;
+		switch(col) {
+			case 0 : c = String.class;
+				break;
+			case 1 : c = String.class;
+				break;
+			case 2 : c = String.class;
+				break;
+			case 3 : c = String.class;
+				break;
+			case 4 : c = String.class;
+				break;	
+                        default:
+                            c= String.class;
+                            break;
+		}
+		return c;
+	}
 }

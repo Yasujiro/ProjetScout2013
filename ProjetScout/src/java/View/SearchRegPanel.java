@@ -114,6 +114,7 @@ public class SearchRegPanel extends javax.swing.JPanel {
                 
                 tableModel = new SearchRegModel(result);
                 resultTable.setModel(tableModel);
+                resultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 
                 
                 
